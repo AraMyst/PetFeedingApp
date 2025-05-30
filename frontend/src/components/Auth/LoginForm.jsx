@@ -22,18 +22,15 @@ export default function LoginForm() {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="max-w-lg w-full mx-auto p-8 bg-white rounded-xl shadow-lg space-y-6"
-    >
+    <form onSubmit={handleSubmit} className="space-y-6">
       {error && (
-        <div className="text-red-600 font-medium text-center">
+        <div className="text-red-600 text-sm text-center">
           {error}
         </div>
       )}
 
-      <div className="space-y-1">
-        <label htmlFor="email" className="block text-sm font-semibold">
+      <div>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
           Email
         </label>
         <input
@@ -42,12 +39,12 @@ export default function LoginForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full border border-gray-300 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="mt-1 block w-full border border-gray-300 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
-      <div className="space-y-1">
-        <label htmlFor="password" className="block text-sm font-semibold">
+      <div>
+        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
           Password
         </label>
         <input
@@ -56,7 +53,7 @@ export default function LoginForm() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="w-full border border-gray-300 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="mt-1 block w-full border border-gray-300 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
 

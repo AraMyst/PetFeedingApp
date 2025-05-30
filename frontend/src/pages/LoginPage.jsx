@@ -3,15 +3,13 @@ import React, { useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from '../components/Auth/LoginForm';
+import logo from '../assets/images/logo.png'; // sua logo.png
 
-/**
- * LoginPage renders a centered login box with company logo.
- */
 export default function LoginPage() {
   const { token, loading } = useAuth();
   const navigate = useNavigate();
 
-  // redirect if already authenticated
+  // redireciona se já estiver logado
   useEffect(() => {
     if (!loading && token) {
       navigate('/dashboard', { replace: true });
@@ -23,13 +21,15 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
-        {/* company logo */}
+    <div
+      className="min-h-screen flex items-center justify-center"
+      style={{ backgroundColor: '#E0F7FA' }} // mesma cor de fundo da sua logo
+    >
+      <div className="w-full max-w-sm p-10 bg-white rounded-2xl shadow-xl">
         <img
-          src="/favicon.ico"
+          src={logo}
           alt="Pet Feeding App Logo"
-          className="mx-auto mb-6 w-24 h-24"
+          className="block mx-auto mb-8 w-32 h-32"
         />
         <LoginForm />
       </div>
