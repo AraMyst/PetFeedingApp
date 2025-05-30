@@ -22,7 +22,7 @@ export default function LoginPage() {
   return (
     <div
       className="min-h-screen flex items-center justify-center"
-      style={{ backgroundColor: '#D9F0F1' }} // match the exact background color of your logo
+      style={{ backgroundColor: '#DAF1F0' }} // match the exact background color of your logo
     >
       <div className="w-full max-w-sm p-6 bg-white rounded-lg shadow-md">
         <img
