@@ -28,17 +28,19 @@ export default function App() {
 
             {/* protected routes */}
             <Route element={<PrivateRoute />}>
+              {/* redirect root to dashboard */}
+              <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/foods" element={<FoodsPage />} />
               <Route path="/pets" element={<PetsPage />} />
               <Route path="/notifications" element={<NotificationsPage />} />
-
-              {/* redirect root to dashboard */}
-              <Route path="/" element={<Navigate to="/dashboard" replace />} />
             </Route>
 
             {/* 404 fallback */}
-            <Route path="*" element={<p className="p-4 text-center">Page not found</p>} />
+            <Route
+              path="*"
+              element={<p className="p-4 text-center">Page not found</p>}
+            />
           </Routes>
         </BrowserRouter>
       </NotificationProvider>

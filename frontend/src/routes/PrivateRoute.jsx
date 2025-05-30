@@ -10,16 +10,20 @@ import { useAuth } from '../contexts/AuthContext';
 export default function PrivateRoute() {
   const { token, loading } = useAuth();
 
-  // While checking auth status, you can render a loading state
+  // While auth state is being initialized, show a loading indicator
   if (loading) {
-    return <div className="p-4 text-center">Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-full p-4 text-gray-500">
+        Loading…
+      </div>
+    );
   }
 
-  // If no token, redirect to login
+  // If there's no valid token, redirect to the login page
   if (!token) {
     return <Navigate to="/login" replace />;
   }
 
-  // If authenticated, render child routes
+  // If authenticated, render the child routes
   return <Outlet />;
 }

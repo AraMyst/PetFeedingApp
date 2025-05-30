@@ -1,69 +1,94 @@
 // src/contexts/AuthContext.jsx
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import * as authApi from '../api/auth';
+import PropTypes from 'prop-types';
 import { apiClient } from '../utils/apiClient';
 
-const AuthContext = createContext();
+const AuthContext = createContext({
+  user: null,
+  token: null,
+  loading: true,
+  login: async () => {},
+  register: async () => {},
+  logout: () => {}
+});
 
-/**
- * AuthProvider wraps the app and provides authentication state and actions.
- */
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);     // you can store more user info if API returns it
-  const [token, setToken] = useState(null);
+  const [user, setUser]       = useState(null);
+  const [token, setToken]     = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Load token from localStorage on mount
+  // Initialize auth state from localStorage
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
       setToken(storedToken);
-      apiClient.defaults.headers.Authorization = `Bearer ${storedToken}`;
-      setUser({}); // optionally fetch user details here
+      apiClient.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
+      _fetchCurrentUser();
+    } else {
+      setLoading(false);
     }
-    setLoading(false);
   }, []);
 
+  // Fetch logged-in user profile
+  const _fetchCurrentUser = async () => {
+    try {
+      const res = await apiClient.get('/auth/me');
+      setUser(res.data.user);
+    } catch (err) {
+      console.error('Failed to fetch user profile:', err);
+      logout();
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Login action
-  async function login({ email, password }) {
-    const response = await authApi.login({ email, password });
-    const newToken = response.data.token;
+  const login = async ({ email, password }) => {
+    const res = await apiClient.post('/auth/login', { email, password });
+    const newToken = res.data.token;
     localStorage.setItem('token', newToken);
-    apiClient.defaults.headers.Authorization = `Bearer ${newToken}`;
+    apiClient.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
     setToken(newToken);
-    setUser({}); // optionally fetch user details here
-  }
+    await _fetchCurrentUser();
+  };
 
   // Register action
-  async function register({ email, password }) {
-    const response = await authApi.register({ email, password });
-    const newToken = response.data.token;
+  const register = async ({ email, password }) => {
+    const res = await apiClient.post('/auth/register', { email, password });
+    const newToken = res.data.token;
     localStorage.setItem('token', newToken);
-    apiClient.defaults.headers.Authorization = `Bearer ${newToken}`;
+    apiClient.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
     setToken(newToken);
-    setUser({});
-  }
+    await _fetchCurrentUser();
+  };
 
   // Logout action
-  function logout() {
+  const logout = () => {
     localStorage.removeItem('token');
-    delete apiClient.defaults.headers.Authorization;
+    delete apiClient.defaults.headers.common['Authorization'];
     setToken(null);
     setUser(null);
-  }
+    setLoading(false);
+  };
 
   return (
-    <AuthContext.Provider
-      value={{ user, token, login, register, logout, loading }}
-    >
+    <AuthContext.Provider value={{
+      user,
+      token,
+      loading,
+      login,
+      register,
+      logout
+    }}>
       {children}
     </AuthContext.Provider>
   );
 }
 
-/**
- * useAuth hook to access authentication state and actions.
- */
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired
+};
+
 export function useAuth() {
   return useContext(AuthContext);
 }
