@@ -28,7 +28,7 @@ export default function LoginPage() {
         <img
           src="/assets/images/logo.png"
           alt="Pet Feeding App Logo"
-          className="block mx-auto mb-4 w-16 h-16"
+          className="block mx-auto mb-4 w-12 h-12"
         />
         <LoginForm />
       </div>
