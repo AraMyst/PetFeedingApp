@@ -67,10 +67,12 @@ export default function LoginForm() {
 
       {/* Submit button wrapper for extra top margin */}
       <div className="mt-8">
-        <button
-          type="submit"
-          className="block mx-auto w-3/4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md"
-        >
+        {/* Submit button with forced inline margin */}
+<button 
+type="submit" 
+style={{ marginTop: '1.5rem' }}       // ← força 24px de espaço 
+className="block mx-auto w-3/4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md" 
+>
           Sign In
         </button>
       </div>
