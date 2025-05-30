@@ -6,10 +6,10 @@ import { apiClient } from '../utils/apiClient'
  * Log in a user and receive a JWT token.
  *
  * @param {{ email: string, password: string }} credentials
- * @returns {Promise<any>} Resolves with { token, user, ... }
+ * @returns {Promise<any>}
  */
 export function login({ email, password }) {
-  // Matches backend route: app.use('/api/auth', authRoutes)
+  // ⚠️ Must match app.use('/api/auth', ...) in your backend
   return apiClient.post('/api/auth/login', { email, password })
 }
 
@@ -17,9 +17,9 @@ export function login({ email, password }) {
  * Register a new user and receive a JWT token.
  *
  * @param {{ email: string, password: string }} credentials
- * @returns {Promise<any>} Resolves with { token, user, ... }
+ * @returns {Promise<any>}
  */
 export function register({ email, password }) {
-  // Matches backend route: app.use('/api/auth', authRoutes)
+  // ⚠️ Must match app.use('/api/auth', ...) in your backend
   return apiClient.post('/api/auth/register', { email, password })
 }
