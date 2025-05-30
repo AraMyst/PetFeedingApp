@@ -28,8 +28,10 @@ export default function LoginPage() {
         <img
           src="/assets/images/logo.png"
           alt="App Logo"
-          className="block mx-auto mb-3 w-7 h-7 sm:w-8 sm:h-8"
+          className="block mx-auto mb-6"
+          style={{ width: 48, height: 48 }} 
         />
+
         <LoginForm />
       </div>
     </div>
