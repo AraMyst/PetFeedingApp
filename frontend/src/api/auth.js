@@ -1,4 +1,4 @@
-import apiClient from '../utils/apiClient';
+import { apiClient } from '../utils/apiClient';
 
 /**
  * Log in a user and receive a JWT token.
