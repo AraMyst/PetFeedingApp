@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
 })
 
 // Mount your routers
-app.use('/api/auth', authRoutes)
+app.use('/auth', authRoutes)
 app.use('/api/foods', foodRoutes)
 app.use('/api/pets', petRoutes)
 
