@@ -68,7 +68,7 @@ className="space-y-4"
       {/* Submit button */}
       <button        
       type="submit"
-       className="block mx-auto w-3/4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md"
+       className="block mx-auto w-3/4 mt-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md"
      >
         Sign In
       </button>
