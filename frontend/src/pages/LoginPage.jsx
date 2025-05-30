@@ -28,7 +28,7 @@ export default function LoginPage() {
         <img
           src="/assets/images/logo.png"
           alt="App Logo"
-          className="block mx-auto mb-6 w-14 h-14 sm:w-16 sm:h-16"
+          className="block mx-auto mb-3 w-7 h-7 sm:w-8 sm:h-8"
         />
         <LoginForm />
       </div>
