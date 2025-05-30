@@ -10,6 +10,7 @@ export default function LoginForm() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
@@ -22,13 +23,14 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-4">
       {error && (
         <div className="text-red-600 text-sm text-center">
           {error}
         </div>
       )}
 
+      {/* Email input */}
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-gray-700">
           Email
@@ -39,10 +41,11 @@ export default function LoginForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="mt-1 block w-full border border-gray-300 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="mt-1 w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
+      {/* Password input */}
       <div>
         <label htmlFor="password" className="block text-sm font-medium text-gray-700">
           Password
@@ -53,13 +56,14 @@ export default function LoginForm() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="mt-1 block w-full border border-gray-300 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="mt-1 w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
+      {/* Submit button */}
       <button
         type="submit"
-        className="w-2/3 mx-auto block py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow"
+        className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md"
       >
         Sign In
       </button>

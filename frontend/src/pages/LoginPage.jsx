@@ -8,7 +8,7 @@ export default function LoginPage() {
   const { token, loading } = useAuth();
   const navigate = useNavigate();
 
-  // Se já estiver logado, redireciona
+  // Redirect to dashboard if already authenticated
   useEffect(() => {
     if (!loading && token) {
       navigate('/dashboard', { replace: true });
@@ -22,13 +22,13 @@ export default function LoginPage() {
   return (
     <div
       className="min-h-screen flex items-center justify-center"
-      style={{ backgroundColor: '#D0EFF3' }}
+      style={{ backgroundColor: '#DDF3F1' }} // match the exact background color of your logo
     >
-      <div className="w-64 p-6 bg-white rounded-2xl shadow-xl">
+      <div className="w-full max-w-sm p-6 bg-white rounded-lg shadow-md">
         <img
           src="/assets/images/logo.png"
           alt="Pet Feeding App Logo"
-          className="block mx-auto mb-8 w-20 h-20"
+          className="block mx-auto mb-4 w-16 h-16"
         />
         <LoginForm />
       </div>
