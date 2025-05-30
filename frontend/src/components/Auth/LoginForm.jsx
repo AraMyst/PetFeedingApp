@@ -24,10 +24,10 @@ export default function LoginForm() {
 
   return (
     <form
-onSubmit={handleSubmit} 
-style={{ maxWidth: 320, margin: '0 auto' }} 
-className="space-y-4" 
->
+      onSubmit={handleSubmit}
+      style={{ maxWidth: 320, margin: '0 auto' }}
+      className="space-y-6"
+    >
       {/* Display error message */}
       {error && (
         <div className="text-red-600 text-sm text-center">
@@ -65,13 +65,15 @@ className="space-y-4"
         />
       </div>
 
-      {/* Submit button */}
-      <button        
-      type="submit"
-       className="block mx-auto w-3/4 mt-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md"
-     >
-        Sign In
-      </button>
+      {/* Submit button wrapper for extra top margin */}
+      <div className="mt-8">
+        <button
+          type="submit"
+          className="block mx-auto w-3/4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md"
+        >
+          Sign In
+        </button>
+      </div>
     </form>
   );
 }
