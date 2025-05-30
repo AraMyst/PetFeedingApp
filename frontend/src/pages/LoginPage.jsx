@@ -21,14 +21,14 @@ export default function LoginPage() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center"
-      style={{ backgroundColor: '#D9F0F1' }} // match the exact background color of your logo
+      className="min-h-screen flex items-center justify-center px-4"
+      style={{ backgroundColor: '#D9F0F1' }} // match your logo background
     >
-      <div className="w-full max-w-sm p-6 bg-white rounded-lg shadow-md">
+      <div className="w-full max-w-xs p-6 bg-white rounded-lg shadow-md">
         <img
           src="/assets/images/logo.png"
-          alt="Pet Feeding App Logo"
-          className="block mx-auto mb-4 w-12 h-12"
+          alt="App Logo"
+          className="block mx-auto mb-6 w-14 h-14 sm:w-16 sm:h-16"
         />
         <LoginForm />
       </div>
