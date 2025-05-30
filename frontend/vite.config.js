@@ -1,8 +1,10 @@
+// vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import tailwindPostcss from '@tailwindcss/postcss';
+import autoprefixer from 'autoprefixer';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   resolve: {
@@ -10,10 +12,16 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  css: {
+    postcss: {
+      plugins: [
+        tailwindPostcss(),
+        autoprefixer()
+      ]
+    }
+  },
   server: {
     port: 3000,
-    open: true, // abre o navegador automaticamente
+    open: true,
   },
-  // If you want to use custom env prefixes (e.g. VITE_APP_*)
-  // envPrefix: 'VITE_APP_',
 });
