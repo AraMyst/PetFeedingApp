@@ -37,11 +37,7 @@ export default function LoginForm() {
 
       {/* Email input */}
       <div>
-        <label
-htmlFor="email" 
-className="block text-sm font-medium" 
-style={{ color: '#3CB371' }}
->
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
           Email
         </label>
         <input
@@ -50,8 +46,7 @@ style={{ color: '#3CB371' }}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="mt-1 w-full border border-gray-300 rounded-md py-1.5 px-2
-             focus:outline-none focus:ring-2 focus:ring-[##3CB371]"
+          className="mt-1 w-full border border-gray-300 rounded-md py-1.5 px-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
@@ -66,8 +61,7 @@ style={{ color: '#3CB371' }}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="mt-1 w-full border border-gray-300 rounded-md py-1.5 px-2
-             focus:outline-none focus:ring-2 focus:ring-[##3CB371]"
+          className="mt-1 w-full border border-gray-300 rounded-md py-1.5 px-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
