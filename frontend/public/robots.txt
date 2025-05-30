@@ -1,0 +1,6 @@
+# robots.txt for Pet Feeding App
+User-agent: *
+Allow: /
+
+# location of your sitemap
+Sitemap: https://your-domain.com/sitemap.xml
