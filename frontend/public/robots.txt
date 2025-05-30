@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # location of your sitemap
-Sitemap: https://your-domain.com/sitemap.xml
+Sitemap: https://pet-feeding-app.vercel.app
