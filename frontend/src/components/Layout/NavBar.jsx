@@ -1,14 +1,21 @@
 // src/components/Layout/NavBar.jsx
 import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
 /**
- * NavBar provides navigation links and logout button.
+ * NavBar provides navigation links and logout button,
+ * but is hidden on /login and /register pages.
  */
 export default function NavBar() {
   const { token, logout } = useAuth();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  // hide navbar on auth pages
+  if (pathname === '/login' || pathname === '/register') {
+    return null;
+  }
 
   const handleLogout = () => {
     logout();
@@ -73,5 +80,5 @@ export default function NavBar() {
         )}
       </div>
     </nav>
-  );
+);
 }

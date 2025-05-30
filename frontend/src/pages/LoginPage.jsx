@@ -4,11 +4,14 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from '../components/Auth/LoginForm';
 
+/**
+ * LoginPage renders a centered login box with company logo.
+ */
 export default function LoginPage() {
   const { token, loading } = useAuth();
   const navigate = useNavigate();
 
-  // If already logged in, redirect to dashboard
+  // redirect if already authenticated
   useEffect(() => {
     if (!loading && token) {
       navigate('/dashboard', { replace: true });
@@ -21,7 +24,15 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <LoginForm />
+      <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
+        {/* company logo */}
+        <img
+          src="/favicon.ico"
+          alt="Pet Feeding App Logo"
+          className="mx-auto mb-6 w-24 h-24"
+        />
+        <LoginForm />
+      </div>
     </div>
   );
 }
