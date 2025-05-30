@@ -22,13 +22,13 @@ export default function LoginPage() {
   return (
     <div
       className="min-h-screen flex items-center justify-center"
-      style={{ backgroundColor: '#E0F7FA' }}
+      style={{ backgroundColor: '#D0EFF3' }}
     >
-      <div className="w-80 p-8 bg-white rounded-2xl shadow-xl">
+      <div className="w-64 p-6 bg-white rounded-2xl shadow-xl">
         <img
           src="/assets/images/logo.png"
           alt="Pet Feeding App Logo"
-          className="block mx-auto mb-8 w-40 h-40"
+          className="block mx-auto mb-8 w-20 h-20"
         />
         <LoginForm />
       </div>
