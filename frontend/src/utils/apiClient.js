@@ -1,36 +1,50 @@
 // src/utils/apiClient.js
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+
+// The base URL for all API requests.  
+// Make sure to set VITE_API_URL in your Vercel environment variables to your Render backend URL.
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000'
 
 /**
- * Generic request helper using fetch.
- * @param {string} path 
- * @param {object} options 
- * @returns {Promise<any>} parsed JSON data
+ * Generic helper for making HTTP requests to your API.
+ *
+ * @param {string} endpoint  - The API path (e.g. '/auth/register')
+ * @param {object} options   - Fetch options (method, headers, body, etc.)
+ * @returns {Promise<any>}    - Resolves with parsed JSON data or rejects with an Error
  */
-async function request(path, options = {}) {
-  const token = localStorage.getItem('token');
+async function request(endpoint, options = {}) {
+  // Retrieve stored JWT (if any)
+  const token = localStorage.getItem('token')
+
+  // Build headers, including Authorization if we have a token
   const headers = {
     'Content-Type': 'application/json',
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...(token && { Authorization: `Bearer ${token}` }),
     ...options.headers,
-  };
+  }
 
-  const res = await fetch(BASE_URL + path, {
+  // Perform the fetch against the full URL
+  const response = await fetch(`${API_URL}${endpoint}`, {
     ...options,
     headers,
-  });
+    // Include credentials if you're using HTTP-only cookies for auth
+    credentials: 'include',
+  })
 
-  const data = await res.json();
-  if (!res.ok) {
-    // throw whole response data or a generic error
-    throw new Error(data.message || 'API request failed');
+  // Parse JSON body
+  const data = await response.json()
+
+  // If the response wasn't ok, throw an error with the API message
+  if (!response.ok) {
+    throw new Error(data.message || 'API request failed')
   }
-  return data;
+
+  return data
 }
 
+// Export convenience methods for each HTTP verb
 export const apiClient = {
-  get:    (path)           => request(path, { method: 'GET' }),
-  post:   (path, body)     => request(path, { method: 'POST',   body: JSON.stringify(body) }),
-  put:    (path, body)     => request(path, { method: 'PUT',    body: JSON.stringify(body) }),
-  delete: (path)           => request(path, { method: 'DELETE' })
-};
+  get:    (endpoint)         => request(endpoint, { method: 'GET' }),
+  post:   (endpoint, body)   => request(endpoint, { method: 'POST',   body: JSON.stringify(body) }),
+  put:    (endpoint, body)   => request(endpoint, { method: 'PUT',    body: JSON.stringify(body) }),
+  delete: (endpoint)         => request(endpoint, { method: 'DELETE' }),
+}
