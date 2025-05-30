@@ -14,3 +14,13 @@ export function calculateDaysRemaining(weightInGrams, gramsPerMeal, mealsPerDay)
   const dailyConsumption = gramsPerMeal * mealsPerDay;
   return Math.floor(weightInGrams / dailyConsumption);
 }
+
+/**
+ * Determine if a low-stock notification should fire.
+ * @param {number} daysRemaining - Days left until food runs out.
+ * @param {number} thresholdDays - Days before running out to trigger the alert.
+ * @returns {boolean}
+ */
+export function shouldNotify(daysRemaining, thresholdDays) {
+  return daysRemaining <= thresholdDays;
+}
