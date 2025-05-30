@@ -1,3 +1,5 @@
+// models/Food.js
+
 const mongoose = require('mongoose');
 
 const foodSchema = new mongoose.Schema({
@@ -17,7 +19,7 @@ const foodSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  amazonLinks: {
+  buyLinks: {
     type: [String],
     default: []
   }

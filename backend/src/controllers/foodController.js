@@ -4,21 +4,19 @@ const Food = require('../models/Food');
 
 exports.createFood = async (req, res) => {
   try {
-    const { name, brand, specifications, weight, amazonLinks } = req.body;
+    const { name, brand, specifications, weight, buyLinks } = req.body;
 
-    // If no amazonLinks provided or it's an empty array, generate a default Amazon UK search URL
     const linksToSave =
-      Array.isArray(amazonLinks) && amazonLinks.length > 0
-        ? amazonLinks
+      Array.isArray(buyLinks) && buyLinks.length > 0
+        ? buyLinks
         : [`https://www.amazon.co.uk/s?k=${encodeURIComponent(name)}`];
 
-    // Create and save the new food document
     const food = new Food({
       name,
       brand,
       specifications,
       weight,
-      amazonLinks: linksToSave
+      buyLinks: linksToSave
     });
 
     await food.save();
@@ -54,14 +52,24 @@ exports.getFoodById = async (req, res) => {
 
 exports.updateFood = async (req, res) => {
   try {
+    const { buyLinks } = req.body;
+
+    let updatedData = { ...req.body };
+
+    if (!Array.isArray(buyLinks) || buyLinks.length === 0) {
+      updatedData.buyLinks = [`https://www.amazon.co.uk/s?k=${encodeURIComponent(updatedData.name)}`];
+    }
+
     const updated = await Food.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      updatedData,
       { new: true }
     );
+
     if (!updated) {
       return res.status(404).json({ message: 'Food not found' });
     }
+
     res.json(updated);
   } catch (error) {
     console.error(error);
