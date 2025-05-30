@@ -66,10 +66,10 @@ className="space-y-4"
       </div>
 
       {/* Submit button */}
-      <button
-        type="submit"
-        className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md"
-      >
+      <button        
+      type="submit"
+       className="block mx-auto w-3/4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md"
+     >
         Sign In
       </button>
     </form>
