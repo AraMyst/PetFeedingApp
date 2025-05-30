@@ -1,22 +1,26 @@
 // src/pages/LoginPage.jsx
-import React, { useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import LoginForm from '../components/Auth/LoginForm';
+import React, { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
+import LoginForm from '../components/Auth/LoginForm'
 
 export default function LoginPage() {
-  const { token, loading } = useAuth();
-  const navigate = useNavigate();
+  const { token, loading } = useAuth()
+  const navigate = useNavigate()
 
   // Redirect to dashboard if already authenticated
   useEffect(() => {
     if (!loading && token) {
-      navigate('/dashboard', { replace: true });
+      navigate('/dashboard', { replace: true })
     }
-  }, [token, loading, navigate]);
+  }, [token, loading, navigate])
 
   if (loading) {
-    return <div className="p-4 text-center">Checking authentication...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-gray-500">Checking authentication…</p>
+      </div>
+    )
   }
 
   return (
@@ -29,11 +33,18 @@ export default function LoginPage() {
           src="/assets/images/logo.png"
           alt="App Logo"
           className="block mx-auto mb-6"
-          style={{ width: 250, height: 250 }} 
+          style={{ width: 250, height: 250 }}
         />
 
         <LoginForm />
+
+        <p className="mt-4 text-center text-sm text-gray-600">
+          Don’t have an account?{' '}
+          <Link to="/register" className="text-blue-600 hover:underline">
+            Register
+          </Link>
+        </p>
       </div>
     </div>
-  );
+  )
 }
