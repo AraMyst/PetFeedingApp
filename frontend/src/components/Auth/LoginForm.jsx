@@ -24,9 +24,10 @@ export default function LoginForm() {
 
   return (
     <form
-      onSubmit={handleSubmit}
-      className="mx-auto w-full max-w-xs space-y-4"
-    >
+onSubmit={handleSubmit} 
+style={{ maxWidth: 320, margin: '0 auto' }} 
+className="space-y-4" 
+>
       {/* Display error message */}
       {error && (
         <div className="text-red-600 text-sm text-center">
