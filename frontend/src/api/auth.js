@@ -9,8 +9,8 @@ import { apiClient } from '../utils/apiClient'
  * @returns {Promise<any>} Resolves with { token, user, ... }
  */
 export function login({ email, password }) {
-  // Note: your backend login route is /auth/login
-  return apiClient.post('/auth/login', { email, password })
+  // Matches backend route: app.use('/api/auth', authRoutes)
+  return apiClient.post('/api/auth/login', { email, password })
 }
 
 /**
@@ -20,6 +20,6 @@ export function login({ email, password }) {
  * @returns {Promise<any>} Resolves with { token, user, ... }
  */
 export function register({ email, password }) {
-  // Note: your backend register route is /auth/register
-  return apiClient.post('/auth/register', { email, password })
+  // Matches backend route: app.use('/api/auth', authRoutes)
+  return apiClient.post('/api/auth/register', { email, password })
 }
