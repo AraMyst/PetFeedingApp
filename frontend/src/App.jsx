@@ -1,30 +1,47 @@
+// src/App.jsx
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import './index.css';
-
-// example pages — we’ll create these next
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import { NotificationProvider } from './contexts/NotificationContext';
+import PrivateRoute from './routes/PrivateRoute';
+import NavBar from './components/Layout/NavBar';
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import DashboardPage from './pages/DashboardPage';
 import FoodsPage from './pages/FoodsPage';
 import PetsPage from './pages/PetsPage';
-import DashboardPage from './pages/DashboardPage';
+import NotificationsPage from './pages/NotificationsPage';
+import './index.css';
 
-function App() {
+export default function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-gray-100 text-gray-900">
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/foods" element={<FoodsPage />} />
-          <Route path="/pets" element={<PetsPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-          {/* redirect root to /dashboard when authenticated */}
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          {/* 404 fallback */}
-          <Route path="*" element={<p className="p-4">Page not found</p>} />
-        </Routes>
-      </div>
-    </Router>
+    <AuthProvider>
+      <NotificationProvider>
+        <BrowserRouter>
+          {/* persistent navigation bar */}
+          <NavBar />
+
+          <Routes>
+            {/* public routes */}
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+
+            {/* protected routes */}
+            <Route element={<PrivateRoute />}>
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/foods" element={<FoodsPage />} />
+              <Route path="/pets" element={<PetsPage />} />
+              <Route path="/notifications" element={<NotificationsPage />} />
+
+              {/* redirect root to dashboard */}
+              <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            </Route>
+
+            {/* 404 fallback */}
+            <Route path="*" element={<p className="p-4 text-center">Page not found</p>} />
+          </Routes>
+        </BrowserRouter>
+      </NotificationProvider>
+    </AuthProvider>
   );
 }
-
-export default App;
