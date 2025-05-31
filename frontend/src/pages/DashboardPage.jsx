@@ -13,9 +13,9 @@ import { useNotifications } from '../hooks/useNotifications'
  *
  * Features:
  *  - Fixed header at top with a small rectangular logo
- *  - Responsive grid:
- *      • grid-cols-1 on small screens (stacked vertically)
- *      • md:grid-cols-3 on medium+ screens (side by side)
+ *  - Responsive flex layout:
+ *      • flex-col on small screens (stacked vertically)
+ *      • md:flex-row on medium+ screens (side by side)
  *  - Section title centered under its image
  *  - Count centered under title
  *  - Button centered under count
@@ -52,15 +52,15 @@ export default function DashboardPage() {
       {/* Main content has top padding to avoid being hidden under header */}
       <main className="pt-20 px-4 pb-8">
         {/*
-          Responsive grid container:
-          - grid-cols-1: 1 column on small screens (stacked)
-          - md:grid-cols-3: 3 columns side by side on medium+ screens
+          Responsive flex container:
+          - flex-col: stack cards on small screens
+          - md:flex-row: place cards side by side on medium+ screens
           - gap-6: spacing between cards
           - max-w-5xl mx-auto: center horizontally and constrain width
         */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div className="flex flex-col md:flex-row gap-6 max-w-5xl mx-auto">
           {/* Section: Pets */}
-          <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+          <div className="w-full md:w-1/3 bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
             <Link to="/pets">
               <img
                 src="/assets/images/Pets.png"
@@ -79,7 +79,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Section: Food */}
-          <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+          <div className="w-full md:w-1/3 bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
             <Link to="/foods">
               <img
                 src="/assets/images/Food.png"
@@ -98,7 +98,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Section: Notifications */}
-          <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+          <div className="w-full md:w-1/3 bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
             <Link to="/notifications">
               <img
                 src="/assets/images/Notifications.png"
