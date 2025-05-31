@@ -38,18 +38,19 @@ export default function DashboardPage() {
 
       {/*
         Flex container:
-        - flex-wrap: allows wrapping if viewport is narrower than 3 cards
-        - gap-6: uniform gap between cards
-        - max-w-5xl mx-auto: centraliza horizontalmente e limita largura
+        - flex-col on small screens (stacked vertically)
+        - md:flex-row on md+ screens (side by side)
+        - gap-6 for spacing between cards
+        - max-w-5xl mx-auto to center and constrain width
       */}
-      <div className="flex flex-wrap items-stretch justify-center gap-6 max-w-5xl mx-auto">
+      <div className="flex flex-col md:flex-row items-center justify-center gap-6 max-w-5xl mx-auto">
         {/* Section: Pets */}
         <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-1/3">
           <h2 className="text-2xl font-semibold mb-4">Pets</h2>
           <img
             src="/assets/images/Pets.png"
             alt="Pets illustration"
-            className="w-32 h-32 mb-4 object-contain"
+            className="w-[250px] h-[250px] mb-4 object-contain"
           />
           <p className="text-4xl font-bold mb-4">{pets.length}</p>
           <Link
@@ -66,7 +67,7 @@ export default function DashboardPage() {
           <img
             src="/assets/images/Food.png"
             alt="Food illustration"
-            className="w-32 h-32 mb-4 object-contain"
+            className="w-[250px] h-[250px] mb-4 object-contain"
           />
           <p className="text-4xl font-bold mb-4">{foods.length}</p>
           <Link
@@ -83,7 +84,7 @@ export default function DashboardPage() {
           <img
             src="/assets/images/Notifications.png"
             alt="Notifications illustration"
-            className="w-32 h-32 mb-4 object-contain"
+            className="w-[250px] h-[250px] mb-4 object-contain"
           />
           <p className="text-4xl font-bold mb-4">{alerts.length}</p>
           <Link
