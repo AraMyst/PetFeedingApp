@@ -82,7 +82,7 @@ export default function FoodForm({
           htmlFor="food-name"
           className="block text-sm font-medium text-gray-700 text-center"
         >
-          Name * 
+          Name *
         </label>
         <input
           id="food-name"
@@ -100,7 +100,7 @@ export default function FoodForm({
           htmlFor="food-brand"
           className="block text-sm font-medium text-gray-700 text-center"
         >
-          Brand * 
+          Brand *
         </label>
         <input
           id="food-brand"
@@ -118,7 +118,7 @@ export default function FoodForm({
           htmlFor="food-specs"
           className="block text-sm font-medium text-gray-700 text-center"
         >
-          Specifications 
+          Specifications
         </label>
         <input
           id="food-specs"
@@ -135,7 +135,7 @@ export default function FoodForm({
           htmlFor="food-weight"
           className="block text-sm font-medium text-gray-700 text-center"
         >
-          Weight * 
+          Weight *
         </label>
         <input
           id="food-weight"
@@ -148,12 +148,12 @@ export default function FoodForm({
       </div>
 
       {/* Buy Link field */}
-      <div>
+      <div className="mt-6">
         <label
           htmlFor="food-links"
           className="block text-sm font-medium text-gray-700 text-center"
         >
-          Buy Link 
+          Buy Link
         </label>
         <input
           id="food-links"
@@ -165,7 +165,7 @@ export default function FoodForm({
       </div>
 
       {/* Buttons */}
-      <div className="flex justify-center space-x-8 mt-8">
+      <div className="flex justify-center space-x-12 mt-10">
         <button
           type="submit"
           className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
