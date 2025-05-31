@@ -17,7 +17,7 @@ import { useNotifications } from '../hooks/useNotifications'
  *  - md:grid-cols-3 on medium+ screens (side by side)
  *
  * The background matches the login/register pages (#DBF3F6).
- * Only a small rectangular logo image is displayed at the top.
+ * Only a small rectangular logo image is displayed at the top, sized like section images.
  */
 export default function DashboardPage() {
   const navigate = useNavigate()
@@ -36,12 +36,12 @@ export default function DashboardPage() {
 
   return (
     <div className="bg-[#DBF3F6] min-h-screen py-8 px-4">
-      {/* Very small rectangular logo at the top */}
+      {/* Small square logo at the top, sized like section images */}
       <div className="flex justify-center mb-8">
         <img
           src="/assets/images/logo.png"
           alt="App Logo"
-          className="w-32 h-8 object-contain"
+          className="w-[250px] h-[250px] object-contain"
         />
       </div>
 
@@ -55,7 +55,7 @@ export default function DashboardPage() {
       */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         {/* Section: Pets */}
-        <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center">
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
           <h2 className="text-2xl font-semibold mb-4">Pets</h2>
           <img
             src="/assets/images/Pets.png"
@@ -72,7 +72,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Section: Food */}
-        <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center">
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
           <h2 className="text-2xl font-semibold mb-4">Food</h2>
           <img
             src="/assets/images/Food.png"
@@ -89,7 +89,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Section: Notifications */}
-        <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center">
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
           <h2 className="text-2xl font-semibold mb-4">Notifications</h2>
           <img
             src="/assets/images/Notifications.png"
