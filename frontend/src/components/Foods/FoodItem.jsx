@@ -4,8 +4,7 @@ import React from 'react'
 /**
  * FoodItem displays information about a single food:
  *  - Name, brand, weight, specs, buy links
- *  - “Edit” button below details
- *  - “Delete” button below Edit
+ *  - “Edit” and “Delete” buttons at bottom
  */
 export default function FoodItem({ food, onEdit, onDelete }) {
   return (

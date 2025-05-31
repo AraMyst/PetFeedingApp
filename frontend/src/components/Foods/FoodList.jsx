@@ -1,117 +1,24 @@
-// src/pages/DashboardPage.jsx
+// src/components/Foods/FoodList.jsx
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { useFoods } from '../hooks/useFoods'
-import { usePets } from '../hooks/usePets'
-import { useNotifications } from '../hooks/useNotifications'
+import FoodItem from './FoodItem'
 
 /**
- * DashboardPage displays three main cards side by side on medium+ screens:
- *  - Pets: shows number of registered pets and a button to manage pets
- *  - Food: shows number of registered foods and a button to manage foods
- *  - Notifications: shows number of alerts and a button to manage notifications
- *
- * Layout adjustments:
- *  - flex-col on extra-small screens (cards stack vertically)
- *  - sm:flex-row on small+ screens (cards appear side by side)
- *  - Each card takes one-third of the available width on small+ (sm:w-1/3)
- *  - No changes needed in any other file.
+ * FoodList renders a responsive grid of FoodItem cards.
+ * - On small screens: 1 column (grid-cols-1)
+ * - On sm (>=640px) screens: 2 columns (sm:grid-cols-2)
+ * - On lg (>=1024px) screens: 3 columns (lg:grid-cols-3)
  */
-export default function DashboardPage() {
-  const { foods, loading: loadingFoods } = useFoods()
-  const { pets, loading: loadingPets } = usePets()
-  const { alerts, loading: loadingAlerts } = useNotifications()
-
-  // While any data is loading, show a centered loading message
-  if (loadingFoods || loadingPets || loadingAlerts) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-[#DBF3F6]">
-        <p className="text-gray-500">Loading dashboard...</p>
-      </div>
-    )
-  }
-
+export default function FoodList({ foods, onEdit, onDelete }) {
   return (
-    <div className="bg-[#DBF3F6] min-h-screen">
-      {/* Fixed header with small rectangular logo */}
-      <header className="fixed top-0 left-0 w-full bg-[#DBF3F6] shadow-sm z-10">
-        <div className="flex justify-center py-3">
-          <img
-            src="/assets/images/logo.png"
-            alt="App Logo"
-            className="w-[150px] h-[50px] object-contain"
-          />
-        </div>
-      </header>
-
-      {/* Main content has top padding to avoid being hidden under header */}
-      <main className="pt-20 px-4 pb-8">
-        {/*
-          Responsive flex container:
-          - flex-col on extra-small screens (cards stack vertically)
-          - sm:flex-row on small+ screens (cards side by side)
-          - gap-6: spacing between cards
-          - max-w-5xl mx-auto: center horizontally and constrain width
-        */}
-        <div className="flex flex-col sm:flex-row gap-6 max-w-5xl mx-auto">
-          {/* Section: Pets */}
-          <div className="w-full sm:w-1/3 bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
-            <Link to="/pets">
-              <img
-                src="/assets/images/Pets.png"
-                alt="Pets illustration"
-                className="w-[200px] h-[200px] mb-4 object-contain"
-              />
-            </Link>
-            <h2 className="text-2xl font-semibold mb-2 text-center">Pets</h2>
-            <p className="text-4xl font-bold mb-4 text-center">{pets.length}</p>
-            <button
-              onClick={() => (window.location.href = '/pets')}
-              className="py-2 px-6 bg-green-500 hover:bg-green-700 focus:bg-green-700 text-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
-            >
-              Manage Pets
-            </button>
-          </div>
-
-          {/* Section: Food */}
-          <div className="w-full sm:w-1/3 bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
-            <Link to="/foods">
-              <img
-                src="/assets/images/Food.png"
-                alt="Food illustration"
-                className="w-[200px] h-[200px] mb-4 object-contain"
-              />
-            </Link>
-            <h2 className="text-2xl font-semibold mb-2 text-center">Food</h2>
-            <p className="text-4xl font-bold mb-4 text-center">{foods.length}</p>
-            <button
-              onClick={() => (window.location.href = '/foods')}
-              className="py-2 px-6 bg-green-500 hover:bg-green-700 focus:bg-green-700 text-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
-            >
-              Manage Foods
-            </button>
-          </div>
-
-          {/* Section: Notifications */}
-          <div className="w-full sm:w-1/3 bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
-            <Link to="/notifications">
-              <img
-                src="/assets/images/Notifications.png"
-                alt="Notifications illustration"
-                className="w-[200px] h-[200px] mb-4 object-contain"
-              />
-            </Link>
-            <h2 className="text-2xl font-semibold mb-2 text-center">Notifications</h2>
-            <p className="text-4xl font-bold mb-4 text-center">{alerts.length}</p>
-            <button
-              onClick={() => (window.location.href = '/notifications')}
-              className="py-2 px-6 bg-green-500 hover:bg-green-700 focus:bg-green-700 text-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
-            >
-              Manage Notifications
-            </button>
-          </div>
-        </div>
-      </main>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {foods.map((food) => (
+        <FoodItem
+          key={food._id}
+          food={food}
+          onEdit={onEdit}
+          onDelete={onDelete}
+        />
+      ))}
     </div>
   )
 }
