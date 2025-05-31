@@ -10,35 +10,36 @@ export default function DashboardPage() {
   const { pets, loading: loadingPets } = usePets()
   const { alerts, loading: loadingAlerts } = useNotifications()
 
-  // Enquanto os dados estiverem carregando, exibe um spinner ou mensagem
+  // Enquanto os dados estiverem carregando, exibe uma mensagem centralizada
   if (loadingFoods || loadingPets || loadingAlerts) {
     return (
-      <div
-        className="flex items-center justify-center min-h-screen"
-        style={{ backgroundColor: '#D9F0F1' }}
-      >
+      <div className="flex items-center justify-center min-h-screen bg-[#D9F0F1]">
         <p className="text-gray-500">Loading dashboard...</p>
       </div>
     )
   }
 
   return (
-    <div
-      className="min-h-screen py-8 px-4"
-      style={{ backgroundColor: '#D9F0F1' }}
-    >
-      {/* Título da página */}
-      <h1 className="text-3xl font-bold text-center mb-8">Dashboard</h1>
+    <div className="bg-[#D9F0F1] min-h-screen py-8 px-4">
+      {/* Título do projeto com favicon */}
+      <h1 className="text-3xl font-bold text-center mb-8 flex items-center justify-center space-x-2">
+        <img
+          src="/favicon.ico"
+          alt="App Icon"
+          className="w-8 h-8"
+        />
+        <span>Pet Feeding App</span>
+      </h1>
 
       {/* Container flexível para posicionar as três seções lado a lado */}
-      <div className="flex flex-col md:flex-row items-center justify-center gap-6 max-w-5xl mx-auto">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-center gap-6 max-w-5xl mx-auto flex-wrap">
         {/* Section: Pets */}
         <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-1/3">
           <h2 className="text-2xl font-semibold mb-4">Pets</h2>
           <img
             src="/assets/images/Pets.png"
             alt="Pets illustration"
-            className="w-72 h-72 mb-4 object-contain"
+            className="w-40 h-40 mb-4 object-contain"
           />
           <p className="text-4xl font-bold mb-4">{pets.length}</p>
           <Link
@@ -55,7 +56,7 @@ export default function DashboardPage() {
           <img
             src="/assets/images/Food.png"
             alt="Food illustration"
-            className="w-72 h-72 mb-4 object-contain"
+            className="w-40 h-40 mb-4 object-contain"
           />
           <p className="text-4xl font-bold mb-4">{foods.length}</p>
           <Link
@@ -72,7 +73,7 @@ export default function DashboardPage() {
           <img
             src="/assets/images/Notifications.png"
             alt="Notifications illustration"
-            className="w-72 h-72 mb-4 object-contain"
+            className="w-40 h-40 mb-4 object-contain"
           />
           <p className="text-4xl font-bold mb-4">{alerts.length}</p>
           <Link
