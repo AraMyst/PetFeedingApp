@@ -23,9 +23,7 @@ export function AuthProvider({ children }) {
     const storedToken = localStorage.getItem('token')
     if (storedToken) {
       setToken(storedToken)
-      // Note: apiClient is a fetch-based wrapper, so inserting into defaults has no effect.
-      // Instead, apiClient.request always reads localStorage.getItem('token') when building headers.
-      // We keep this here in case you switch to axios later.
+      // Attach the token to apiClient for future requests
       apiClient.defaults = apiClient.defaults || {}
       apiClient.defaults.headers = {
         ...apiClient.defaults.headers,
@@ -35,32 +33,29 @@ export function AuthProvider({ children }) {
     setLoading(false)
   }, [])
 
-  // LOGIN: call backend, store token+user, and update state
+  // Login action
   const login = async ({ email, password }) => {
-    // authApi.login returns a JSON object like { token, user }
+    // authApi.login returns { token, user }
     const { token: newToken, user: newUser } = await authApi.login({ email, password })
 
     localStorage.setItem('token', newToken)
-    // Again, apiClient.request will pick this up via localStorage. Inserting below is for future-proof.
     apiClient.defaults.headers.Authorization = `Bearer ${newToken}`
-
     setToken(newToken)
     setUser(newUser)
   }
 
-  // REGISTER: similar to login
+  // Register action
   const register = async ({ email, password }) => {
     // authApi.register returns { token, user }
     const { token: newToken, user: newUser } = await authApi.register({ email, password })
 
     localStorage.setItem('token', newToken)
     apiClient.defaults.headers.Authorization = `Bearer ${newToken}`
-
     setToken(newToken)
     setUser(newUser)
   }
 
-  // LOGOUT: clear everything
+  // Logout action
   const logout = () => {
     localStorage.removeItem('token')
     if (apiClient.defaults && apiClient.defaults.headers) {
