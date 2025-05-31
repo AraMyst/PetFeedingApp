@@ -8,14 +8,15 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import DashboardPage from './pages/DashboardPage'
 import FoodsPage from './pages/FoodsPage'
+import FoodCreatePage from './pages/FoodCreatePage'
+import FoodEditPage from './pages/FoodEditPage'
 import PetsPage from './pages/PetsPage'
 import NotificationsPage from './pages/NotificationsPage'
 import './index.css'
 
 /**
  * App wraps the entire application in AuthProvider and NotificationProvider.
- * It defines public and protected routes. NavBar has been removed
- * so that no white top bar appears on any page.
+ * It defines public and protected routes.
  */
 export default function App() {
   return (
@@ -23,22 +24,28 @@ export default function App() {
       <NotificationProvider>
         <BrowserRouter>
           <Routes>
-            {/* Redirect the root (“/”) to the login page */}
+            {/* Redirect root (“/”) to login */}
             <Route path="/" element={<Navigate to="/login" replace />} />
 
-            {/* Public routes (accessible without a token) */}
+            {/* Public routes */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
 
-            {/* Protected routes (require a valid token) */}
+            {/* Protected routes require authentication */}
             <Route element={<PrivateRoute />}>
               <Route path="/dashboard" element={<DashboardPage />} />
+
+              {/* Foods routes */}
               <Route path="/foods" element={<FoodsPage />} />
+              <Route path="/foods/new" element={<FoodCreatePage />} />
+              <Route path="/foods/:id/edit" element={<FoodEditPage />} />
+
+              {/* Pets and Notifications */}
               <Route path="/pets" element={<PetsPage />} />
               <Route path="/notifications" element={<NotificationsPage />} />
             </Route>
 
-            {/* 404 fallback for any unmatched routes */}
+            {/* 404 fallback */}
             <Route
               path="*"
               element={<p className="p-4 text-center">Page not found</p>}
