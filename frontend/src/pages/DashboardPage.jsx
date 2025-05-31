@@ -5,10 +5,6 @@ import { useFoods } from '../hooks/useFoods'
 import { usePets } from '../hooks/usePets'
 import { useNotifications } from '../hooks/useNotifications'
 
-import petsImage from '../images/Pets.png'
-import foodImage from '../images/Food.png'
-import notificationsImage from '../images/Notifications.png'
-
 export default function DashboardPage() {
   const { foods, loading: loadingFoods } = useFoods()
   const { pets, loading: loadingPets } = usePets()
@@ -36,7 +32,11 @@ export default function DashboardPage() {
         {/* Pets Section */}
         <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
           <h2 className="text-2xl font-semibold mb-4">Pets</h2>
-          <img src={petsImage} alt="Pets illustration" className="w-32 h-32 mb-4" />
+          <img
+            src="/assets/images/Pets.png"
+            alt="Pets illustration"
+            className="w-32 h-32 mb-4"
+          />
           <p className="text-4xl font-bold mb-4">{pets.length}</p>
           <Link
             to="/pets"
@@ -49,7 +49,11 @@ export default function DashboardPage() {
         {/* Food Section */}
         <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
           <h2 className="text-2xl font-semibold mb-4">Food</h2>
-          <img src={foodImage} alt="Food illustration" className="w-32 h-32 mb-4" />
+          <img
+            src="/assets/images/Food.png"
+            alt="Food illustration"
+            className="w-32 h-32 mb-4"
+          />
           <p className="text-4xl font-bold mb-4">{foods.length}</p>
           <Link
             to="/foods"
@@ -63,7 +67,7 @@ export default function DashboardPage() {
         <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
           <h2 className="text-2xl font-semibold mb-4">Notifications</h2>
           <img
-            src={notificationsImage}
+            src="/assets/images/Notifications.png"
             alt="Notifications illustration"
             className="w-32 h-32 mb-4"
           />
