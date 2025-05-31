@@ -6,13 +6,17 @@ import { usePets } from '../hooks/usePets'
 import { useNotifications } from '../hooks/useNotifications'
 
 /**
- * DashboardPage displays three main cards side by side in a fixed 3-column grid:
+ * DashboardPage displays three main cards:
  *  - Pets: shows number of registered pets and a button to manage pets
  *  - Food: shows number of registered foods and a button to manage foods
  *  - Notifications: shows number of alerts and a button to manage notifications
  *
+ * Uses a responsive grid:
+ *  - grid-cols-1 on small screens (stacked)
+ *  - md:grid-cols-3 on medium+ screens (side by side)
+ *
  * The background matches the login/register pages (#DBF3F6).
- * Only a small square logo image is displayed at the top, sized like section images.
+ * Only a small square logo image is displayed at the top.
  */
 export default function DashboardPage() {
   const navigate = useNavigate()
@@ -31,7 +35,7 @@ export default function DashboardPage() {
 
   return (
     <div className="bg-[#DBF3F6] min-h-screen py-8 px-4">
-      {/* Small square logo at the top, sized like section images */}
+      {/* Small square logo at the top */}
       <div className="flex justify-center mb-8">
         <img
           src="/assets/images/logo.png"
@@ -41,12 +45,13 @@ export default function DashboardPage() {
       </div>
 
       {/*
-        Grid container with 3 columns always:
-        - grid-cols-3: three fixed columns side by side
+        Grid container:
+        - grid-cols-1: 1 column on small screens (stacked)
+        - md:grid-cols-3: 3 columns on medium+ screens (side by side)
         - gap-6: spacing between cards
         - max-w-5xl mx-auto: center horizontally and constrain width
       */}
-      <div className="grid grid-cols-3 gap-6 max-w-5xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         {/* Section: Pets */}
         <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
           <h2 className="text-2xl font-semibold mb-4">Pets</h2>
