@@ -1,6 +1,6 @@
 // src/pages/DashboardPage.jsx
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useFoods } from '../hooks/useFoods'
 import { usePets } from '../hooks/usePets'
 import { useNotifications } from '../hooks/useNotifications'
@@ -14,16 +14,15 @@ import { useNotifications } from '../hooks/useNotifications'
  * Features:
  *  - Fixed header at top with a small rectangular logo
  *  - Responsive grid:
- *      • grid-cols-1 on small screens (stacked vertically)
- *      • md:grid-cols-3 on medium+ screens (three columns side by side)
- *  - Section title centered below its image
- *  - Count centered below title
- *  - Button centered below count
- *  - Buttons change color on hover and have focus ring
+ *      • grid-cols-1 on small screens (stacked)
+ *      • md:grid-cols-3 on medium+ screens (side by side)
+ *  - Section title centered under its image
+ *  - Count centered under title
+ *  - Button centered under count
+ *  - Buttons change color on hover and have a focus ring
  *  - Background matches login/register pages (#DBF3F6)
  */
 export default function DashboardPage() {
-  const navigate = useNavigate()
   const { foods, loading: loadingFoods } = useFoods()
   const { pets, loading: loadingPets } = usePets()
   const { alerts, loading: loadingAlerts } = useNotifications()
@@ -55,7 +54,7 @@ export default function DashboardPage() {
         {/*
           Responsive grid container:
           - grid-cols-1: 1 column on small screens (stacked)
-          - md:grid-cols-3: 3 columns side by side on medium+ screens
+          - md:grid-cols-3: 3 columns on medium+ screens (side by side)
           - gap-6: spacing between cards
           - max-w-5xl mx-auto: center horizontally and constrain width
         */}
@@ -72,7 +71,7 @@ export default function DashboardPage() {
             <h2 className="text-2xl font-semibold mb-2 text-center">Pets</h2>
             <p className="text-4xl font-bold mb-4 text-center">{pets.length}</p>
             <button
-              onClick={() => navigate('/pets')}
+              onClick={() => (window.location.href = '/pets')}
               className="py-2 px-6 bg-green-500 hover:bg-green-700 focus:bg-green-700 text-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
             >
               Manage Pets
@@ -91,7 +90,7 @@ export default function DashboardPage() {
             <h2 className="text-2xl font-semibold mb-2 text-center">Food</h2>
             <p className="text-4xl font-bold mb-4 text-center">{foods.length}</p>
             <button
-              onClick={() => navigate('/foods')}
+              onClick={() => (window.location.href = '/foods')}
               className="py-2 px-6 bg-green-500 hover:bg-green-700 focus:bg-green-700 text-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
             >
               Manage Foods
@@ -110,7 +109,7 @@ export default function DashboardPage() {
             <h2 className="text-2xl font-semibold mb-2 text-center">Notifications</h2>
             <p className="text-4xl font-bold mb-4 text-center">{alerts.length}</p>
             <button
-              onClick={() => navigate('/notifications')}
+              onClick={() => (window.location.href = '/notifications')}
               className="py-2 px-6 bg-green-500 hover:bg-green-700 focus:bg-green-700 text-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
             >
               Manage Notifications
