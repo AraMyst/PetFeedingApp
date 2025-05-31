@@ -1,15 +1,22 @@
-import React from 'react';
+// src/components/Foods/FoodItem.jsx
+import React from 'react'
 
+/**
+ * FoodItem displays information about a single food:
+ *  - Name, brand, weight, specs, buy links
+ *  - “Edit” button below details
+ *  - “Delete” button below Edit
+ */
 export default function FoodItem({ food, onEdit, onDelete }) {
   return (
-    <div className="bg-white p-4 rounded shadow flex justify-between items-start">
+    <div className="bg-white p-4 rounded shadow flex flex-col justify-between">
       <div>
-        <h3 className="text-lg font-semibold">{food.name}</h3>
-        <p className="text-sm text-gray-500">{food.brand}</p>
-        <p className="text-sm">Weight: {food.weight} g</p>
+        <h3 className="text-lg font-semibold mb-1">{food.name}</h3>
+        <p className="text-sm text-gray-500 mb-1">{food.brand}</p>
+        <p className="text-sm mb-1">Weight: {food.weight} g</p>
 
         {food.specifications?.length > 0 && (
-          <p className="text-sm">
+          <p className="text-sm mb-1">
             Specs: {food.specifications.join(', ')}
           </p>
         )}
@@ -30,7 +37,8 @@ export default function FoodItem({ food, onEdit, onDelete }) {
           </div>
         )}
       </div>
-      <div className="flex flex-col space-y-2">
+
+      <div className="mt-4 flex justify-center space-x-2">
         <button
           onClick={() => onEdit(food)}
           className="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm"
@@ -45,5 +53,5 @@ export default function FoodItem({ food, onEdit, onDelete }) {
         </button>
       </div>
     </div>
-  );
+  )
 }
