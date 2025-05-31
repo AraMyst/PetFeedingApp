@@ -1,5 +1,5 @@
 // src/contexts/AuthContext.jsx
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 import PropTypes from 'prop-types'
 import * as authApi from '../api/auth'
 import { apiClient } from '../utils/apiClient'
@@ -7,7 +7,7 @@ import { apiClient } from '../utils/apiClient'
 const AuthContext = createContext({
   user: null,
   token: null,
-  loading: true,
+  loading: false,
   login: async () => {},
   register: async () => {},
   logout: () => {},
@@ -16,46 +16,47 @@ const AuthContext = createContext({
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [token, setToken] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
 
-  // On mount: load any saved token (no /me request)
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token')
-    if (storedToken) {
-      setToken(storedToken)
-      // Attach the token to apiClient for future requests
+  // LOGIN: call backend, store token + user, update state
+  const login = async ({ email, password }) => {
+    setLoading(true)
+    try {
+      // authApi.login returns { token, user }
+      const { token: newToken, user: newUser } = await authApi.login({ email, password })
+      localStorage.setItem('token', newToken)
       apiClient.defaults = apiClient.defaults || {}
       apiClient.defaults.headers = {
         ...apiClient.defaults.headers,
-        Authorization: `Bearer ${storedToken}`,
+        Authorization: `Bearer ${newToken}`,
       }
+      setToken(newToken)
+      setUser(newUser)
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
-  }, [])
-
-  // Login action
-  const login = async ({ email, password }) => {
-    // authApi.login returns { token, user }
-    const { token: newToken, user: newUser } = await authApi.login({ email, password })
-
-    localStorage.setItem('token', newToken)
-    apiClient.defaults.headers.Authorization = `Bearer ${newToken}`
-    setToken(newToken)
-    setUser(newUser)
   }
 
-  // Register action
+  // REGISTER: call backend, store token + user, update state
   const register = async ({ email, password }) => {
-    // authApi.register returns { token, user }
-    const { token: newToken, user: newUser } = await authApi.register({ email, password })
-
-    localStorage.setItem('token', newToken)
-    apiClient.defaults.headers.Authorization = `Bearer ${newToken}`
-    setToken(newToken)
-    setUser(newUser)
+    setLoading(true)
+    try {
+      // authApi.register returns { token, user }
+      const { token: newToken, user: newUser } = await authApi.register({ email, password })
+      localStorage.setItem('token', newToken)
+      apiClient.defaults = apiClient.defaults || {}
+      apiClient.defaults.headers = {
+        ...apiClient.defaults.headers,
+        Authorization: `Bearer ${newToken}`,
+      }
+      setToken(newToken)
+      setUser(newUser)
+    } finally {
+      setLoading(false)
+    }
   }
 
-  // Logout action
+  // LOGOUT: clear stored token and reset state
   const logout = () => {
     localStorage.removeItem('token')
     if (apiClient.defaults && apiClient.defaults.headers) {
