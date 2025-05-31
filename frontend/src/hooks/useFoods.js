@@ -31,7 +31,9 @@ export function useFoods() {
       const data = await foodsApi.getFoods()
       setFoods(data)
     } catch (err) {
+      // Se ocorrer erro, guardamos em `error` e deixamos `foods` como array vazio
       setError(err)
+      setFoods([])
     } finally {
       setLoading(false)
     }
@@ -41,7 +43,7 @@ export function useFoods() {
     setLoading(true)
     setError(null)
     try {
-      // Assume createFood returns the new food object directly
+      // Assume createFood retorna o novo objeto diretamente
       const newFood = await foodsApi.createFood(foodData)
       setFoods((prev) => [...prev, newFood])
       return newFood
@@ -57,7 +59,7 @@ export function useFoods() {
     setLoading(true)
     setError(null)
     try {
-      // Assume updateFood returns the updated food object directly
+      // Assume updateFood retorna o objeto atualizado diretamente
       const updatedFood = await foodsApi.updateFood(id, foodData)
       setFoods((prev) =>
         prev.map((f) => (f._id === id ? updatedFood : f))

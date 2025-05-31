@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom'
  * FoodsPage displays:
  *  - Fixed header with logo at top (same as Dashboard)
  *  - “Add New Food” button under header, aligned right
- *  - If no foods exist: show Food illustration + “Add New Food” button
- *  - Otherwise: show grid of FoodItem cards (wrapping as needed)
+ *  - If no foods (or if an error occurred), show Food illustration + “No foods registered.” + “Add New Food” button
+ *  - Otherwise, show responsive grid of FoodItem cards
  *  - “Edit” button on each card navigates to /foods/:id/edit
  */
 export default function FoodsPage() {
@@ -31,6 +31,15 @@ export default function FoodsPage() {
     if (window.confirm('Are you sure you want to delete this food?')) {
       await deleteFood(id)
     }
+  }
+
+  // While data is loading, show a loading message
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-[#DBF3F6]">
+        <p className="text-gray-500">Loading foods...</p>
+      </div>
+    )
   }
 
   return (
@@ -59,18 +68,15 @@ export default function FoodsPage() {
           </button>
         </div>
 
-        {/* Loading / Error */}
-        {loading && <p className="text-center text-gray-500">Loading foods...</p>}
-        {error && <p className="text-center text-red-500">Error loading foods.</p>}
-
-        {/* If no foods and not loading/error, show empty state */}
-        {!loading && !error && (!foods || foods.length === 0) && (
+        {/* If an error occurred OR there are no foods, show empty state */}
+        {(!foods || foods.length === 0 || error) ? (
           <div className="flex flex-col items-center mt-16">
             <img
               src="/assets/images/Food.png"
               alt="No foods available"
               className="w-[200px] h-[200px] mb-4 object-contain"
             />
+            <p className="text-center text-gray-500 mb-4">No foods registered.</p>
             <button
               onClick={handleAddNew}
               className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
@@ -78,10 +84,8 @@ export default function FoodsPage() {
               Add New Food
             </button>
           </div>
-        )}
-
-        {/* If there are foods, display the grid */}
-        {!loading && !error && foods && foods.length > 0 && (
+        ) : (
+          /* Otherwise, display the responsive grid of food cards */
           <FoodList
             foods={foods}
             onEdit={handleEdit}
