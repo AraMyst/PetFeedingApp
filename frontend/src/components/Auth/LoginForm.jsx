@@ -1,5 +1,5 @@
 // src/components/Auth/LoginForm.jsx
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 import { useNavigate } from 'react-router-dom'
 
@@ -11,16 +11,30 @@ export default function LoginForm() {
   const { login } = useAuth()
   const navigate = useNavigate()
 
+  // We'll keep a ref to the password input so we can focus it after a failed attempt
+  const passwordRef = useRef(null)
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError(null)
     setLoading(true)
+
     try {
+      // Attempt login; if email/password wrong, this should throw
       await login({ email, password })
       navigate('/dashboard', { replace: true })
     } catch (err) {
-      // err.message comes from the thrown Error in AuthContext or API client
-      setError(err.message || 'Login failed')
+      // 1) Preserve the email field (do not clear it)
+      // 2) Clear only the password field
+      setPassword('')
+      // 3) Show API error message (if existir) ou mensagem genérica
+      const message =
+        err.response?.data?.message || err.message || 'Login failed'
+      setError(message)
+      // 4) Focus no campo de senha para o usuário re-tentar
+      if (passwordRef.current) {
+        passwordRef.current.focus()
+      }
     } finally {
       setLoading(false)
     }
@@ -32,12 +46,14 @@ export default function LoginForm() {
       style={{ maxWidth: 320, margin: '0 auto' }}
       className="space-y-6"
     >
+      {/* Display error message */}
       {error && (
         <div className="text-red-600 text-sm text-center">
           {error}
         </div>
       )}
 
+      {/* Email input */}
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-gray-700">
           Email
@@ -52,6 +68,7 @@ export default function LoginForm() {
         />
       </div>
 
+      {/* Password input */}
       <div>
         <label htmlFor="password" className="block text-sm font-medium text-gray-700">
           Password
@@ -59,6 +76,7 @@ export default function LoginForm() {
         <input
           id="password"
           type="password"
+          ref={passwordRef}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
@@ -66,6 +84,7 @@ export default function LoginForm() {
         />
       </div>
 
+      {/* Submit button */}
       <div className="mt-8">
         <button
           type="submit"
