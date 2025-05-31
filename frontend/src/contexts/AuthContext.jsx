@@ -1,7 +1,8 @@
 // src/contexts/AuthContext.jsx
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { apiClient } from '../utils/apiClient';
+import React, { createContext, useContext, useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import * as authApi from '../api/auth'
+import { apiClient } from '../utils/apiClient'
 
 const AuthContext = createContext({
   user: null,
@@ -9,86 +10,82 @@ const AuthContext = createContext({
   loading: true,
   login: async () => {},
   register: async () => {},
-  logout: () => {}
-});
+  logout: () => {},
+})
 
 export function AuthProvider({ children }) {
-  const [user, setUser]       = useState(null);
-  const [token, setToken]     = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null)
+  const [token, setToken] = useState(null)
+  const [loading, setLoading] = useState(true)
 
-  // Initialize auth state from localStorage
+  // On mount: load any saved token (no /me request)
   useEffect(() => {
-    const storedToken = localStorage.getItem('token');
+    const storedToken = localStorage.getItem('token')
     if (storedToken) {
-      setToken(storedToken);
-      apiClient.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
-      _fetchCurrentUser();
-    } else {
-      setLoading(false);
+      setToken(storedToken)
+      // Attach the token to apiClient for future requests
+      apiClient.defaults = apiClient.defaults || {}
+      apiClient.defaults.headers = {
+        ...apiClient.defaults.headers,
+        Authorization: `Bearer ${storedToken}`,
+      }
     }
-  }, []);
-
-  // Fetch logged-in user profile
-  const _fetchCurrentUser = async () => {
-    try {
-      const res = await apiClient.get('/auth/me');
-      setUser(res.data.user);
-    } catch (err) {
-      console.error('Failed to fetch user profile:', err);
-      logout();
-    } finally {
-      setLoading(false);
-    }
-  };
+    setLoading(false)
+  }, [])
 
   // Login action
   const login = async ({ email, password }) => {
-    const res = await apiClient.post('/auth/login', { email, password });
-    const newToken = res.data.token;
-    localStorage.setItem('token', newToken);
-    apiClient.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
-    setToken(newToken);
-    await _fetchCurrentUser();
-  };
+    // authApi.login returns { token, user }
+    const { token: newToken, user: newUser } = await authApi.login({ email, password })
+
+    localStorage.setItem('token', newToken)
+    apiClient.defaults.headers.Authorization = `Bearer ${newToken}`
+    setToken(newToken)
+    setUser(newUser)
+  }
 
   // Register action
   const register = async ({ email, password }) => {
-    const res = await apiClient.post('/auth/register', { email, password });
-    const newToken = res.data.token;
-    localStorage.setItem('token', newToken);
-    apiClient.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
-    setToken(newToken);
-    await _fetchCurrentUser();
-  };
+    // authApi.register returns { token, user }
+    const { token: newToken, user: newUser } = await authApi.register({ email, password })
+
+    localStorage.setItem('token', newToken)
+    apiClient.defaults.headers.Authorization = `Bearer ${newToken}`
+    setToken(newToken)
+    setUser(newUser)
+  }
 
   // Logout action
   const logout = () => {
-    localStorage.removeItem('token');
-    delete apiClient.defaults.headers.common['Authorization'];
-    setToken(null);
-    setUser(null);
-    setLoading(false);
-  };
+    localStorage.removeItem('token')
+    if (apiClient.defaults && apiClient.defaults.headers) {
+      delete apiClient.defaults.headers.Authorization
+    }
+    setToken(null)
+    setUser(null)
+    setLoading(false)
+  }
 
   return (
-    <AuthContext.Provider value={{
-      user,
-      token,
-      loading,
-      login,
-      register,
-      logout
-    }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        token,
+        loading,
+        login,
+        register,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
-  );
+  )
 }
 
 AuthProvider.propTypes = {
-  children: PropTypes.node.isRequired
-};
+  children: PropTypes.node.isRequired,
+}
 
 export function useAuth() {
-  return useContext(AuthContext);
+  return useContext(AuthContext)
 }
