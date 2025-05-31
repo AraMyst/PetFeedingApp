@@ -1,17 +1,17 @@
 // src/App.jsx
-import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
-import { NotificationProvider } from './contexts/NotificationContext';
-import PrivateRoute from './routes/PrivateRoute';
-import NavBar from './components/Layout/NavBar';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import DashboardPage from './pages/DashboardPage';
-import FoodsPage from './pages/FoodsPage';
-import PetsPage from './pages/PetsPage';
-import NotificationsPage from './pages/NotificationsPage';
-import './index.css';
+import React from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { AuthProvider } from './contexts/AuthContext'
+import { NotificationProvider } from './contexts/NotificationContext'
+import PrivateRoute from './routes/PrivateRoute'
+import NavBar from './components/Layout/NavBar'
+import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
+import DashboardPage from './pages/DashboardPage'
+import FoodsPage from './pages/FoodsPage'
+import PetsPage from './pages/PetsPage'
+import NotificationsPage from './pages/NotificationsPage'
+import './index.css'
 
 export default function App() {
   return (
@@ -22,14 +22,15 @@ export default function App() {
           <NavBar />
 
           <Routes>
+            {/* redirect root to login */}
+            <Route path="/" element={<Navigate to="/login" replace />} />
+
             {/* public routes */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
 
             {/* protected routes */}
             <Route element={<PrivateRoute />}>
-              {/* redirect root to dashboard */}
-              <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/foods" element={<FoodsPage />} />
               <Route path="/pets" element={<PetsPage />} />
@@ -45,5 +46,5 @@ export default function App() {
         </BrowserRouter>
       </NotificationProvider>
     </AuthProvider>
-  );
+  )
 }
