@@ -12,7 +12,7 @@ import { useNotifications } from '../hooks/useNotifications'
  *  - Notifications: shows number of alerts and a button to manage notifications
  *
  * The background matches the login/register pages (#DBF3F6).
- * Only the logo image (rectangular) is displayed at the top.
+ * Only a small rectangular logo image is displayed at the top.
  */
 export default function DashboardPage() {
   const navigate = useNavigate()
@@ -31,22 +31,22 @@ export default function DashboardPage() {
 
   return (
     <div className="bg-[#DBF3F6] min-h-screen py-8 px-4">
-      {/* Only the rectangular logo at the top */}
+      {/* Small rectangular logo at the top */}
       <div className="flex justify-center mb-8">
         <img
           src="/assets/images/logo.png"
           alt="App Logo"
-          className="w-48 h-12 object-contain"
+          className="w-32 h-12 object-contain" // small rectangular
         />
       </div>
 
       {/*
-        Grid container:
-        - On very small screens: 1 column (stacked vertically)
-        - On small screens (sm): 2 columns
-        - On medium+ screens (md): 3 columns (side by side)
-        - Gap between items: gap-6
-        - max-w-5xl mx-auto: center horizontally and limit width
+        Responsive grid:
+        - grid-cols-1 on extra small screens (stacked)
+        - sm:grid-cols-2 on small screens
+        - md:grid-cols-3 on medium+ screens (side by side)
+        - gap-6: spacing between cards
+        - max-w-5xl mx-auto: center and constrain width
       */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         {/* Section: Pets */}
@@ -60,7 +60,7 @@ export default function DashboardPage() {
           <p className="text-4xl font-bold mb-4">{pets.length}</p>
           <button
             onClick={() => navigate('/pets')}
-            className="mt-auto py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+            className="mt-auto py-2 px-4 bg-green-500 hover:bg-green-600 text-white rounded-md shadow-lg transform hover:-translate-y-0.5 transition-all"
           >
             Manage Pets
           </button>
@@ -77,7 +77,7 @@ export default function DashboardPage() {
           <p className="text-4xl font-bold mb-4">{foods.length}</p>
           <button
             onClick={() => navigate('/foods')}
-            className="mt-auto py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+            className="mt-auto py-2 px-4 bg-green-500 hover:bg-green-600 text-white rounded-md shadow-lg transform hover:-translate-y-0.5 transition-all"
           >
             Manage Foods
           </button>
@@ -94,7 +94,7 @@ export default function DashboardPage() {
           <p className="text-4xl font-bold mb-4">{alerts.length}</p>
           <button
             onClick={() => navigate('/notifications')}
-            className="mt-auto py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+            className="mt-auto py-2 px-4 bg-green-500 hover:bg-green-600 text-white rounded-md shadow-lg transform hover:-translate-y-0.5 transition-all"
           >
             Manage Notifications
           </button>
