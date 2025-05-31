@@ -38,8 +38,8 @@ export default function DashboardPage() {
 
       {/*
         Grid container:
-        - On small screens: grid-cols-1 (stacked vertically)
-        - On md+ screens: grid-cols-3 (three columns side by side)
+        - On small screens: single column (stacked vertically)
+        - On md+ screens: three equal columns (side by side)
         - Gap between items: gap-6
       */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -49,7 +49,7 @@ export default function DashboardPage() {
           <img
             src="/assets/images/Pets.png"
             alt="Pets illustration"
-            className="w-64 h-64 mb-4 object-contain"
+            className="w-32 h-32 mb-4 object-contain"
           />
           <p className="text-4xl font-bold mb-4">{pets.length}</p>
           <Link
@@ -66,7 +66,7 @@ export default function DashboardPage() {
           <img
             src="/assets/images/Food.png"
             alt="Food illustration"
-            className="w-64 h-64 mb-4 object-contain"
+            className="w-32 h-32 mb-4 object-contain"
           />
           <p className="text-4xl font-bold mb-4">{foods.length}</p>
           <Link
@@ -83,7 +83,7 @@ export default function DashboardPage() {
           <img
             src="/assets/images/Notifications.png"
             alt="Notifications illustration"
-            className="w-64 h-64 mb-4 object-contain"
+            className="w-32 h-32 mb-4 object-contain"
           />
           <p className="text-4xl font-bold mb-4">{alerts.length}</p>
           <Link
