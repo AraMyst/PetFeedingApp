@@ -12,11 +12,11 @@ import { useNotifications } from '../hooks/useNotifications'
  *  - Notifications: shows number of alerts and a button to manage notifications
  *
  * Uses a responsive grid:
- *  - grid-cols-1 on small screens (stacked)
- *  - md:grid-cols-3 on medium+ screens (side by side)
+ *  - grid-cols-1 on small screens (stacked vertically)
+ *  - md:grid-cols-3 on medium+ screens (three columns side by side)
  *
  * The background matches the login/register pages (#DBF3F6).
- * Only a small square logo image is displayed at the top.
+ * Only a small square logo image is displayed at the top, sized like section images.
  */
 export default function DashboardPage() {
   const navigate = useNavigate()
@@ -35,7 +35,7 @@ export default function DashboardPage() {
 
   return (
     <div className="bg-[#DBF3F6] min-h-screen py-8 px-4">
-      {/* Small square logo at the top */}
+      {/* Small square logo at the top, sized like section images */}
       <div className="flex justify-center mb-8">
         <img
           src="/assets/images/logo.png"
@@ -46,8 +46,8 @@ export default function DashboardPage() {
 
       {/*
         Grid container:
-        - grid-cols-1: 1 column on small screens (stacked)
-        - md:grid-cols-3: 3 columns on medium+ screens (side by side)
+        - grid-cols-1: 1 column (stacked) on small screens
+        - md:grid-cols-3: 3 columns side by side on medium+ screens
         - gap-6: spacing between cards
         - max-w-5xl mx-auto: center horizontally and constrain width
       */}
