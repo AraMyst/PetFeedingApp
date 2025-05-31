@@ -1,57 +1,48 @@
 // src/utils/apiClient.js
 
 // The base URL for all API requests.
-// Set VITE_API_URL in your Vercel environment variables to:
-//   https://petfeedingapp.onrender.com
-// or to your local backend (e.g., http://localhost:4000)
+// In Vercel, set VITE_API_URL to your backend's URL (e.g. https://petfeedingapp.onrender.com)
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000'
 
 /**
- * Helper for making HTTP requests to your API using fetch.
- * Automatically attaches Authorization header if a JWT is stored.
+ * Generic helper for making HTTP requests to your API.
+ * Each call automatically reads `localStorage.getItem('token')` and
+ * sets the Authorization header if a token exists.
  *
- * @param {string} endpoint  - The API path (e.g., '/auth/register' or '/api/foods')
+ * @param {string} endpoint  - The API path (e.g., '/auth/login')
  * @param {object} options   - Fetch options (method, headers, body, etc.)
  * @returns {Promise<any>}    - Resolves with parsed JSON data or rejects with an Error
  */
 async function request(endpoint, options = {}) {
-  // Retrieve stored JWT (if any)
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem('token') || null
 
-  // Build headers, including Authorization if we have a token
   const headers = {
     'Content-Type': 'application/json',
-    ...(token && { Authorization: `Bearer ${token}` }),
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
     ...options.headers,
   }
 
-  // Perform the fetch against the full URL
   const response = await fetch(`${API_URL}${endpoint}`, {
     ...options,
     headers,
-    // Include credentials if your backend uses cookies for auth
     credentials: 'include',
   })
 
-  // Attempt to parse JSON response (may throw if the body is empty or invalid JSON)
-  let data
+  let data = null
   try {
     data = await response.json()
   } catch {
-    data = null
+    // not JSON
   }
 
-  // If the response was not ok, throw an error with the API message
   if (!response.ok) {
-    // If the backend returned a JSON object with a "message" field, use it
-    const message = data && data.message ? data.message : 'API request failed'
-    throw new Error(message)
+    const errorMessage = (data && data.message) || 'API request failed'
+    throw new Error(errorMessage)
   }
 
   return data
 }
 
-// Export convenience methods for each HTTP verb
 export const apiClient = {
   get:    (endpoint)       => request(endpoint, { method: 'GET' }),
   post:   (endpoint, body) => request(endpoint, { method: 'POST',   body: JSON.stringify(body) }),

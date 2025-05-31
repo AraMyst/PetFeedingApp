@@ -17,31 +17,30 @@ export default function FoodsPage() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  // Whenever the route changes to /foods, reload the list
+  // Sempre que a rota for /foods, recarrega a lista
   useEffect(() => {
     fetchFoods()
   }, [location.pathname, fetchFoods])
 
-  // Navigate to the create form
+  // Navega para o create form
   const handleAddNew = () => {
     navigate('/foods/new')
   }
 
-  // Navigate to the edit form for a specific food
+  // Navega para o edit screen de um alimento específico
   const handleEdit = (food) => {
     navigate(`/foods/${food._id}/edit`)
   }
 
-  // Delete a food after confirmation
+  // Deleta um alimento após confirmação
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this food?')) {
       await deleteFood(id)
-      // After deletion, refetch to update list
-      fetchFoods()
+      await fetchFoods()
     }
   }
 
-  // While data is loading, show a loading message
+  // Enquanto carrega dados, mostra “Loading”
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-[#DBF3F6]">
@@ -52,7 +51,7 @@ export default function FoodsPage() {
 
   return (
     <div className="bg-[#DBF3F6] min-h-screen">
-      {/* Fixed header with logo */}
+      {/* Fixed header com logo */}
       <header className="fixed top-0 left-0 w-full bg-[#DBF3F6] shadow-sm z-10">
         <div className="flex justify-center py-3">
           <img
@@ -63,9 +62,9 @@ export default function FoodsPage() {
         </div>
       </header>
 
-      {/* Main content with padding to clear header */}
+      {/* Conteúdo principal com padding para não ficar atrás do header */}
       <main className="pt-20 px-4 pb-8 max-w-5xl mx-auto">
-        {/* Top bar: Page title and Add button */}
+        {/* Top bar: título + botão “Add New Food” */}
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Foods</h2>
           <button
@@ -76,7 +75,7 @@ export default function FoodsPage() {
           </button>
         </div>
 
-        {/* If an error occurred OR there are no foods, show empty state */}
+        {/* Se erro OU não houver alimentos, exibe estado vazio */}
         {(!foods || foods.length === 0 || error) ? (
           <div className="flex flex-col items-center mt-16">
             <img
@@ -93,7 +92,7 @@ export default function FoodsPage() {
             </button>
           </div>
         ) : (
-          /* Otherwise, display the responsive grid of food cards */
+          /* Caso contrário, exibe grid responsivo de cards */
           <FoodList
             foods={foods}
             onEdit={handleEdit}
