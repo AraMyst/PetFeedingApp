@@ -1,6 +1,6 @@
 // src/hooks/usePets.js
-import { useState, useEffect } from 'react';
-import * as petsApi from '../api/pets';
+import { useState, useEffect } from 'react'
+import * as petsApi from '../api/pets'
 
 /**
  * usePets hook provides pet data and CRUD operations.
@@ -14,71 +14,74 @@ import * as petsApi from '../api/pets';
  *  - deletePet(id): delete pet
  */
 export function usePets() {
-  const [pets, setPets] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [pets, setPets] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   // Load all pets on mount
   useEffect(() => {
-    fetchPets();
-  }, []);
+    fetchPets()
+  }, [])
 
   async function fetchPets() {
-    setLoading(true);
-    setError(null);
+    setLoading(true)
+    setError(null)
     try {
-      const response = await petsApi.getPets();
-      setPets(response.data);
+      // petsApi.getPets() should return the array of pets directly (not wrapped in .data)
+      const data = await petsApi.getPets()
+      setPets(data)
     } catch (err) {
-      setError(err);
+      setError(err)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   }
 
   async function createPet(petData) {
-    setLoading(true);
-    setError(null);
+    setLoading(true)
+    setError(null)
     try {
-      const response = await petsApi.createPet(petData);
-      setPets((prev) => [...prev, response.data]);
-      return response.data;
+      // Assume createPet returns the new pet object directly
+      const newPet = await petsApi.createPet(petData)
+      setPets((prev) => [...prev, newPet])
+      return newPet
     } catch (err) {
-      setError(err);
-      throw err;
+      setError(err)
+      throw err
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   }
 
   async function updatePet(id, petData) {
-    setLoading(true);
-    setError(null);
+    setLoading(true)
+    setError(null)
     try {
-      const response = await petsApi.updatePet(id, petData);
+      // Assume updatePet returns the updated pet object directly
+      const updatedPet = await petsApi.updatePet(id, petData)
       setPets((prev) =>
-        prev.map((p) => (p._id === id ? response.data : p))
-      );
-      return response.data;
+        prev.map((p) => (p._id === id ? updatedPet : p))
+      )
+      return updatedPet
     } catch (err) {
-      setError(err);
-      throw err;
+      setError(err)
+      throw err
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   }
 
   async function deletePet(id) {
-    setLoading(true);
-    setError(null);
+    setLoading(true)
+    setError(null)
     try {
-      await petsApi.deletePet(id);
-      setPets((prev) => prev.filter((p) => p._id !== id));
+      await petsApi.deletePet(id)
+      setPets((prev) => prev.filter((p) => p._id !== id))
     } catch (err) {
-      setError(err);
-      throw err;
+      setError(err)
+      throw err
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   }
 
@@ -90,5 +93,5 @@ export function usePets() {
     createPet,
     updatePet,
     deletePet,
-  };
+  }
 }

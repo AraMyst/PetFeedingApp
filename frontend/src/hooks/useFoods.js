@@ -1,6 +1,6 @@
 // src/hooks/useFoods.js
-import { useState, useEffect } from 'react';
-import * as foodsApi from '../api/foods';
+import { useState, useEffect } from 'react'
+import * as foodsApi from '../api/foods'
 
 /**
  * useFoods hook provides food data and CRUD operations.
@@ -14,71 +14,74 @@ import * as foodsApi from '../api/foods';
  *  - deleteFood(id): delete food
  */
 export function useFoods() {
-  const [foods, setFoods] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [foods, setFoods] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
-  // load all foods on mount
+  // Load all foods on mount
   useEffect(() => {
-    fetchFoods();
-  }, []);
+    fetchFoods()
+  }, [])
 
   async function fetchFoods() {
-    setLoading(true);
-    setError(null);
+    setLoading(true)
+    setError(null)
     try {
-      const response = await foodsApi.getFoods();
-      setFoods(response.data);
+      // foodsApi.getFoods() should return the array of foods directly
+      const data = await foodsApi.getFoods()
+      setFoods(data)
     } catch (err) {
-      setError(err);
+      setError(err)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   }
 
   async function createFood(foodData) {
-    setLoading(true);
-    setError(null);
+    setLoading(true)
+    setError(null)
     try {
-      const response = await foodsApi.createFood(foodData);
-      setFoods((prev) => [...prev, response.data]);
-      return response.data;
+      // Assume createFood returns the new food object directly
+      const newFood = await foodsApi.createFood(foodData)
+      setFoods((prev) => [...prev, newFood])
+      return newFood
     } catch (err) {
-      setError(err);
-      throw err;
+      setError(err)
+      throw err
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   }
 
   async function updateFood(id, foodData) {
-    setLoading(true);
-    setError(null);
+    setLoading(true)
+    setError(null)
     try {
-      const response = await foodsApi.updateFood(id, foodData);
+      // Assume updateFood returns the updated food object directly
+      const updatedFood = await foodsApi.updateFood(id, foodData)
       setFoods((prev) =>
-        prev.map((f) => (f._id === id ? response.data : f))
-      );
-      return response.data;
+        prev.map((f) => (f._id === id ? updatedFood : f))
+      )
+      return updatedFood
     } catch (err) {
-      setError(err);
-      throw err;
+      setError(err)
+      throw err
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   }
 
   async function deleteFood(id) {
-    setLoading(true);
-    setError(null);
+    setLoading(true)
+    setError(null)
     try {
-      await foodsApi.deleteFood(id);
-      setFoods((prev) => prev.filter((f) => f._id !== id));
+      await foodsApi.deleteFood(id)
+      setFoods((prev) => prev.filter((f) => f._id !== id))
     } catch (err) {
-      setError(err);
-      throw err;
+      setError(err)
+      throw err
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   }
 
@@ -89,6 +92,6 @@ export function useFoods() {
     fetchFoods,
     createFood,
     updateFood,
-    deleteFood
-  };
+    deleteFood,
+  }
 }

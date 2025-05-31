@@ -1,6 +1,5 @@
 // src/contexts/AuthContext.jsx
-
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import * as authApi from '../api/auth'
 import { apiClient } from '../utils/apiClient'
@@ -8,7 +7,7 @@ import { apiClient } from '../utils/apiClient'
 const AuthContext = createContext({
   user: null,
   token: null,
-  loading: false,
+  loading: true,
   login: async () => {},
   register: async () => {},
   logout: () => {},
@@ -17,7 +16,40 @@ const AuthContext = createContext({
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [token, setToken] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
+
+  // On mount: load any saved token and optionally fetch user profile
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token')
+    if (storedToken) {
+      setToken(storedToken)
+
+      // Attach the token to apiClient for future requests
+      apiClient.defaults = apiClient.defaults || {}
+      apiClient.defaults.headers = {
+        ...apiClient.defaults.headers,
+        Authorization: `Bearer ${storedToken}`,
+      }
+
+      // Optionally fetch current user info from /auth/me endpoint
+      // Uncomment the following block if you have /auth/me implemented:
+      //
+      // apiClient
+      //   .get('/auth/me')
+      //   .then((res) => setUser(res.user))
+      //   .catch(() => {
+      //     console.error('Failed to fetch current user')
+      //     logout()
+      //   })
+      //   .finally(() => setLoading(false))
+
+      // If you do not fetch user info on mount, simply finish loading
+      setLoading(false)
+    } else {
+      // No token in storage, mark loading complete
+      setLoading(false)
+    }
+  }, [])
 
   /**
    * LOGIN: calls backend, stores token + user, updates state.
@@ -30,8 +62,6 @@ export function AuthProvider({ children }) {
       const { token: newToken, user: newUser } = await authApi.login({ email, password })
       localStorage.setItem('token', newToken)
 
-      // Although apiClient.request always reads token from localStorage,
-      // we set defaults here in case you switch to axios in the future:
       apiClient.defaults = apiClient.defaults || {}
       apiClient.defaults.headers = {
         ...apiClient.defaults.headers,

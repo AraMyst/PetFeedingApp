@@ -1,6 +1,6 @@
 // src/hooks/useNotifications.js
-import { useState, useEffect } from 'react';
-import { getLowStockAlerts } from '../api/notifications';
+import { useState, useEffect } from 'react'
+import * as notificationsApi from '../api/notifications'
 
 /**
  * useNotifications hook provides low-stock alerts.
@@ -11,34 +11,35 @@ import { getLowStockAlerts } from '../api/notifications';
  *  - refreshAlerts(): reload alerts
  */
 export function useNotifications(thresholdDays = 3, refreshIntervalMs = 3600000) {
-  const [alerts, setAlerts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [alerts, setAlerts] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   async function fetchAlerts() {
-    setLoading(true);
-    setError(null);
+    setLoading(true)
+    setError(null)
     try {
-      const data = await getLowStockAlerts(thresholdDays);
-      setAlerts(data);
+      // notificationsApi.getLowStockAlerts should return the array of alerts directly
+      const data = await notificationsApi.getLowStockAlerts(thresholdDays)
+      setAlerts(data)
     } catch (err) {
-      setError(err);
+      setError(err)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   }
 
   // Fetch on mount and at specified intervals
   useEffect(() => {
-    fetchAlerts();
-    const interval = setInterval(fetchAlerts, refreshIntervalMs);
-    return () => clearInterval(interval);
-  }, [thresholdDays, refreshIntervalMs]);
+    fetchAlerts()
+    const interval = setInterval(fetchAlerts, refreshIntervalMs)
+    return () => clearInterval(interval)
+  }, [thresholdDays, refreshIntervalMs])
 
   return {
     alerts,
     loading,
     error,
     refreshAlerts: fetchAlerts,
-  };
+  }
 }
