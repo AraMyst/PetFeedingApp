@@ -12,12 +12,13 @@ import { useNotifications } from '../hooks/useNotifications'
  *  - Notifications: shows number of alerts and a button to manage notifications
  *
  * Features:
- *  - Fixed header at top with logo image
+ *  - Fixed header at top with logo image (slightly larger)
  *  - Responsive grid:
- *      • grid-cols-1 on small screens (stacked)
- *      • md:grid-cols-3 on medium+ screens (side by side)
- *  - Buttons change background color on hover (like login page)
- *  - Background matches login/register (#DBF3F6)
+ *      • grid-cols-1 on small screens (stacked vertically)
+ *      • md:grid-cols-3 on medium+ screens (three columns side by side)
+ *  - Buttons change color on hover and have focus ring
+ *  - There is padding-top on main content to avoid overlapping header
+ *  - Background matches login/register pages (#DBF3F6)
  */
 export default function DashboardPage() {
   const navigate = useNavigate()
@@ -36,25 +37,25 @@ export default function DashboardPage() {
 
   return (
     <div className="bg-[#DBF3F6] min-h-screen">
-      {/* Fixed header with small square logo */}
+      {/* Fixed header with slightly larger logo */}
       <header className="fixed top-0 left-0 w-full bg-[#DBF3F6] shadow-sm z-10">
-        <div className="flex justify-center py-2">
+        <div className="flex justify-center py-3">
           <img
             src="/assets/images/logo.png"
             alt="App Logo"
-            className="w-[100px] h-[40px] object-contain"
+            className="w-[150px] h-[50px] object-contain"
           />
         </div>
       </header>
 
-      {/* Main content needs top padding to avoid header overlap */}
-      <main className="pt-16 px-4 pb-8">
+      {/* Main content with sufficient top padding so header doesn't overlap */}
+      <main className="pt-20 px-4 pb-8">
         {/*
-          Responsive grid:
-          - grid-cols-1: 1 column on small screens
-          - md:grid-cols-3: 3 columns on medium+ screens
+          Responsive grid container:
+          - grid-cols-1: 1 column on small screens (stacked)
+          - md:grid-cols-3: 3 columns on medium+ screens (side by side)
           - gap-6: spacing between cards
-          - max-w-5xl mx-auto: center horizontally, constrain width
+          - max-w-5xl mx-auto: center horizontally and constrain width
         */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {/* Section: Pets */}
@@ -68,7 +69,7 @@ export default function DashboardPage() {
             <p className="text-4xl font-bold mb-4">{pets.length}</p>
             <button
               onClick={() => navigate('/pets')}
-              className="mt-auto py-2 px-6 bg-green-500 hover:bg-green-700 text-white rounded-full shadow-md transition-colors"
+              className="mt-auto py-2 px-6 bg-green-500 hover:bg-green-600 focus:bg-green-600 text-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
             >
               Manage Pets
             </button>
@@ -85,7 +86,7 @@ export default function DashboardPage() {
             <p className="text-4xl font-bold mb-4">{foods.length}</p>
             <button
               onClick={() => navigate('/foods')}
-              className="mt-auto py-2 px-6 bg-green-500 hover:bg-green-700 text-white rounded-full shadow-md transition-colors"
+              className="mt-auto py-2 px-6 bg-green-500 hover:bg-green-600 focus:bg-green-600 text-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
             >
               Manage Foods
             </button>
@@ -102,7 +103,7 @@ export default function DashboardPage() {
             <p className="text-4xl font-bold mb-4">{alerts.length}</p>
             <button
               onClick={() => navigate('/notifications')}
-              className="mt-auto py-2 px-6 bg-green-500 hover:bg-green-700 text-white rounded-full shadow-md transition-colors"
+              className="mt-auto py-2 px-6 bg-green-500 hover:bg-green-600 focus:bg-green-600 text-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
             >
               Manage Notifications
             </button>
