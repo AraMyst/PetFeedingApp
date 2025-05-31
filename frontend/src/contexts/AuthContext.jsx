@@ -2,7 +2,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import * as authApi from '../api/auth'
-import { apiClient } from '../utils/apiClient'
 
 const AuthContext = createContext({
   user: null,
@@ -18,37 +17,14 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  // On mount: load any saved token and optionally fetch user profile
+  // On mount: load any saved token and finish loading
   useEffect(() => {
     const storedToken = localStorage.getItem('token')
     if (storedToken) {
       setToken(storedToken)
-
-      // Attach the token to apiClient for future requests
-      apiClient.defaults = apiClient.defaults || {}
-      apiClient.defaults.headers = {
-        ...apiClient.defaults.headers,
-        Authorization: `Bearer ${storedToken}`,
-      }
-
-      // Optionally fetch current user info from /auth/me endpoint
-      // Uncomment the following block if you have /auth/me implemented:
-      //
-      // apiClient
-      //   .get('/auth/me')
-      //   .then((res) => setUser(res.user))
-      //   .catch(() => {
-      //     console.error('Failed to fetch current user')
-      //     logout()
-      //   })
-      //   .finally(() => setLoading(false))
-
-      // If you do not fetch user info on mount, simply finish loading
-      setLoading(false)
-    } else {
-      // No token in storage, mark loading complete
-      setLoading(false)
+      // If you later need to fetch user profile, do it here and then setUser(...)
     }
+    setLoading(false)
   }, [])
 
   /**
@@ -61,13 +37,6 @@ export function AuthProvider({ children }) {
       // authApi.login returns { token, user }
       const { token: newToken, user: newUser } = await authApi.login({ email, password })
       localStorage.setItem('token', newToken)
-
-      apiClient.defaults = apiClient.defaults || {}
-      apiClient.defaults.headers = {
-        ...apiClient.defaults.headers,
-        Authorization: `Bearer ${newToken}`,
-      }
-
       setToken(newToken)
       setUser(newUser)
     } catch (err) {
@@ -88,13 +57,6 @@ export function AuthProvider({ children }) {
       // authApi.register returns { token, user }
       const { token: newToken, user: newUser } = await authApi.register({ email, password })
       localStorage.setItem('token', newToken)
-
-      apiClient.defaults = apiClient.defaults || {}
-      apiClient.defaults.headers = {
-        ...apiClient.defaults.headers,
-        Authorization: `Bearer ${newToken}`,
-      }
-
       setToken(newToken)
       setUser(newUser)
     } catch (err) {
@@ -110,9 +72,6 @@ export function AuthProvider({ children }) {
    */
   const logout = () => {
     localStorage.removeItem('token')
-    if (apiClient.defaults && apiClient.defaults.headers) {
-      delete apiClient.defaults.headers.Authorization
-    }
     setToken(null)
     setUser(null)
     setLoading(false)

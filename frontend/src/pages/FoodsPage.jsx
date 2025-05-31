@@ -1,8 +1,8 @@
 // src/pages/FoodsPage.jsx
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useFoods } from '../hooks/useFoods'
 import FoodList from '../components/Foods/FoodList'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 /**
  * FoodsPage displays:
@@ -13,8 +13,14 @@ import { useNavigate } from 'react-router-dom'
  *  - “Edit” button on each card navigates to /foods/:id/edit
  */
 export default function FoodsPage() {
-  const { foods, loading, error, deleteFood } = useFoods()
+  const { foods, loading, error, deleteFood, fetchFoods } = useFoods()
   const navigate = useNavigate()
+  const location = useLocation()
+
+  // Whenever the route changes to /foods, reload the list
+  useEffect(() => {
+    fetchFoods()
+  }, [location.pathname, fetchFoods])
 
   // Navigate to the create form
   const handleAddNew = () => {
@@ -30,6 +36,8 @@ export default function FoodsPage() {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this food?')) {
       await deleteFood(id)
+      // After deletion, refetch to update list
+      fetchFoods()
     }
   }
 

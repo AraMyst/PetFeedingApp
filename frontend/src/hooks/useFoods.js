@@ -45,6 +45,7 @@ export function useFoods() {
     try {
       // Assume createFood returns the new food object directly
       const newFood = await foodsApi.createFood(foodData)
+      // Append the new food to state so list is immediately updated
       setFoods((prev) => [...prev, newFood])
       return newFood
     } catch (err) {

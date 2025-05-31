@@ -1,5 +1,5 @@
 // src/pages/FoodCreatePage.jsx
-import React from 'react'
+import React, { useState } from 'react'
 import FoodForm from '../components/Foods/FoodForm'
 import { useFoods } from '../hooks/useFoods'
 import { useNavigate } from 'react-router-dom'
@@ -11,11 +11,17 @@ import { useNavigate } from 'react-router-dom'
 export default function FoodCreatePage() {
   const { createFood } = useFoods()
   const navigate = useNavigate()
+  const [submitError, setSubmitError] = useState(null)
 
   // Handle form submission: create and redirect back to /foods
   const handleSubmit = async (data) => {
-    await createFood(data)
-    navigate('/foods', { replace: true })
+    try {
+      await createFood(data)
+      navigate('/foods', { replace: true })
+    } catch (err) {
+      console.error('Error creating food:', err)
+      setSubmitError(err.message || 'Failed to create food')
+    }
   }
 
   return (
@@ -43,6 +49,11 @@ export default function FoodCreatePage() {
             className="w-[200px] h-[200px] object-contain"
           />
         </div>
+
+        {/* Display submission error if any */}
+        {submitError && (
+          <p className="text-red-500 text-sm text-center mb-4">{submitError}</p>
+        )}
 
         {/* FoodForm receives smaller inputs and spaced buttons */}
         <FoodForm
