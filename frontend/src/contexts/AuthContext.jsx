@@ -1,4 +1,5 @@
 // src/contexts/AuthContext.jsx
+
 import React, { createContext, useContext, useState } from 'react'
 import PropTypes from 'prop-types'
 import * as authApi from '../api/auth'
@@ -18,45 +19,65 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  // LOGIN: call backend, store token + user, update state
+  /**
+   * LOGIN: calls backend, stores token + user, updates state.
+   * On success, returns; on failure, throws Error with message from server.
+   */
   const login = async ({ email, password }) => {
     setLoading(true)
     try {
       // authApi.login returns { token, user }
       const { token: newToken, user: newUser } = await authApi.login({ email, password })
       localStorage.setItem('token', newToken)
+
+      // Although apiClient.request always reads token from localStorage,
+      // we set defaults here in case you switch to axios in the future:
       apiClient.defaults = apiClient.defaults || {}
       apiClient.defaults.headers = {
         ...apiClient.defaults.headers,
         Authorization: `Bearer ${newToken}`,
       }
+
       setToken(newToken)
       setUser(newUser)
+    } catch (err) {
+      // Re-throw so the calling component can display err.message
+      throw err
     } finally {
       setLoading(false)
     }
   }
 
-  // REGISTER: call backend, store token + user, update state
+  /**
+   * REGISTER: calls backend, stores token + user, updates state.
+   * On success, returns; on failure, throws Error with message from server.
+   */
   const register = async ({ email, password }) => {
     setLoading(true)
     try {
       // authApi.register returns { token, user }
       const { token: newToken, user: newUser } = await authApi.register({ email, password })
       localStorage.setItem('token', newToken)
+
       apiClient.defaults = apiClient.defaults || {}
       apiClient.defaults.headers = {
         ...apiClient.defaults.headers,
         Authorization: `Bearer ${newToken}`,
       }
+
       setToken(newToken)
       setUser(newUser)
+    } catch (err) {
+      // Re-throw so the calling component can display err.message
+      throw err
     } finally {
       setLoading(false)
     }
   }
 
-  // LOGOUT: clear stored token and reset state
+  /**
+   * LOGOUT: clears stored token and resets state.
+   */
   const logout = () => {
     localStorage.removeItem('token')
     if (apiClient.defaults && apiClient.defaults.headers) {

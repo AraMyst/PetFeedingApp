@@ -4,13 +4,13 @@ import { Navigate, Outlet } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 
 /**
- * PrivateRoute protects routes that require authentication.
- * If the user is not logged in, redirects to the login page.
+ * PrivateRoute wraps any routes that require authentication.
+ * If the user is not logged in (no valid token), redirect to "/login".
  */
 export default function PrivateRoute() {
   const { token, loading } = useAuth()
 
-  // While auth state is being initialized, show a loading indicator
+  // While the authentication state is initializing, show a loading indicator
   if (loading) {
     return (
       <div className="flex items-center justify-center h-full p-4 text-gray-500">
@@ -19,11 +19,11 @@ export default function PrivateRoute() {
     )
   }
 
-  // If there's no valid token, redirect to the login page
+  // If there is no valid token, redirect to the login page
   if (!token) {
     return <Navigate to="/login" replace />
   }
 
-  // If authenticated, render the child routes
+  // If the user is authenticated, render the child routes via <Outlet>
   return <Outlet />
 }

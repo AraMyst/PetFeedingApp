@@ -12,7 +12,7 @@ router.post('/register', register)
 // POST /auth/login
 router.post('/login', login)
 
-// GET /auth/me  (authenticated)
+// GET /auth/me (requires valid JWT)
 router.get('/me', authMiddleware, me)
 
 module.exports = router

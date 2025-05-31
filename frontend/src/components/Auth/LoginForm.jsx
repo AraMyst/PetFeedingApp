@@ -1,26 +1,30 @@
 // src/components/Auth/LoginForm.jsx
-import React, { useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react'
+import { useAuth } from '../../contexts/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 export default function LoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
-  const { login } = useAuth();
-  const navigate = useNavigate();
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const { login } = useAuth()
+  const navigate = useNavigate()
 
-  // Handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError(null);
+    e.preventDefault()
+    setError(null)
+    setLoading(true)
     try {
-      await login({ email, password });
-      navigate('/dashboard', { replace: true });
+      await login({ email, password })
+      navigate('/dashboard', { replace: true })
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
+      // err.message comes from the thrown Error in AuthContext or API client
+      setError(err.message || 'Login failed')
+    } finally {
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <form
@@ -28,14 +32,12 @@ export default function LoginForm() {
       style={{ maxWidth: 320, margin: '0 auto' }}
       className="space-y-6"
     >
-      {/* Display error message */}
       {error && (
         <div className="text-red-600 text-sm text-center">
           {error}
         </div>
       )}
 
-      {/* Email input */}
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-gray-700">
           Email
@@ -50,7 +52,6 @@ export default function LoginForm() {
         />
       </div>
 
-      {/* Password input */}
       <div>
         <label htmlFor="password" className="block text-sm font-medium text-gray-700">
           Password
@@ -65,17 +66,16 @@ export default function LoginForm() {
         />
       </div>
 
-      {/* Submit button wrapper for extra top margin */}
       <div className="mt-8">
-        {/* Submit button with forced inline margin */}
-<button 
-type="submit" 
-style={{ marginTop: '1.5rem' }}       // ← força 24px de espaço 
-className="block mx-auto w-3/4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md" 
->
-          Sign In
+        <button
+          type="submit"
+          disabled={loading}
+          style={{ marginTop: '1.5rem' }}
+          className="block mx-auto w-3/4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md disabled:opacity-50"
+        >
+          {loading ? 'Logging in…' : 'Sign In'}
         </button>
       </div>
     </form>
-  );
+  )
 }

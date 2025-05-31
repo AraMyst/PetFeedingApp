@@ -18,18 +18,18 @@ export default function App() {
     <AuthProvider>
       <NotificationProvider>
         <BrowserRouter>
-          {/* persistent navigation bar */}
+          {/* Persistent navigation bar (hidden on /login and /register) */}
           <NavBar />
 
           <Routes>
-            {/* redirect root to login */}
+            {/* Redirect root ("/") to the login page */}
             <Route path="/" element={<Navigate to="/login" replace />} />
 
-            {/* public routes */}
+            {/* Public routes (accessible without authentication) */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
 
-            {/* protected routes */}
+            {/* Protected routes (require a valid token) */}
             <Route element={<PrivateRoute />}>
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/foods" element={<FoodsPage />} />
@@ -37,7 +37,7 @@ export default function App() {
               <Route path="/notifications" element={<NotificationsPage />} />
             </Route>
 
-            {/* 404 fallback */}
+            {/* 404 fallback for any undefined route */}
             <Route
               path="*"
               element={<p className="p-4 text-center">Page not found</p>}
