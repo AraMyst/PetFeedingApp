@@ -57,11 +57,11 @@ export default function FoodForm({
 
     // Validate required fields (name, brand, weight)
     if (!name || !brand || !weight) {
-      setError('Please fill in name, brand, and weight')
+      setError('Please fill in Name, Brand, and Weight *')
       return
     }
 
-    // Call onSubmit with number-converted weight e arrays para specs & links
+    // Call onSubmit with number-converted weight and arrays for specs & links
     onSubmit({
       name,
       brand,
@@ -80,9 +80,9 @@ export default function FoodForm({
       <div>
         <label
           htmlFor="food-name"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-700 text-center"
         >
-          Name
+          Name * 
         </label>
         <input
           id="food-name"
@@ -90,7 +90,7 @@ export default function FoodForm({
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
-          className="mt-1 block w-full max-w-xs mx-auto border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="mt-1 block w-full max-w-[200px] mx-auto border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
@@ -98,9 +98,9 @@ export default function FoodForm({
       <div>
         <label
           htmlFor="food-brand"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-700 text-center"
         >
-          Brand
+          Brand * 
         </label>
         <input
           id="food-brand"
@@ -108,7 +108,7 @@ export default function FoodForm({
           value={brand}
           onChange={(e) => setBrand(e.target.value)}
           required
-          className="mt-1 block w-full max-w-xs mx-auto border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="mt-1 block w-full max-w-[200px] mx-auto border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
@@ -116,16 +116,16 @@ export default function FoodForm({
       <div>
         <label
           htmlFor="food-specs"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-700 text-center"
         >
-          Specifications
+          Specifications 
         </label>
         <input
           id="food-specs"
           type="text"
           value={specifications}
           onChange={(e) => setSpecifications(e.target.value)}
-          className="mt-1 block w-full max-w-xs mx-auto border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="mt-1 block w-full max-w-[200px] mx-auto border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
@@ -133,9 +133,9 @@ export default function FoodForm({
       <div>
         <label
           htmlFor="food-weight"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-700 text-center"
         >
-          Weight
+          Weight * 
         </label>
         <input
           id="food-weight"
@@ -143,7 +143,7 @@ export default function FoodForm({
           value={weight}
           onChange={(e) => setWeight(e.target.value)}
           required
-          className="mt-1 block w-full max-w-xs mx-auto border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="mt-1 block w-full max-w-[200px] mx-auto border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
@@ -151,21 +151,21 @@ export default function FoodForm({
       <div>
         <label
           htmlFor="food-links"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-700 text-center"
         >
-          Buy Links
+          Buy Links 
         </label>
         <input
           id="food-links"
           type="text"
           value={buyLinks}
           onChange={(e) => setBuyLinks(e.target.value)}
-          className="mt-1 block w-full max-w-xs mx-auto border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="mt-1 block w-full max-w-[200px] mx-auto border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
       {/* Buttons */}
-      <div className="flex justify-center space-x-4 mt-6">
+      <div className="flex justify-center space-x-6 mt-6">
         <button
           type="submit"
           className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"

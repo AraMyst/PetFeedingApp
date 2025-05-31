@@ -32,15 +32,15 @@ export default function FoodCreatePage() {
       </header>
 
       {/* Main container for form */}
-      <main className="mt-16 w-full max-w-sm bg-white rounded-lg shadow-md p-6">
+      <main className="mt-16 w-full max-w-xs bg-white rounded-lg shadow-md p-6">
         <h2 className="text-2xl font-bold text-center mb-4">Add Food</h2>
 
-        {/* Food illustration below title */}
+        {/* Food illustration below title (same size as FoodsPage) */}
         <div className="flex justify-center mb-4">
           <img
             src="/assets/images/Food.png"
             alt="Food Illustration"
-            className="w-24 h-24 object-contain"
+            className="w-[200px] h-[200px] object-contain"
           />
         </div>
 
