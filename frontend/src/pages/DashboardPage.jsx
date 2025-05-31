@@ -15,7 +15,7 @@ import { useNotifications } from '../hooks/useNotifications'
  *  - Fixed header at top with a small rectangular logo
  *  - Responsive grid:
  *      • grid-cols-1 on small screens (stacked vertically)
- *      • md:grid-cols-3 on medium+ screens (three columns side by side)
+ *      • md:grid-cols-3 on medium+ screens (side by side)
  *  - Section title centered under its image
  *  - Count centered under title
  *  - Button centered under count
