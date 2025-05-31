@@ -10,6 +10,7 @@ export default function DashboardPage() {
   const { pets, loading: loadingPets } = usePets()
   const { alerts, loading: loadingAlerts } = useNotifications()
 
+  // Enquanto os dados estiverem carregando, exibe um spinner ou mensagem
   if (loadingFoods || loadingPets || loadingAlerts) {
     return (
       <div
@@ -26,16 +27,18 @@ export default function DashboardPage() {
       className="min-h-screen py-8 px-4"
       style={{ backgroundColor: '#D9F0F1' }}
     >
+      {/* Título da página */}
       <h1 className="text-3xl font-bold text-center mb-8">Dashboard</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-        {/* Pets Section */}
-        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+      {/* Container flexível para posicionar as três seções lado a lado */}
+      <div className="flex flex-col md:flex-row items-center justify-center gap-6 max-w-5xl mx-auto">
+        {/* Section: Pets */}
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-1/3">
           <h2 className="text-2xl font-semibold mb-4">Pets</h2>
           <img
             src="/assets/images/Pets.png"
             alt="Pets illustration"
-            className="w-32 h-32 mb-4"
+            className="w-72 h-72 mb-4 object-contain"
           />
           <p className="text-4xl font-bold mb-4">{pets.length}</p>
           <Link
@@ -46,13 +49,13 @@ export default function DashboardPage() {
           </Link>
         </div>
 
-        {/* Food Section */}
-        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+        {/* Section: Food */}
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-1/3">
           <h2 className="text-2xl font-semibold mb-4">Food</h2>
           <img
             src="/assets/images/Food.png"
             alt="Food illustration"
-            className="w-32 h-32 mb-4"
+            className="w-72 h-72 mb-4 object-contain"
           />
           <p className="text-4xl font-bold mb-4">{foods.length}</p>
           <Link
@@ -63,13 +66,13 @@ export default function DashboardPage() {
           </Link>
         </div>
 
-        {/* Notifications Section */}
-        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+        {/* Section: Notifications */}
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-1/3">
           <h2 className="text-2xl font-semibold mb-4">Notifications</h2>
           <img
             src="/assets/images/Notifications.png"
             alt="Notifications illustration"
-            className="w-32 h-32 mb-4"
+            className="w-72 h-72 mb-4 object-contain"
           />
           <p className="text-4xl font-bold mb-4">{alerts.length}</p>
           <Link
