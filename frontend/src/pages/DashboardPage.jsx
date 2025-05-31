@@ -5,12 +5,21 @@ import { useFoods } from '../hooks/useFoods'
 import { usePets } from '../hooks/usePets'
 import { useNotifications } from '../hooks/useNotifications'
 
+/**
+ * DashboardPage displays three main sections side by side:
+ *  - Pets: shows number of registered pets and a button to manage pets
+ *  - Food: shows number of registered foods and a button to manage foods
+ *  - Notifications: shows number of alerts and a button to manage notifications
+ * 
+ * Background is set to match login/register pages (#D9F0F1). 
+ * The project title (“PetFeedingApp”) is displayed with favicon.
+ */
 export default function DashboardPage() {
   const { foods, loading: loadingFoods } = useFoods()
   const { pets, loading: loadingPets } = usePets()
   const { alerts, loading: loadingAlerts } = useNotifications()
 
-  // Enquanto os dados estiverem carregando, exibe uma mensagem centralizada
+  // While any data is loading, show a centered loading message
   if (loadingFoods || loadingPets || loadingAlerts) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-[#D9F0F1]">
@@ -21,25 +30,28 @@ export default function DashboardPage() {
 
   return (
     <div className="bg-[#D9F0F1] min-h-screen py-8 px-4">
-      {/* Título do projeto com favicon */}
+      {/* Project title with favicon */}
       <h1 className="text-3xl font-bold text-center mb-8 flex items-center justify-center space-x-2">
         <img
           src="/favicon.ico"
           alt="App Icon"
           className="w-8 h-8"
         />
-        <span>Pet Feeding App</span>
+        <span>PetFeedingApp</span>
       </h1>
 
-      {/* Container flexível para posicionar as três seções lado a lado */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-center gap-6 max-w-5xl mx-auto flex-wrap">
-        {/* Section: Pets */}
-        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-1/3">
+      {/* 
+        Container with flexbox to display three cards side by side on md+ screens,
+        and stacked in a column on small screens.
+      */}
+      <div className="flex flex-col md:flex-row items-stretch justify-center gap-6 max-w-5xl mx-auto">
+        {/* Pets Section */}
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center flex-1">
           <h2 className="text-2xl font-semibold mb-4">Pets</h2>
           <img
             src="/assets/images/Pets.png"
             alt="Pets illustration"
-            className="w-40 h-40 mb-4 object-contain"
+            className="w-[250px] h-[250px] mb-4 object-contain"
           />
           <p className="text-4xl font-bold mb-4">{pets.length}</p>
           <Link
@@ -50,13 +62,13 @@ export default function DashboardPage() {
           </Link>
         </div>
 
-        {/* Section: Food */}
-        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-1/3">
+        {/* Food Section */}
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center flex-1">
           <h2 className="text-2xl font-semibold mb-4">Food</h2>
           <img
             src="/assets/images/Food.png"
             alt="Food illustration"
-            className="w-40 h-40 mb-4 object-contain"
+            className="w-[250px] h-[250px] mb-4 object-contain"
           />
           <p className="text-4xl font-bold mb-4">{foods.length}</p>
           <Link
@@ -67,13 +79,13 @@ export default function DashboardPage() {
           </Link>
         </div>
 
-        {/* Section: Notifications */}
-        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-1/3">
+        {/* Notifications Section */}
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center flex-1">
           <h2 className="text-2xl font-semibold mb-4">Notifications</h2>
           <img
             src="/assets/images/Notifications.png"
             alt="Notifications illustration"
-            className="w-40 h-40 mb-4 object-contain"
+            className="w-[250px] h-[250px] mb-4 object-contain"
           />
           <p className="text-4xl font-bold mb-4">{alerts.length}</p>
           <Link

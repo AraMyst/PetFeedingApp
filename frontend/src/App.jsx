@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import { NotificationProvider } from './contexts/NotificationContext'
 import PrivateRoute from './routes/PrivateRoute'
-import NavBar from './components/Layout/NavBar'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import DashboardPage from './pages/DashboardPage'
@@ -13,19 +12,21 @@ import PetsPage from './pages/PetsPage'
 import NotificationsPage from './pages/NotificationsPage'
 import './index.css'
 
+/**
+ * App wraps the entire application in AuthProvider and NotificationProvider.
+ * It defines public and protected routes. NavBar has been removed
+ * so that no white top bar appears on any page.
+ */
 export default function App() {
   return (
     <AuthProvider>
       <NotificationProvider>
         <BrowserRouter>
-          {/* Persistent navigation bar (hidden on /login and /register) */}
-          <NavBar />
-
           <Routes>
-            {/* Redirect root ("/") to the login page */}
+            {/* Redirect the root (“/”) to the login page */}
             <Route path="/" element={<Navigate to="/login" replace />} />
 
-            {/* Public routes (accessible without authentication) */}
+            {/* Public routes (accessible without a token) */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
 
@@ -37,7 +38,7 @@ export default function App() {
               <Route path="/notifications" element={<NotificationsPage />} />
             </Route>
 
-            {/* 404 fallback for any undefined route */}
+            {/* 404 fallback for any unmatched routes */}
             <Route
               path="*"
               element={<p className="p-4 text-center">Page not found</p>}
