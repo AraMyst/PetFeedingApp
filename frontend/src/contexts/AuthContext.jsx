@@ -1,4 +1,5 @@
 // src/contexts/AuthContext.jsx
+
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import * as authApi from '../api/auth'
@@ -17,12 +18,17 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  // On mount: load any saved token and finish loading
+  // On mount: load any saved token, set state, then finish loading
   useEffect(() => {
     const storedToken = localStorage.getItem('token')
     if (storedToken) {
       setToken(storedToken)
-      // If you later need to fetch user profile, do it here and then setUser(...)
+      // If you have an /auth/me endpoint, you could fetch current user here
+      // Example:
+      // apiClient.get('/auth/me')
+      //   .then(res => setUser(res.user))
+      //   .catch(() => logout())
+      //   .finally(() => setLoading(false))
     }
     setLoading(false)
   }, [])
@@ -36,11 +42,12 @@ export function AuthProvider({ children }) {
     try {
       // authApi.login returns { token, user }
       const { token: newToken, user: newUser } = await authApi.login({ email, password })
+      // Save JWT to localStorage so apiClient can pick it up
       localStorage.setItem('token', newToken)
       setToken(newToken)
       setUser(newUser)
     } catch (err) {
-      // Re-throw so the calling component can display err.message
+      // Re‐throw so calling component can display err.message
       throw err
     } finally {
       setLoading(false)
@@ -60,7 +67,6 @@ export function AuthProvider({ children }) {
       setToken(newToken)
       setUser(newUser)
     } catch (err) {
-      // Re-throw so the calling component can display err.message
       throw err
     } finally {
       setLoading(false)
