@@ -37,19 +37,19 @@ export default function DashboardPage() {
       </h1>
 
       {/*
-        Container flexível:
-        - On small screens: flex-col (stacked)
-        - On md+ screens: flex-row (side by side)
-        - Use flex-wrap to wrap if viewport is narrower than 3 cards
+        Grid container:
+        - On small screens: grid-cols-1 (stacked vertically)
+        - On md+ screens: grid-cols-3 (three columns side by side)
+        - Gap between items: gap-6
       */}
-      <div className="flex flex-col md:flex-row flex-wrap items-stretch justify-center gap-6 max-w-5xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         {/* Section: Pets */}
-        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-1/3">
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
           <h2 className="text-2xl font-semibold mb-4">Pets</h2>
           <img
             src="/assets/images/Pets.png"
             alt="Pets illustration"
-            className="w-[250px] h-[250px] mb-4 object-contain"
+            className="w-64 h-64 mb-4 object-contain"
           />
           <p className="text-4xl font-bold mb-4">{pets.length}</p>
           <Link
@@ -61,12 +61,12 @@ export default function DashboardPage() {
         </div>
 
         {/* Section: Food */}
-        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-1/3">
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
           <h2 className="text-2xl font-semibold mb-4">Food</h2>
           <img
             src="/assets/images/Food.png"
             alt="Food illustration"
-            className="w-[250px] h-[250px] mb-4 object-contain"
+            className="w-64 h-64 mb-4 object-contain"
           />
           <p className="text-4xl font-bold mb-4">{foods.length}</p>
           <Link
@@ -78,12 +78,12 @@ export default function DashboardPage() {
         </div>
 
         {/* Section: Notifications */}
-        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-1/3">
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
           <h2 className="text-2xl font-semibold mb-4">Notifications</h2>
           <img
             src="/assets/images/Notifications.png"
             alt="Notifications illustration"
-            className="w-[250px] h-[250px] mb-4 object-contain"
+            className="w-64 h-64 mb-4 object-contain"
           />
           <p className="text-4xl font-bold mb-4">{alerts.length}</p>
           <Link
