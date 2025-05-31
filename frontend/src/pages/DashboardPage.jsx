@@ -6,10 +6,10 @@ import { usePets } from '../hooks/usePets'
 import { useNotifications } from '../hooks/useNotifications'
 
 /**
- * DashboardPage displays three main cards side by side on md+ screens:
- *  - Pets: shows the number of registered pets and a link to manage pets
- *  - Food: shows the number of registered foods and a link to manage foods
- *  - Notifications: shows the number of alerts and a link to manage notifications
+ * DashboardPage displays three main cards side by side in a fixed 3-column grid:
+ *  - Pets: shows number of registered pets and a link to manage pets
+ *  - Food: shows number of registered foods and a link to manage foods
+ *  - Notifications: shows number of alerts and a link to manage notifications
  *
  * The background matches the login/register pages (#DBF3F6).
  * The project title (“PetPaunch App”) is displayed with the favicon icon.
@@ -37,15 +37,14 @@ export default function DashboardPage() {
       </h1>
 
       {/*
-        Flex container:
-        - flex-col on small screens (stacked vertically)
-        - md:flex-row on md+ screens (side by side)
-        - gap-6 for spacing between cards
-        - max-w-5xl mx-auto to center and constrain width
+        Grid container with 3 columns always:
+        - grid-cols-3: three fixed columns side by side
+        - gap-6: spacing between cards
+        - max-w-5xl mx-auto: center horizontally and constrain width
       */}
-      <div className="flex flex-col md:flex-row items-center justify-center gap-6 max-w-5xl mx-auto">
+      <div className="grid grid-cols-3 gap-6 max-w-5xl mx-auto">
         {/* Section: Pets */}
-        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-1/3">
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
           <h2 className="text-2xl font-semibold mb-4">Pets</h2>
           <img
             src="/assets/images/Pets.png"
@@ -62,7 +61,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Section: Food */}
-        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-1/3">
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
           <h2 className="text-2xl font-semibold mb-4">Food</h2>
           <img
             src="/assets/images/Food.png"
@@ -79,7 +78,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Section: Notifications */}
-        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-1/3">
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
           <h2 className="text-2xl font-semibold mb-4">Notifications</h2>
           <img
             src="/assets/images/Notifications.png"
