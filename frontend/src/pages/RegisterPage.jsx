@@ -33,7 +33,7 @@ export default function RegisterPage() {
           src="/assets/images/logo.png"
           alt="App Logo"
           className="block mx-auto mb-6"
-          style={{ width: 250, height: 250 }}
+          style={{ width: 300, height: 250 }}
         />
 
         <RegisterForm />
