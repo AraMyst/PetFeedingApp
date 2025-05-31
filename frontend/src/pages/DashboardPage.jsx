@@ -6,18 +6,18 @@ import { usePets } from '../hooks/usePets'
 import { useNotifications } from '../hooks/useNotifications'
 
 /**
- * DashboardPage displays three cards:
+ * DashboardPage displays three main cards:
  *  - Pets: shows number of registered pets and a button to manage pets
  *  - Food: shows number of registered foods and a button to manage foods
  *  - Notifications: shows number of alerts and a button to manage notifications
  *
- * Uses a flex container:
- *  - Each card is w-full on very small screens (stacked)
- *  - w-1/2 on small+ screens
- *  - w-1/3 on medium+ screens (side by side)
+ * Uses a responsive grid:
+ *  - grid-cols-1 on very small screens (stacked)
+ *  - sm:grid-cols-2 on small screens
+ *  - md:grid-cols-3 on medium+ screens (side by side)
  *
  * The background matches the login/register pages (#DBF3F6).
- * Only a very small rectangular logo image is displayed at the top.
+ * Only a small rectangular logo image is displayed at the top.
  */
 export default function DashboardPage() {
   const navigate = useNavigate()
@@ -41,63 +41,65 @@ export default function DashboardPage() {
         <img
           src="/assets/images/logo.png"
           alt="App Logo"
-          className="w-32 h-8 object-contain" /* very small rectangle */
+          className="w-32 h-8 object-contain"
         />
       </div>
 
       {/*
-        Flex container:
-        - flex-wrap to allow cards to wrap on small screens
-        - gap-6 for spacing between cards
-        - max-w-5xl mx-auto to center and constrain width
+        Grid container:
+        - grid-cols-1: 1 column on very small screens
+        - sm:grid-cols-2: 2 columns on small+ screens
+        - md:grid-cols-3: 3 columns on medium+ screens
+        - gap-6: spacing between cards
+        - max-w-5xl mx-auto: center horizontally and constrain width
       */}
-      <div className="flex flex-wrap justify-center gap-6 max-w-5xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         {/* Section: Pets */}
-        <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center w-full sm:w-1/2 md:w-1/3">
-          <h2 className="text-xl font-semibold mb-4">Pets</h2>
+        <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center">
+          <h2 className="text-2xl font-semibold mb-4">Pets</h2>
           <img
             src="/assets/images/Pets.png"
             alt="Pets illustration"
-            className="w-16 h-16 mb-4 object-contain" /* 64×64px */
+            className="w-[250px] h-[250px] mb-4 object-contain"
           />
-          <p className="text-2xl font-bold mb-4">{pets.length}</p>
+          <p className="text-4xl font-bold mb-4">{pets.length}</p>
           <button
             onClick={() => navigate('/pets')}
-            className="mt-auto py-2 px-6 bg-green-500 hover:bg-green-600 text-white rounded-full shadow transform hover:-translate-y-1 transition-all"
+            className="mt-auto py-2 px-6 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-md transform hover:-translate-y-1 transition-all"
           >
             Manage Pets
           </button>
         </div>
 
         {/* Section: Food */}
-        <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center w-full sm:w-1/2 md:w-1/3">
-          <h2 className="text-xl font-semibold mb-4">Food</h2>
+        <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center">
+          <h2 className="text-2xl font-semibold mb-4">Food</h2>
           <img
             src="/assets/images/Food.png"
             alt="Food illustration"
-            className="w-16 h-16 mb-4 object-contain" /* 64×64px */
+            className="w-[250px] h-[250px] mb-4 object-contain"
           />
-          <p className="text-2xl font-bold mb-4">{foods.length}</p>
+          <p className="text-4xl font-bold mb-4">{foods.length}</p>
           <button
             onClick={() => navigate('/foods')}
-            className="mt-auto py-2 px-6 bg-green-500 hover:bg-green-600 text-white rounded-full shadow transform hover:-translate-y-1 transition-all"
+            className="mt-auto py-2 px-6 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-md transform hover:-translate-y-1 transition-all"
           >
             Manage Foods
           </button>
         </div>
 
         {/* Section: Notifications */}
-        <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center w-full sm:w-1/2 md:w-1/3">
-          <h2 className="text-xl font-semibold mb-4">Notifications</h2>
+        <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center">
+          <h2 className="text-2xl font-semibold mb-4">Notifications</h2>
           <img
             src="/assets/images/Notifications.png"
             alt="Notifications illustration"
-            className="w-16 h-16 mb-4 object-contain" /* 64×64px */
+            className="w-[250px] h-[250px] mb-4 object-contain"
           />
-          <p className="text-2xl font-bold mb-4">{alerts.length}</p>
+          <p className="text-4xl font-bold mb-4">{alerts.length}</p>
           <button
             onClick={() => navigate('/notifications')}
-            className="mt-auto py-2 px-6 bg-green-500 hover:bg-green-600 text-white rounded-full shadow transform hover:-translate-y-1 transition-all"
+            className="mt-auto py-2 px-6 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-md transform hover:-translate-y-1 transition-all"
           >
             Manage Notifications
           </button>
