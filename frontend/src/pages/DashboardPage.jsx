@@ -12,7 +12,7 @@ import { useNotifications } from '../hooks/useNotifications'
  *  - Notifications: shows the number of alerts and a link to manage notifications
  *
  * The background matches the login/register pages (#DBF3F6).
- * The project title (“PetFeedingApp”) is displayed with the favicon icon.
+ * The project title (“PetPaunch App”) is displayed with the favicon icon.
  */
 export default function DashboardPage() {
   const { foods, loading: loadingFoods } = useFoods()
@@ -33,18 +33,18 @@ export default function DashboardPage() {
       {/* Project title with favicon */}
       <h1 className="flex items-center justify-center text-3xl font-bold mb-8">
         <img src="/favicon.ico" alt="App Icon" className="w-8 h-8 mr-2" />
-        <span>PetFeedingApp</span>
+        <span>PetPaunch App</span>
       </h1>
 
       {/*
-        Grid container:
-        - On small screens: single column (stacked vertically)
-        - On md+ screens: three equal columns (side by side)
-        - Gap between items: gap-6
+        Flex container:
+        - flex-wrap: allows wrapping if viewport is narrower than 3 cards
+        - gap-6: uniform gap between cards
+        - max-w-5xl mx-auto: centraliza horizontalmente e limita largura
       */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      <div className="flex flex-wrap items-stretch justify-center gap-6 max-w-5xl mx-auto">
         {/* Section: Pets */}
-        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-1/3">
           <h2 className="text-2xl font-semibold mb-4">Pets</h2>
           <img
             src="/assets/images/Pets.png"
@@ -61,7 +61,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Section: Food */}
-        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-1/3">
           <h2 className="text-2xl font-semibold mb-4">Food</h2>
           <img
             src="/assets/images/Food.png"
@@ -78,7 +78,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Section: Notifications */}
-        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-1/3">
           <h2 className="text-2xl font-semibold mb-4">Notifications</h2>
           <img
             src="/assets/images/Notifications.png"
