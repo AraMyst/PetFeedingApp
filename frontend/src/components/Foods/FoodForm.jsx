@@ -77,7 +77,10 @@ export default function FoodForm({
       {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
       {/* Name field */}
-      <div>
+      <div
+        className="mb-4"
+        style={{ marginBottom: '1rem' /* fallback if mb-4 is not applied */ }}
+      >
         <label
           htmlFor="food-name"
           className="block text-sm font-medium text-gray-700 text-center"
@@ -95,7 +98,10 @@ export default function FoodForm({
       </div>
 
       {/* Brand field */}
-      <div>
+      <div
+        className="mb-4"
+        style={{ marginBottom: '1rem' /* fallback if mb-4 is not applied */ }}
+      >
         <label
           htmlFor="food-brand"
           className="block text-sm font-medium text-gray-700 text-center"
@@ -113,7 +119,10 @@ export default function FoodForm({
       </div>
 
       {/* Specifications field */}
-      <div>
+      <div
+        className="mb-4"
+        style={{ marginBottom: '1rem' /* fallback if mb-4 is not applied */ }}
+      >
         <label
           htmlFor="food-specs"
           className="block text-sm font-medium text-gray-700 text-center"
@@ -130,7 +139,10 @@ export default function FoodForm({
       </div>
 
       {/* Weight field */}
-      <div>
+      <div
+        className="mb-4"
+        style={{ marginBottom: '1rem' /* fallback if mb-4 is not applied */ }}
+      >
         <label
           htmlFor="food-weight"
           className="block text-sm font-medium text-gray-700 text-center"
@@ -147,8 +159,11 @@ export default function FoodForm({
         />
       </div>
 
-      {/* Buy Link field */}
-      <div className="mt-6">
+      {/* Buy Link field (with larger margin above) */}
+      <div
+        className="mb-8"
+        style={{ marginBottom: '2rem' /* fallback if mb-8 is not applied */ }}
+      >
         <label
           htmlFor="food-links"
           className="block text-sm font-medium text-gray-700 text-center"
@@ -164,11 +179,12 @@ export default function FoodForm({
         />
       </div>
 
-      {/* Buttons */}
-      <div className="flex justify-center space-x-12 mt-10">
+      {/* Buttons with top margin and extra spacing between them */}
+      <div className="mt-8 flex justify-center" style={{ marginTop: '2rem' }}>
         <button
           type="submit"
-          className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 mx-4"
+          style={{ marginLeft: '1rem', marginRight: '1rem' }}
         >
           Add
         </button>
@@ -176,7 +192,8 @@ export default function FoodForm({
           <button
             type="button"
             onClick={onCancel}
-            className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400"
+            className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 mx-4"
+            style={{ marginLeft: '1rem', marginRight: '1rem' }}
           >
             Cancel
           </button>

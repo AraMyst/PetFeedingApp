@@ -41,7 +41,7 @@ export default function FoodEditPage() {
   }
 
   return (
-    <div className="bg-[#DBF3F6] min-h-screen">
+    <div className="bg-[#DBF3F6] min-h-screen flex flex-col items-center pt-20 px-4">
       {/* Fixed header with logo */}
       <header className="fixed top-0 left-0 w-full bg-[#DBF3F6] shadow-sm z-10">
         <div className="flex justify-center py-3">
@@ -53,9 +53,20 @@ export default function FoodEditPage() {
         </div>
       </header>
 
-      {/* Main content with padding to avoid header overlap */}
-      <main className="pt-20 px-4 pb-8 max-w-2xl mx-auto">
-        <h2 className="text-2xl font-bold mb-4">Edit Food</h2>
+      {/* Main container for form */}
+      <main className="mt-16 w-full max-w-xs bg-white rounded-lg shadow-md p-6">
+        <h2 className="text-2xl font-bold text-center mb-4">Edit Food</h2>
+
+        {/* Food illustration below title */}
+        <div className="flex justify-center mb-4">
+          <img
+            src="/assets/images/Food.png"
+            alt="Food Illustration"
+            className="w-[200px] h-[200px] object-contain"
+          />
+        </div>
+
+        {/* FoodForm receives smaller inputs and spaced buttons */}
         <FoodForm
           initialData={initialData}
           onSubmit={handleSubmit}
