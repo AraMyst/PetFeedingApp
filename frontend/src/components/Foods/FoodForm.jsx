@@ -147,13 +147,13 @@ export default function FoodForm({
         />
       </div>
 
-      {/* Buy Links field */}
+      {/* Buy Link field */}
       <div>
         <label
           htmlFor="food-links"
           className="block text-sm font-medium text-gray-700 text-center"
         >
-          Buy Links 
+          Buy Link 
         </label>
         <input
           id="food-links"
@@ -165,7 +165,7 @@ export default function FoodForm({
       </div>
 
       {/* Buttons */}
-      <div className="flex justify-center space-x-6 mt-6">
+      <div className="flex justify-center space-x-8 mt-8">
         <button
           type="submit"
           className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
