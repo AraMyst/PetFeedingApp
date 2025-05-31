@@ -12,17 +12,17 @@ import { useNotifications } from '../hooks/useNotifications'
  *  - Notifications: shows number of alerts and a button to manage notifications
  *
  * Layout adjustments:
- *  - flex-col on small screens (cards stack vertically)
- *  - md:flex-row on medium+ screens (cards appear in a single row)
- *  - Each card takes one-third of the available width on md+ (md:w-1/3)
- *  - No additional changes needed in other files for this behavior.
+ *  - flex-col on extra-small screens (cards stack vertically)
+ *  - sm:flex-row on small+ screens (cards appear side by side)
+ *  - Each card takes one-third of the available width on small+ (sm:w-1/3)
+ *  - No changes needed in any other file.
  */
 export default function DashboardPage() {
   const { foods, loading: loadingFoods } = useFoods()
   const { pets, loading: loadingPets } = usePets()
   const { alerts, loading: loadingAlerts } = useNotifications()
 
-  // If any data is still loading, show a centered loading state
+  // While any data is loading, show a centered loading message
   if (loadingFoods || loadingPets || loadingAlerts) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-[#DBF3F6]">
@@ -44,18 +44,18 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      {/* Main content has top padding so it sits below the fixed header */}
+      {/* Main content has top padding to avoid being hidden under header */}
       <main className="pt-20 px-4 pb-8">
         {/*
           Responsive flex container:
-          - flex-col on small screens (cards stack vertically)
-          - md:flex-row on medium+ screens (cards side by side)
-          - gap-6: consistent spacing between cards
-          - max-w-5xl mx-auto: center the entire row and limit its max width
+          - flex-col on extra-small screens (cards stack vertically)
+          - sm:flex-row on small+ screens (cards side by side)
+          - gap-6: spacing between cards
+          - max-w-5xl mx-auto: center horizontally and constrain width
         */}
-        <div className="flex flex-col md:flex-row gap-6 max-w-5xl mx-auto">
-          {/* ---------- PETS CARD ---------- */}
-          <div className="w-full md:w-1/3 bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+        <div className="flex flex-col sm:flex-row gap-6 max-w-5xl mx-auto">
+          {/* Section: Pets */}
+          <div className="w-full sm:w-1/3 bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
             <Link to="/pets">
               <img
                 src="/assets/images/Pets.png"
@@ -73,8 +73,8 @@ export default function DashboardPage() {
             </button>
           </div>
 
-          {/* ---------- FOOD CARD ---------- */}
-          <div className="w-full md:w-1/3 bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+          {/* Section: Food */}
+          <div className="w-full sm:w-1/3 bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
             <Link to="/foods">
               <img
                 src="/assets/images/Food.png"
@@ -92,8 +92,8 @@ export default function DashboardPage() {
             </button>
           </div>
 
-          {/* ---------- NOTIFICATIONS CARD ---------- */}
-          <div className="w-full md:w-1/3 bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+          {/* Section: Notifications */}
+          <div className="w-full sm:w-1/3 bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
             <Link to="/notifications">
               <img
                 src="/assets/images/Notifications.png"
