@@ -1,6 +1,6 @@
 // src/pages/DashboardPage.jsx
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useFoods } from '../hooks/useFoods'
 import { usePets } from '../hooks/usePets'
 import { useNotifications } from '../hooks/useNotifications'
@@ -14,14 +14,16 @@ import { useNotifications } from '../hooks/useNotifications'
  * Features:
  *  - Fixed header at top with a small rectangular logo
  *  - Responsive grid:
- *      • grid-cols-1 on small screens (stacked)
- *      • md:grid-cols-3 on medium+ screens (side by side)
- *  - Each section’s title is overlaid on its image
- *  - Each section image is wrapped in a Link to its page
- *  - Buttons change color on hover and have a focus ring
+ *      • grid-cols-1 on small screens (stacked vertically)
+ *      • md:grid-cols-3 on medium+ screens (three columns side by side)
+ *  - Section title centered below its image
+ *  - Count centered below title
+ *  - Button centered below count
+ *  - Buttons change color on hover and have focus ring
  *  - Background matches login/register pages (#DBF3F6)
  */
 export default function DashboardPage() {
+  const navigate = useNavigate()
   const { foods, loading: loadingFoods } = useFoods()
   const { pets, loading: loadingPets } = usePets()
   const { alerts, loading: loadingAlerts } = useNotifications()
@@ -53,30 +55,25 @@ export default function DashboardPage() {
         {/*
           Responsive grid container:
           - grid-cols-1: 1 column on small screens (stacked)
-          - md:grid-cols-3: 3 columns on medium+ screens (side by side)
+          - md:grid-cols-3: 3 columns side by side on medium+ screens
           - gap-6: spacing between cards
           - max-w-5xl mx-auto: center horizontally and constrain width
         */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {/* Section: Pets */}
           <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
-            {/* Container for overlaid title + linked image */}
-            <div className="relative mb-4">
-              <Link to="/pets">
-                <img
-                  src="/assets/images/Pets.png"
-                  alt="Pets illustration"
-                  className="w-[250px] h-[250px] object-contain"
-                />
-              </Link>
-              <h2 className="absolute top-2 left-2 text-white bg-black bg-opacity-50 px-2 rounded">
-                Pets
-              </h2>
-            </div>
-            <p className="text-4xl font-bold mb-4">{pets.length}</p>
+            <Link to="/pets">
+              <img
+                src="/assets/images/Pets.png"
+                alt="Pets illustration"
+                className="w-[250px] h-[250px] mb-4 object-contain"
+              />
+            </Link>
+            <h2 className="text-2xl font-semibold mb-2 text-center">Pets</h2>
+            <p className="text-4xl font-bold mb-4 text-center">{pets.length}</p>
             <button
-              onClick={() => (window.location.href = '/pets')}
-              className="mt-auto py-2 px-6 bg-green-500 hover:bg-green-700 focus:bg-green-700 text-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
+              onClick={() => navigate('/pets')}
+              className="py-2 px-6 bg-green-500 hover:bg-green-700 focus:bg-green-700 text-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
             >
               Manage Pets
             </button>
@@ -84,22 +81,18 @@ export default function DashboardPage() {
 
           {/* Section: Food */}
           <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
-            <div className="relative mb-4">
-              <Link to="/foods">
-                <img
-                  src="/assets/images/Food.png"
-                  alt="Food illustration"
-                  className="w-[250px] h-[250px] object-contain"
-                />
-              </Link>
-              <h2 className="absolute top-2 left-2 text-white bg-black bg-opacity-50 px-2 rounded">
-                Food
-              </h2>
-            </div>
-            <p className="text-4xl font-bold mb-4">{foods.length}</p>
+            <Link to="/foods">
+              <img
+                src="/assets/images/Food.png"
+                alt="Food illustration"
+                className="w-[250px] h-[250px] mb-4 object-contain"
+              />
+            </Link>
+            <h2 className="text-2xl font-semibold mb-2 text-center">Food</h2>
+            <p className="text-4xl font-bold mb-4 text-center">{foods.length}</p>
             <button
-              onClick={() => (window.location.href = '/foods')}
-              className="mt-auto py-2 px-6 bg-green-500 hover:bg-green-700 focus:bg-green-700 text-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
+              onClick={() => navigate('/foods')}
+              className="py-2 px-6 bg-green-500 hover:bg-green-700 focus:bg-green-700 text-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
             >
               Manage Foods
             </button>
@@ -107,22 +100,18 @@ export default function DashboardPage() {
 
           {/* Section: Notifications */}
           <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
-            <div className="relative mb-4">
-              <Link to="/notifications">
-                <img
-                  src="/assets/images/Notifications.png"
-                  alt="Notifications illustration"
-                  className="w-[250px] h-[250px] object-contain"
-                />
-              </Link>
-              <h2 className="absolute top-2 left-2 text-white bg-black bg-opacity-50 px-2 rounded">
-                Notifications
-              </h2>
-            </div>
-            <p className="text-4xl font-bold mb-4">{alerts.length}</p>
+            <Link to="/notifications">
+              <img
+                src="/assets/images/Notifications.png"
+                alt="Notifications illustration"
+                className="w-[250px] h-[250px] mb-4 object-contain"
+              />
+            </Link>
+            <h2 className="text-2xl font-semibold mb-2 text-center">Notifications</h2>
+            <p className="text-4xl font-bold mb-4 text-center">{alerts.length}</p>
             <button
-              onClick={() => (window.location.href = '/notifications')}
-              className="mt-auto py-2 px-6 bg-green-500 hover:bg-green-700 focus:bg-green-700 text-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
+              onClick={() => navigate('/notifications')}
+              className="py-2 px-6 bg-green-500 hover:bg-green-700 focus:bg-green-700 text-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
             >
               Manage Notifications
             </button>
