@@ -6,13 +6,13 @@ import { usePets } from '../hooks/usePets'
 import { useNotifications } from '../hooks/useNotifications'
 
 /**
- * DashboardPage displays three main sections side by side:
- *  - Pets: shows number of registered pets and a button to manage pets
- *  - Food: shows number of registered foods and a button to manage foods
- *  - Notifications: shows number of alerts and a button to manage notifications
- * 
- * Background is set to match login/register pages (#D9F0F1). 
- * The project title (“PetFeedingApp”) is displayed with favicon.
+ * DashboardPage displays three main cards side by side on md+ screens:
+ *  - Pets: shows the number of registered pets and a link to manage pets
+ *  - Food: shows the number of registered foods and a link to manage foods
+ *  - Notifications: shows the number of alerts and a link to manage notifications
+ *
+ * The background matches the login/register pages (#DBF3F6).
+ * The project title (“PetFeedingApp”) is displayed with the favicon icon.
  */
 export default function DashboardPage() {
   const { foods, loading: loadingFoods } = useFoods()
@@ -22,31 +22,29 @@ export default function DashboardPage() {
   // While any data is loading, show a centered loading message
   if (loadingFoods || loadingPets || loadingAlerts) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-[#D9F0F1]">
+      <div className="flex items-center justify-center min-h-screen bg-[#DBF3F6]">
         <p className="text-gray-500">Loading dashboard...</p>
       </div>
     )
   }
 
   return (
-    <div className="bg-[#D9F0F1] min-h-screen py-8 px-4">
+    <div className="bg-[#DBF3F6] min-h-screen py-8 px-4">
       {/* Project title with favicon */}
-      <h1 className="text-3xl font-bold text-center mb-8 flex items-center justify-center space-x-2">
-        <img
-          src="/favicon.ico"
-          alt="App Icon"
-          className="w-8 h-8"
-        />
+      <h1 className="flex items-center justify-center text-3xl font-bold mb-8">
+        <img src="/favicon.ico" alt="App Icon" className="w-8 h-8 mr-2" />
         <span>PetFeedingApp</span>
       </h1>
 
-      {/* 
-        Container with flexbox to display three cards side by side on md+ screens,
-        and stacked in a column on small screens.
+      {/*
+        Container flexível:
+        - On small screens: flex-col (stacked)
+        - On md+ screens: flex-row (side by side)
+        - Use flex-wrap to wrap if viewport is narrower than 3 cards
       */}
-      <div className="flex flex-col md:flex-row items-stretch justify-center gap-6 max-w-5xl mx-auto">
-        {/* Pets Section */}
-        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center flex-1">
+      <div className="flex flex-col md:flex-row flex-wrap items-stretch justify-center gap-6 max-w-5xl mx-auto">
+        {/* Section: Pets */}
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-1/3">
           <h2 className="text-2xl font-semibold mb-4">Pets</h2>
           <img
             src="/assets/images/Pets.png"
@@ -62,8 +60,8 @@ export default function DashboardPage() {
           </Link>
         </div>
 
-        {/* Food Section */}
-        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center flex-1">
+        {/* Section: Food */}
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-1/3">
           <h2 className="text-2xl font-semibold mb-4">Food</h2>
           <img
             src="/assets/images/Food.png"
@@ -79,8 +77,8 @@ export default function DashboardPage() {
           </Link>
         </div>
 
-        {/* Notifications Section */}
-        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center flex-1">
+        {/* Section: Notifications */}
+        <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-1/3">
           <h2 className="text-2xl font-semibold mb-4">Notifications</h2>
           <img
             src="/assets/images/Notifications.png"
