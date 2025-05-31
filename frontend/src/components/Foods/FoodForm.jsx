@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react'
  * Props:
  *  - initialData: object with existing food values or defaults
  *  - onSubmit: function({ name, brand, specifications, weight, buyLinks })
- *  - onCancel: optional function to cancel and close the form
+ *  - onCancel: optional function to cancel and go back
  */
 export default function FoodForm({
   initialData = {
@@ -32,7 +32,7 @@ export default function FoodForm({
   )
   const [error, setError] = useState('')
 
-  // If initialData changes (e.g., switching from “edit” to “add”), reset form fields
+  // When initialData changes (e.g., switching from edit to add), reset fields
   useEffect(() => {
     setName(initialData.name || '')
     setBrand(initialData.brand || '')
@@ -55,13 +55,13 @@ export default function FoodForm({
       .map((l) => l.trim())
       .filter(Boolean)
 
-    // Validate required fields
+    // Validate required fields (name, brand, weight)
     if (!name || !brand || !weight) {
       setError('Please fill in name, brand, and weight')
       return
     }
 
-    // Call onSubmit with number-converted weight and arrays for specs & links
+    // Call onSubmit with number-converted weight e arrays para specs & links
     onSubmit({
       name,
       brand,
@@ -72,15 +72,9 @@ export default function FoodForm({
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="bg-white p-6 rounded shadow-md space-y-4 max-w-md mx-auto"
-    >
-      <h2 className="text-xl font-bold">
-        {initialData._id ? 'Edit Food' : 'Add Food'}
-      </h2>
-
-      {error && <p className="text-red-500">{error}</p>}
+    <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Error message */}
+      {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
       {/* Name field */}
       <div>
@@ -96,7 +90,7 @@ export default function FoodForm({
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
-          className="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="mt-1 block w-full max-w-xs mx-auto border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
@@ -114,7 +108,7 @@ export default function FoodForm({
           value={brand}
           onChange={(e) => setBrand(e.target.value)}
           required
-          className="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="mt-1 block w-full max-w-xs mx-auto border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
@@ -124,14 +118,14 @@ export default function FoodForm({
           htmlFor="food-specs"
           className="block text-sm font-medium text-gray-700"
         >
-          Specifications (comma separated)
+          Specifications
         </label>
         <input
           id="food-specs"
           type="text"
           value={specifications}
           onChange={(e) => setSpecifications(e.target.value)}
-          className="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="mt-1 block w-full max-w-xs mx-auto border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
@@ -141,7 +135,7 @@ export default function FoodForm({
           htmlFor="food-weight"
           className="block text-sm font-medium text-gray-700"
         >
-          Weight (grams)
+          Weight
         </label>
         <input
           id="food-weight"
@@ -149,7 +143,7 @@ export default function FoodForm({
           value={weight}
           onChange={(e) => setWeight(e.target.value)}
           required
-          className="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="mt-1 block w-full max-w-xs mx-auto border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
@@ -159,30 +153,30 @@ export default function FoodForm({
           htmlFor="food-links"
           className="block text-sm font-medium text-gray-700"
         >
-          Buy Links (comma separated)
+          Buy Links
         </label>
         <input
           id="food-links"
           type="text"
           value={buyLinks}
           onChange={(e) => setBuyLinks(e.target.value)}
-          className="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="mt-1 block w-full max-w-xs mx-auto border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
       {/* Buttons */}
-      <div className="flex space-x-2">
+      <div className="flex justify-center space-x-4 mt-6">
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
         >
-          {initialData._id ? 'Update Food' : 'Create Food'}
+          Add
         </button>
         {onCancel && (
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400"
+            className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400"
           >
             Cancel
           </button>
