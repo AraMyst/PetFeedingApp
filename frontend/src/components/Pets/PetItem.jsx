@@ -3,11 +3,15 @@ import React from 'react'
 
 /**
  * PetItem displays information about a single pet:
- *  - Image, Name, Age, Allergies, Consumption, Food name
+ *  - Image, Name, Age, Allergies, Consumption, Food name (if assigned)
  *  - Only a “Delete” button at the bottom (no Edit)
  *  - Cream-colored background (#F3CF9F) with rounded corners
  *  - Full height (h-full) so that grid’s align-items: stretch makes all cards in a row equal height
  *  - The image is centered inside a fixed-height container
+ *
+ * Props:
+ *  - pet: object with { _id, name, age, allergies, gramsPerMeal, mealsPerDay, food, image }
+ *  - onDelete(petId): function to delete this pet
  */
 export default function PetItem({ pet, onDelete }) {
   const {
@@ -17,9 +21,12 @@ export default function PetItem({ pet, onDelete }) {
     allergies = [],
     gramsPerMeal,
     mealsPerDay,
-    food = {},
-    image, // e.g. "DogYoung"
+    food,   // note: do not default to {} here, because pet.food may be null
+    image,  // e.g. "DogYoung"
   } = pet
+
+  // Safely extract foodName only if food is non-null
+  const foodName = food && food.name ? food.name : null
 
   return (
     <div className="h-full bg-[#F3CF9F] rounded-lg shadow-sm overflow-hidden flex flex-col justify-between">
@@ -40,14 +47,18 @@ export default function PetItem({ pet, onDelete }) {
           <p className="text-sm text-gray-500 mb-1">
             Age: {age} year{age !== 1 ? 's' : ''}
           </p>
+
           {allergies.length > 0 && (
             <p className="text-sm mb-1">Allergies: {allergies.join(', ')}</p>
           )}
+
           <p className="text-sm mb-1">
             Consumption: {gramsPerMeal}g per meal × {mealsPerDay} meal
             {mealsPerDay !== 1 ? 's' : ''}
           </p>
-          {food.name && <p className="text-sm">Food: {food.name}</p>}
+
+          {/* Only render the food line if foodName is non-null */}
+          {foodName && <p className="text-sm">Food: {foodName}</p>}
         </div>
 
         {/* Only “Delete” button (no Edit) */}
