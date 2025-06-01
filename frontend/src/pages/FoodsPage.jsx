@@ -1,3 +1,4 @@
+// src/pages/FoodsPage.jsx
 import React, { useEffect } from 'react'
 import { useFoods } from '../hooks/useFoods'
 import FoodList from '../components/Foods/FoodList'
@@ -86,13 +87,12 @@ export default function FoodsPage() {
       {/*
         Main content with custom top padding so that the fixed header
         does not overlap the Food illustration. 
-        .main-content = padding-top: 5rem (80px) defined in index.css.
+        .main-content = padding-top: 4rem (64px) defined in index.css.
       */}
       <main className="main-content px-4 pb-8 max-w-5xl mx-auto">
         {/*
           Always-visible section:
           - A container to center the Food illustration and the Add New Food button.
-          - We no longer need mt-12 here because .main-content already pushes content down.
           - mb-8 for bottom spacing below the illustration.
         */}
         <div className="flex flex-col items-center mb-8">

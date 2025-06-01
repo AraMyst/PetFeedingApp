@@ -3,8 +3,8 @@ import React from 'react'
 /**
  * FoodItem displays information about a single food:
  *  - Name, brand, weight, specs, buy link
- *  - “Edit” and “Delete” buttons at bottom, spaced apart
- *  - Cream-colored background (#F3CF9F) with rounded corners
+ *  - “Edit” and “Delete” buttons at bottom, spaced farther apart
+ *  - Cream-colored background (#F5F1E8) with rounded corners
  *  - Full height (h-full) so that grid’s align-items: stretch
  *    makes all cards in the same row equal height
  */
@@ -16,7 +16,7 @@ export default function FoodItem({ food, onEdit, onDelete }) {
       : null
 
   return (
-    <div className="h-full bg-[#F3CF9F] rounded-lg shadow-sm p-4 flex flex-col justify-between">
+    <div className="h-full bg-[#F5F1E8] rounded-lg shadow-sm p-4 flex flex-col justify-between">
       <div>
         <h3 className="text-lg font-semibold mb-1">{food.name}</h3>
         <p className="text-sm text-gray-600 mb-1">{food.brand}</p>
@@ -52,9 +52,9 @@ export default function FoodItem({ food, onEdit, onDelete }) {
         * Edit/Delete buttons:
         * - mt-4 to add spacing above the buttons
         * - flex justify-center to center them
-        * - space-x-4 to separate “Edit” and “Delete”
+        * - space-x-6 to increase space between “Edit” and “Delete”
         */}
-      <div className="mt-4 flex justify-center space-x-4">
+      <div className="mt-4 flex justify-center space-x-6">
         <button
           onClick={() => onEdit(food)}
           className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400"
