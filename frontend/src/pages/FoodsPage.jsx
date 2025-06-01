@@ -1,4 +1,3 @@
-// src/pages/FoodsPage.jsx
 import React, { useEffect } from 'react'
 import { useFoods } from '../hooks/useFoods'
 import FoodList from '../components/Foods/FoodList'
@@ -59,9 +58,8 @@ export default function FoodsPage() {
 
   return (
     <div className="bg-[#DBF3F6] min-h-screen">
-      {/*
-        Fixed header with logo linking to Dashboard and logout button.
-        - Height: 4rem (h-16) = 64px total.
+      {/* Fixed header with logo linking to Dashboard and logout button.
+          Height: 4rem (h-16) = 64px total.
       */}
       <header className="fixed top-0 left-0 w-full bg-[#DBF3F6] shadow-sm z-10 h-16">
         <div className="h-full flex items-center justify-between px-4">
@@ -84,17 +82,16 @@ export default function FoodsPage() {
         </div>
       </header>
 
-      {/*
-        Main content with padding-top equal to header height (16 = 4rem = 64px).
-        This ensures nothing is hidden behind the fixed header.
+      {/* Main content with padding-top equal to header height (16 = 4rem = 64px).
+          This ensures nothing is hidden behind the fixed header.
       */}
       <main className="pt-16 px-4 pb-8 max-w-5xl mx-auto">
         {/*
           Always-visible section:
-          - mt-8 to push our “Food” illustration down a bit below the header.
+          - mt-12 to push our “Food” illustration further down below the header.
           - mb-8 for bottom spacing.
         */}
-        <div className="flex flex-col items-center mt-8 mb-8">
+        <div className="flex flex-col items-center mt-12 mb-8">
           <img
             src="/assets/images/Food.png"
             alt="Food Illustration"

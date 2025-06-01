@@ -14,7 +14,7 @@ export default function FoodItem({ food, onEdit, onDelete }) {
       : null
 
   return (
-    <div className="bg-[#F5F1E8] rounded-lg shadow-md p-4 flex flex-col justify-between">
+    <div className="bg-[#F5F1E8] rounded-lg shadow-md p-4 flex flex-col justify-between aspect-square">
       <div>
         <h3 className="text-lg font-semibold mb-1">{food.name}</h3>
         <p className="text-sm text-gray-600 mb-1">{food.brand}</p>
@@ -26,10 +26,10 @@ export default function FoodItem({ food, onEdit, onDelete }) {
           </p>
         )}
 
-        {/* 
+        {/*
           Always render a “Buy” link:
-          - If the user forneceu um buyLink, usa o primeiro.
-          - Senão, faz pesquisa padrão na Amazon pelo nome do alimento. 
+          - If the user provided a buyLink, use the first.
+          - Otherwise, perform a default Amazon search for the food name.
         */}
         <div className="mt-2 mb-4">
           <a
@@ -48,9 +48,9 @@ export default function FoodItem({ food, onEdit, onDelete }) {
 
       {/**
         * Edit/Delete buttons:
-        * - mt-4 para espaçar acima dos botões
-        * - flex justify-center para centralizar
-        * - space-x-4 para afastar “Edit” e “Delete”
+        * - mt-4 to add spacing above the buttons
+        * - flex justify-center to center them
+        * - space-x-4 to separate “Edit” and “Delete”
         */}
       <div className="mt-4 flex justify-center space-x-4">
         <button
