@@ -13,7 +13,7 @@ import FoodsPage from './pages/FoodsPage'
 import FoodCreatePage from './pages/FoodCreatePage'
 
 import PetsPage from './pages/PetsPage'
-import PetsCreatePage from './pages/PetsCreatePage'  // Import the PetsCreatePage component
+import PetsCreatePage from './pages/PetsCreatePage'  // Ensure this exists
 
 import NotificationsPage from './pages/NotificationsPage'
 import './index.css'

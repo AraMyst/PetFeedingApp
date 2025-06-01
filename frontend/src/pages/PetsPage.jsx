@@ -8,7 +8,7 @@ import { useAuth } from '../contexts/AuthContext'
 /**
  * PetsPage displays:
  *  - A fixed header with a logo linking to Dashboard and a logout button
- *  - Below the header: a Pets illustration + “Add New Pet” button (always visible)
+ *  - Below the header: a Pet illustration + “Add New Pet” button (always visible)
  *  - If no pets exist (or an error occurred), show “No pets registered.”
  *  - Otherwise, show a responsive grid of PetItem cards under the image/button
  *  - Only “Add” and “Delete” actions (no “Edit”)
@@ -82,18 +82,18 @@ export default function PetsPage() {
 
       {/*
         Main content with custom top padding so that the fixed header
-        does not overlap the Pets illustration.
+        does not overlap the Pet illustration.
         .main-content = padding-top: 3rem (48px) defined in index.css.
       */}
       <main className="main-content px-4 pb-8 max-w-5xl mx-auto">
         {/*
           Always-visible section:
-          - A container to center the Pets illustration and the Add New Pet button.
+          - A container to center the Pet illustration and the Add New Pet button.
           - Use mb-16 for extra vertical space before the card grid.
         */}
         <div className="flex flex-col items-center mb-16">
           <img
-            src="/assets/images/Pets.png"   {/* Updated to match actual filename: Pets.png */}
+            src="/assets/images/Pets.png"
             alt="Pet Illustration"
             className="w-[200px] h-[200px] mb-4 object-contain"
           />
