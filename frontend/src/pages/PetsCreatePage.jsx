@@ -63,10 +63,10 @@ export default function PetsCreatePage() {
         </div>
       </header>
 
-      {/* 
-        pt-16 pushes the content below the fixed header so the Pets image is not cut off.
+      {/*
+        Increase pt to 20 so the 200×200 Pets.png sits well below the fixed header.
       */}
-      <main className="pt-16 flex flex-col items-center px-4">
+      <main className="pt-20 flex flex-col items-center px-4">
         <div className="w-full max-w-xs bg-white rounded-lg shadow-md p-6 mt-8 mx-auto">
           {/* Pets illustration, sized to 200×200 */}
           <div className="flex justify-center mb-4">

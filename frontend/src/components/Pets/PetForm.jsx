@@ -26,6 +26,11 @@ import PetImageSelector from './PetImageSelector'
  *  - ageCategory (young | adult | old)
  *  - weightCategory (thin | medium | fat)
  *  - age (computed in years, converting months ‐ see below)
+ *
+ * Changes:
+ *  - All selector‐images (animal, age, weight) are now 80×80px with internal padding.
+ *  - “Allergies” label no longer mentions commas.
+ *  - Each grid wrapper has `px-2` so cards don’t touch form edges.
  */
 export default function PetForm({ foods = [], onSubmit, onCancel }) {
   const [name, setName] = useState('')
@@ -155,7 +160,7 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
           <label className="block text-sm font-medium text-center">
             Select Age Category *
           </label>
-          <div className="grid grid-cols-3 gap-4 mt-2">
+          <div className="grid grid-cols-3 gap-4 mt-2 px-2">
             {['young', 'adult', 'old'].map((cat) => {
               const capitalAnimal =
                 animalType.charAt(0).toUpperCase() + animalType.slice(1)
@@ -168,14 +173,14 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
                     setAgeCategory(cat)
                     setAgeValue('')
                   }}
-                  className={`border rounded overflow-hidden cursor-pointer p-1 ${
+                  className={`border rounded overflow-hidden cursor-pointer bg-white p-2 ${
                     ageCategory === cat ? 'ring-2 ring-blue-500' : ''
                   }`}
                 >
                   <img
                     src={imageSrc}
                     alt={`${capitalAnimal} ${capitalCat}`}
-                    className="w-[120px] h-[120px] object-contain mx-auto"
+                    className="w-[80px] h-[80px] object-contain mx-auto"
                   />
                   <p className="text-center text-sm capitalize mt-1">
                     {ageLabelMap[cat]}
@@ -223,7 +228,7 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
           <label className="block text-sm font-medium text-center">
             Select Weight *
           </label>
-          <div className="grid grid-cols-3 gap-4 mt-2">
+          <div className="grid grid-cols-3 gap-4 mt-2 px-2">
             {['thin', 'medium', 'fat'].map((w) => {
               const capitalAnimal =
                 animalType.charAt(0).toUpperCase() + animalType.slice(1)
@@ -233,14 +238,14 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
                 <div
                   key={w}
                   onClick={() => setWeightCategory(w)}
-                  className={`border rounded overflow-hidden cursor-pointer p-1 ${
+                  className={`border rounded overflow-hidden cursor-pointer bg-white p-2 ${
                     weightCategory === w ? 'ring-2 ring-blue-500' : ''
                   }`}
                 >
                   <img
                     src={imageSrc}
                     alt={`${capitalAnimal} ${capitalWeight}`}
-                    className="w-[120px] h-[120px] object-contain mx-auto"
+                    className="w-[80px] h-[80px] object-contain mx-auto"
                   />
                   <p className="text-center text-sm capitalize mt-1">
                     {weightLabelMap[w]}
@@ -254,9 +259,7 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
 
       {/* 6) Allergies */}
       <div>
-        <label className="block text-sm font-medium text-center">
-          Allergies, comma separated
-        </label>
+        <label className="block text-sm font-medium text-center">Allergies</label>
         <input
           type="text"
           value={allergies}

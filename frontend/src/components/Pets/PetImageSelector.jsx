@@ -7,7 +7,8 @@ import React from 'react'
  *   - Cat
  *   - Others
  *
- * The image size is now 120×120 pixels to remain proportional.
+ * Each selector‐card now has some padding so it does not touch the container edges,
+ * and every image is reduced to 80×80px (so three‐across will fit comfortably).
  *
  * Props:
  *   - selected: string   // 'dog' | 'cat' | 'others'
@@ -24,11 +25,11 @@ export default function PetImageSelector({ selected, onSelect }) {
   ]
 
   return (
-    <div className="grid grid-cols-3 gap-4 mt-2">
+    <div className="grid grid-cols-3 gap-4 mt-2 px-2">
       {imageOptions.map((opt) => (
         <div
           key={opt.value}
-          className={`border rounded overflow-hidden cursor-pointer p-1 ${
+          className={`border rounded overflow-hidden cursor-pointer bg-white p-2 ${
             selected === opt.value ? 'ring-2 ring-blue-500' : ''
           }`}
           onClick={() => onSelect(opt.value)}
@@ -36,7 +37,7 @@ export default function PetImageSelector({ selected, onSelect }) {
           <img
             src={opt.src}
             alt={opt.alt}
-            className="w-[120px] h-[120px] object-contain mx-auto"
+            className="w-[80px] h-[80px] object-contain mx-auto"
           />
           <p className="text-center text-sm capitalize mt-1">{opt.alt}</p>
         </div>
