@@ -10,7 +10,7 @@ import { useAuth } from '../contexts/AuthContext'
  *  - A fixed header with a logo linking to Dashboard and a logout button
  *  - Below the header: a Food illustration + “Add New Food” button (always visible)
  *  - If no foods exist (or an error occurred), show “No foods registered.”
- *  - Otherwise, show a centered 3-column grid of FoodItem cards under the image/button
+ *  - Otherwise, show a responsive grid of FoodItem cards under the image/button
  *  - “Edit” button on each card navigates to /foods/:id/edit
  */
 export default function FoodsPage() {
@@ -34,11 +34,12 @@ export default function FoodsPage() {
     navigate(`/foods/${food._id}/edit`)
   }
 
-  // Delete a food, then reload the list
-  // (actual confirmation happens in FoodItem.handleDeleteClick)
+  // Delete a food after confirmation, then reload list
   const handleDelete = async (id) => {
-    await deleteFood(id)
-    await fetchFoods()
+    if (window.confirm('Are you sure you want to delete this food?')) {
+      await deleteFood(id)
+      await fetchFoods()
+    }
   }
 
   // Handle logout and redirect to login
@@ -58,9 +59,9 @@ export default function FoodsPage() {
 
   return (
     <div className="bg-[#DBF3F6] min-h-screen">
-      {/*
+      {/* 
         Fixed header with logo linking to Dashboard and logout button.
-        Height: 4rem (h-16 = 64px).
+        Height: 4rem (h-16) = 64px total.
       */}
       <header className="fixed top-0 left-0 w-full bg-[#DBF3F6] shadow-sm z-10 h-16">
         <div className="h-full flex items-center justify-between px-4">
@@ -84,15 +85,17 @@ export default function FoodsPage() {
       </header>
 
       {/*
-        Main content uses .main-content to push it below the fixed header.
-        .main-content = padding-top: 3rem (48px), defined in index.css.
+        Main content with custom top padding so that the fixed header
+        does not overlap the Food illustration. 
+        .main-content = padding-top: 4rem (64px) defined in index.css.
       */}
-      <main className="main-content px-4 pb-8">
+      <main className="main-content px-4 pb-8 max-w-5xl mx-auto">
         {/*
-          Food illustration and “Add New Food” button.
-          mb-12 gives extra vertical space (3rem = 48px) before showing cards.
+          Always-visible section:
+          - A container to center the Food illustration and the Add New Food button.
+          - mb-8 for bottom spacing below the illustration.
         */}
-        <div className="flex flex-col items-center mb-12">
+        <div className="flex flex-col items-center mb-8">
           <img
             src="/assets/images/Food.png"
             alt="Food Illustration"
@@ -108,19 +111,16 @@ export default function FoodsPage() {
 
         {/*
           If there is an error or no foods, show “No foods registered.”
-          Otherwise, wrap the fixed 3-column grid in a max-width container (960px)
-          and center it with mx-auto.
+          Otherwise, display the responsive grid of FoodItem cards.
         */}
         {(!foods || foods.length === 0 || error) ? (
           <p className="text-center text-gray-500">No foods registered.</p>
         ) : (
-          <div className="max-w-[960px] mx-auto">
-            <FoodList
-              foods={foods}
-              onEdit={handleEdit}
-              onDelete={handleDelete}
-            />
-          </div>
+          <FoodList
+            foods={foods}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
         )}
       </main>
     </div>
