@@ -7,8 +7,9 @@ import { apiClient } from '../utils/apiClient'
  */
 export async function getFoods() {
   // Call GET /api/foods
-  const foodsArray = await apiClient.get('/api/foods')
-  return Array.isArray(foodsArray) ? foodsArray : []
+  const response = await apiClient.get('/api/foods')
+  // Assuming apiClient wraps axios/fetch and returns { data: [...] }
+  return response.data
 }
 
 /**
@@ -18,8 +19,8 @@ export async function getFoods() {
  */
 export async function getFoodById(id) {
   // Call GET /api/foods/:id
-  const food = await apiClient.get(`/api/foods/${id}`)
-  return food
+  const response = await apiClient.get(`/api/foods/${id}`)
+  return response.data
 }
 
 /**
@@ -29,20 +30,20 @@ export async function getFoodById(id) {
  */
 export async function createFood(foodData) {
   // Call POST /api/foods
-  const createdFood = await apiClient.post('/api/foods', foodData)
-  return createdFood
+  const response = await apiClient.post('/api/foods', foodData)
+  return response.data
 }
 
 /**
  * Update an existing food entry.
  * @param {string} id - Food ID
- * @param {{ name?: string, brand?: string, specifications?: string[], weight?: number, buyLinks?: string[] }} foodData
+ * @param {{ name?: string, brand?: string, specifications?: string[], weight?: number, buyLinks?: string[], isOpen?: boolean, openedAt?: string|null }} foodData
  * @returns {Promise<Object>} - Resolves with the updated food object.
  */
 export async function updateFood(id, foodData) {
   // Call PUT /api/foods/:id
-  const updatedFood = await apiClient.put(`/api/foods/${id}`, foodData)
-  return updatedFood
+  const response = await apiClient.put(`/api/foods/${id}`, foodData)
+  return response.data
 }
 
 /**
@@ -53,4 +54,15 @@ export async function updateFood(id, foodData) {
 export async function deleteFood(id) {
   // Call DELETE /api/foods/:id
   await apiClient.delete(`/api/foods/${id}`)
+}
+
+/**
+ * Toggle open/close state for a given food item.
+ * @param {string} id - Food ID
+ * @returns {Promise<Object>} - Resolves with the updated food object.
+ */
+export async function toggleOpenFood(id) {
+  // Call PATCH /api/foods/:id/toggle-open
+  const response = await apiClient.patch(`/api/foods/${id}/toggle-open`)
+  return response.data
 }

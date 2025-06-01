@@ -11,7 +11,7 @@ import { useAuth } from '../contexts/AuthContext'
  *  - Below the header: a Food illustration + “Add New Food” button (always visible)
  *  - If no foods exist (or an error occurred), show “No foods registered.”
  *  - Otherwise, show a responsive grid of FoodItem cards under the image/button
- *  - Only “Add” and “Delete” actions (no “Edit”)
+ *  - Supports Delete (via onDelete) and Toggle Open/Close inside each FoodItem
  */
 export default function FoodsPage() {
   const { foods, loading, error, deleteFood, fetchFoods } = useFoods()
@@ -105,11 +105,6 @@ export default function FoodsPage() {
           </button>
         </div>
 
-        {/*
-          If there is an error or no foods, show “No foods registered.”
-          Otherwise, display the responsive grid of FoodItem cards.
-          We only pass onDelete (no onEdit).
-        */}
         {(!foods || foods.length === 0 || error) ? (
           <p className="text-center text-gray-500">No foods registered.</p>
         ) : (
