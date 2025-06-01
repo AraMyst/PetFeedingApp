@@ -1,130 +1,108 @@
-// src/pages/FoodsPage.jsx
-import React, { useEffect } from 'react'
+// src/pages/DashboardPage.jsx
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useFoods } from '../hooks/useFoods'
-import FoodList from '../components/Foods/FoodList'
-import { useNavigate, useLocation, Link } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
+import { usePets } from '../hooks/usePets'
+import { useNotifications } from '../hooks/useNotifications'
 
 /**
- * FoodsPage displays:
- *  - A fixed header with a logo linking to Dashboard and a logout button
- *  - Below the header: a Food illustration + “Add New Food” button (always visible)
- *  - If no foods exist (or an error occurred), show “No foods registered.”
- *  - Otherwise, show a fixed 3-column grid of FoodItem cards under the image/button
- *  - “Edit” button on each card navigates to /foods/:id/edit
+ * DashboardPage displays three cards:
+ *  - Pets: shows number of registered pets and a button to manage pets
+ *  - Food: shows number of registered foods and a button to manage foods
+ *  - Notifications: shows number of alerts and a button to manage notifications
+ *
+ * Uses a flex container:
+ *  - Each card is w-full on very small screens (stacked)
+ *  - w-1/2 on small+ screens
+ *  - w-1/3 on medium+ screens (side by side)
+ *
+ * The background matches the login/register pages (#DBF3F6).
+ * Only a very small rectangular logo image is displayed at the top.
  */
-export default function FoodsPage() {
-  const { foods, loading, error, deleteFood, fetchFoods } = useFoods()
-  const { logout } = useAuth()
+export default function DashboardPage() {
   const navigate = useNavigate()
-  const location = useLocation()
+  const { foods, loading: loadingFoods } = useFoods()
+  const { pets, loading: loadingPets } = usePets()
+  const { alerts, loading: loadingAlerts } = useNotifications()
 
-  // Whenever the path is /foods, reload the list
-  useEffect(() => {
-    fetchFoods()
-  }, [location.pathname, fetchFoods])
-
-  // Navigate to the create form
-  const handleAddNew = () => {
-    navigate('/foods/new')
-  }
-
-  // Navigate to the edit screen for a specific food
-  const handleEdit = (food) => {
-    navigate(`/foods/${food._id}/edit`)
-  }
-
-  // Delete a food after confirmation, then reload list
-  const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this food?')) {
-      await deleteFood(id)
-      await fetchFoods()
-    }
-  }
-
-  // Handle logout and redirect to login
-  const handleLogout = () => {
-    logout()
-    navigate('/login', { replace: true })
-  }
-
-  // While data is loading, show “Loading foods...”
-  if (loading) {
+  // While any data is loading, show a centered loading message
+  if (loadingFoods || loadingPets || loadingAlerts) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-[#DBF3F6]">
-        <p className="text-gray-500">Loading foods...</p>
+        <p className="text-gray-500">Loading dashboard...</p>
       </div>
     )
   }
 
   return (
-    <div className="bg-[#DBF3F6] min-h-screen">
-      {/* 
-        Fixed header with logo linking to Dashboard and logout button.
-        Height: 4rem (h-16 = 64px).
-      */}
-      <header className="fixed top-0 left-0 w-full bg-[#DBF3F6] shadow-sm z-10 h-16">
-        <div className="h-full flex items-center justify-between px-4">
-          {/* Logo that links back to Dashboard */}
-          <Link to="/dashboard">
-            <img
-              src="/assets/images/logo.png"
-              alt="App Logo"
-              className="w-[150px] h-[50px] object-contain"
-            />
-          </Link>
-
-          {/* Discreet logout button in turquoise-blue */}
-          <button
-            onClick={handleLogout}
-            className="px-3 py-1 bg-teal-400 text-white rounded hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-300 text-sm"
-          >
-            Logout
-          </button>
-        </div>
-      </header>
+    <div className="bg-[#DBF3F6] min-h-screen py-8 px-4">
+      {/* Very small rectangular logo at the top */}
+      <div className="flex justify-center mb-8">
+        <img
+          src="/assets/images/logo.png"
+          alt="App Logo"
+          className="w-32 h-8 object-contain" /* very small rectangle */
+        />
+      </div>
 
       {/*
-        Main content uses .main-content to push it below the fixed header.
-        .main-content = padding-top: 3rem (48px), defined in index.css.
+        Flex container:
+        - flex-wrap to allow cards to wrap on small screens
+        - gap-6 for spacing between cards
+        - max-w-5xl mx-auto to center and constrain width
       */}
-      <main className="main-content px-4 pb-8">
-        {/*
-          Food illustration and “Add New Food” button.
-          mb-12 gives extra vertical space before the cards.
-        */}
-        <div className="flex flex-col items-center mb-12">
+      <div className="flex flex-wrap justify-center gap-6 max-w-5xl mx-auto">
+        {/* Section: Pets */}
+        <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center w-full sm:w-1/2 md:w-1/3">
+          <h2 className="text-xl font-semibold mb-4">Pets</h2>
           <img
-            src="/assets/images/Food.png"
-            alt="Food Illustration"
-            className="w-[200px] h-[200px] mb-4 object-contain"
+            src="/assets/images/Pets.png"
+            alt="Pets illustration"
+            className="w-16 h-16 mb-4 object-contain" /* 64×64px */
           />
+          <p className="text-2xl font-bold mb-4">{pets.length}</p>
           <button
-            onClick={handleAddNew}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            onClick={() => navigate('/pets')}
+            className="mt-auto py-2 px-6 bg-green-500 hover:bg-green-600 text-white rounded-full shadow transform hover:-translate-y-1 transition-all"
           >
-            Add New Food
+            Manage Pets
           </button>
         </div>
 
-        {/*
-          If there is an error or no foods, show “No foods registered.”
-          Otherwise, center a fixed 3-column grid of FoodItem cards:
-            - Container width is max 960px, so 3 columns (~300px each) are centered
-            - gap-6 = 1.5rem (24px) between cards
-        */}
-        {(!foods || foods.length === 0 || error) ? (
-          <p className="text-center text-gray-500">No foods registered.</p>
-        ) : (
-          <div className="max-w-[960px] mx-auto">
-            <FoodList
-              foods={foods}
-              onEdit={handleEdit}
-              onDelete={handleDelete}
-            />
-          </div>
-        )}
-      </main>
+        {/* Section: Food */}
+        <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center w-full sm:w-1/2 md:w-1/3">
+          <h2 className="text-xl font-semibold mb-4">Food</h2>
+          <img
+            src="/assets/images/Food.png"
+            alt="Food illustration"
+            className="w-16 h-16 mb-4 object-contain" /* 64×64px */
+          />
+          <p className="text-2xl font-bold mb-4">{foods.length}</p>
+          <button
+            onClick={() => navigate('/foods')}
+            className="mt-auto py-2 px-6 bg-green-500 hover:bg-green-600 text-white rounded-full shadow transform hover:-translate-y-1 transition-all"
+          >
+            Manage Foods
+          </button>
+        </div>
+
+        {/* Section: Notifications */}
+        <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center w-full sm:w-1/2 md:w-1/3">
+          <h2 className="text-xl font-semibold mb-4">Notifications</h2>
+          <img
+            src="/assets/images/Notifications.png"
+            alt="Notifications illustration"
+            className="w-16 h-16 mb-4 object-contain" /* 64×64px */
+          />
+          <p className="text-2xl font-bold mb-4">{alerts.length}</p>
+          <button
+            onClick={() => navigate('/notifications')}
+            className="mt-auto py-2 px-6 bg-green-500 hover:bg-green-600 text-white rounded-full shadow transform hover:-translate-y-1 transition-all"
+          >
+            Manage Notifications
+          </button>
+        </div>
+      </div>
     </div>
   )
 }
