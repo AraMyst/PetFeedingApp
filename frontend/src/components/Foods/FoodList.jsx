@@ -1,3 +1,4 @@
+// src/components/Foods/FoodList.jsx
 import React from 'react'
 import FoodItem from './FoodItem'
 
@@ -8,14 +9,13 @@ import FoodItem from './FoodItem'
  *   - gap: 1rem between rows and columns
  *   - align-items: stretch so all cards in a row share the same height
  */
-export default function FoodList({ foods, onEdit, onDelete }) {
+export default function FoodList({ foods, onDelete }) {
   return (
     <div className="food-grid">
       {foods.map((food) => (
         <FoodItem
           key={food._id}
           food={food}
-          onEdit={onEdit}
           onDelete={onDelete}
         />
       ))}

@@ -1,15 +1,15 @@
+// src/components/Foods/FoodItem.jsx
 import React from 'react'
 
 /**
  * FoodItem displays information about a single food:
  *  - Name, brand, weight, specs, buy link
- *  - “Edit” and “Delete” buttons at bottom, spaced farther apart
+ *  - Only a “Delete” button at the bottom (no Edit)
  *  - Cream-colored background (#F3CF9F) with rounded corners
  *  - Full height (h-full) so that grid’s align-items: stretch
  *    makes all cards in the same row equal height
  */
-export default function FoodItem({ food, onEdit, onDelete }) {
-  // Determine primary buy link or fallback to default (Amazon search)
+export default function FoodItem({ food, onDelete }) {
   const primaryLink =
     Array.isArray(food.buyLinks) && food.buyLinks.length > 0
       ? food.buyLinks[0]
@@ -28,11 +28,6 @@ export default function FoodItem({ food, onEdit, onDelete }) {
           </p>
         )}
 
-        {/*
-          Always render a “Buy” link:
-          - If the user provided a buyLink, use the first.
-          - Otherwise, perform a default Amazon search for the food name.
-        */}
         <div className="mt-2 mb-4">
           <a
             href={
@@ -48,23 +43,12 @@ export default function FoodItem({ food, onEdit, onDelete }) {
         </div>
       </div>
 
-      {/**
-        * Edit/Delete buttons:
-        * - mt-4 to add spacing above the buttons
-        * - flex justify-center to center them
-        * - space-x-6 to increase space between “Edit” and “Delete”
-        */}
-      <div className="mt-4 flex justify-center space-x-6">
-        <button
-          onClick={() => onEdit(food)}
-          className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400"
-        >
-          Edit
-        </button>
+      {/* Only “Delete” button (no Edit) */}
+      <div className="mt-4 flex justify-center">
         <button
           onClick={() => onDelete(food._id)}
           className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 text-sm focus:outline-none focus:ring-2 focus:ring-red-400"
-        F>
+        >
           Delete
         </button>
       </div>

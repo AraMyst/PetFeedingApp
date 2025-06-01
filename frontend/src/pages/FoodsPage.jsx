@@ -11,7 +11,7 @@ import { useAuth } from '../contexts/AuthContext'
  *  - Below the header: a Food illustration + “Add New Food” button (always visible)
  *  - If no foods exist (or an error occurred), show “No foods registered.”
  *  - Otherwise, show a responsive grid of FoodItem cards under the image/button
- *  - “Edit” button on each card navigates to /foods/:id/edit
+ *  - Only “Add” and “Delete” actions (no “Edit”)
  */
 export default function FoodsPage() {
   const { foods, loading, error, deleteFood, fetchFoods } = useFoods()
@@ -27,11 +27,6 @@ export default function FoodsPage() {
   // Navigate to the create form
   const handleAddNew = () => {
     navigate('/foods/new')
-  }
-
-  // Navigate to the edit screen for a specific food
-  const handleEdit = (food) => {
-    navigate(`/foods/${food._id}/edit`)
   }
 
   // Delete a food after confirmation, then reload list
@@ -94,9 +89,9 @@ export default function FoodsPage() {
         {/*
           Always-visible section:
           - A container to center the Food illustration and the Add New Food button.
-          - mb-12 for bottom spacing (instead of mb-8) to push the cards further down.
+          - Changed mb-8 → mb-16 for extra vertical space before the card grid.
         */}
-        <div className="flex flex-col items-center mb-12">
+        <div className="flex flex-col items-center mb-16">
           <img
             src="/assets/images/Food.png"
             alt="Food Illustration"
@@ -113,13 +108,13 @@ export default function FoodsPage() {
         {/*
           If there is an error or no foods, show “No foods registered.”
           Otherwise, display the responsive grid of FoodItem cards.
+          We only pass onDelete (no onEdit).
         */}
         {(!foods || foods.length === 0 || error) ? (
           <p className="text-center text-gray-500">No foods registered.</p>
         ) : (
           <FoodList
             foods={foods}
-            onEdit={handleEdit}
             onDelete={handleDelete}
           />
         )}
