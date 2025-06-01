@@ -12,25 +12,32 @@ import { useAuth } from '../contexts/AuthContext'
  *   - If there was an error fetching, show an error message
  *   - If no foods exist (and no error), show “No foods registered.”
  *   - Otherwise, show a responsive grid of FoodItem cards
- *   - Supports Delete (via onDelete) and Toggle Open/Close inside each FoodItem
+ *   - Supports Delete and Toggle Open/Close through props
  */
 export default function FoodsPage() {
-  const { foods, loading, error, deleteFood, fetchFoods } = useFoods()
+  const {
+    foods,
+    loading,
+    error,
+    deleteFood,
+    fetchFoods,
+    toggleOpen
+  } = useFoods()
   const { logout } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
 
-  // Whenever the path is /foods (or changes), reload the list
+  // Whenever the path changes under /foods, reload the list
   useEffect(() => {
     fetchFoods()
   }, [location.pathname, fetchFoods])
 
-  // Navigate to the “create new food” form
+  // Navigate to the “create new food” page
   const handleAddNew = () => {
     navigate('/foods/new')
   }
 
-  // Delete a food after confirmation, then reload the list
+  // Delete a food after user confirmation, then reload the list
   const handleDelete = async (id) => {
     const message = 'PetPaunch App: Are you sure you want to delete this food?'
     if (window.confirm(message)) {
@@ -39,13 +46,13 @@ export default function FoodsPage() {
     }
   }
 
-  // Handle logout and redirect to login page
+  // Logout and redirect to login
   const handleLogout = () => {
     logout()
     navigate('/login', { replace: true })
   }
 
-  // While data is loading, show a loading state
+  // While loading, show a loading state
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-[#DBF3F6]">
@@ -59,7 +66,6 @@ export default function FoodsPage() {
       {/* Fixed header with logo linking to Dashboard and logout button */}
       <header className="fixed top-0 left-0 w-full bg-[#DBF3F6] shadow-sm z-10 h-16">
         <div className="h-full flex items-center justify-between px-4">
-          {/* Logo that links back to Dashboard */}
           <Link to="/dashboard">
             <img
               src="/assets/images/logo.png"
@@ -78,9 +84,9 @@ export default function FoodsPage() {
         </div>
       </header>
 
-      {/* Main content (with top padding so header doesn’t overlap) */}
+      {/* Main content (padding-top so header doesn’t overlap) */}
       <main className="main-content px-4 pb-8 max-w-5xl mx-auto">
-        {/* Always-visible section: illustration + “Add New Food” button */}
+        {/* Always-visible illustration + “Add New Food” button */}
         <div className="flex flex-col items-center mb-16">
           <img
             src="/assets/images/Food.png"
@@ -106,7 +112,11 @@ export default function FoodsPage() {
         {!error && (!foods || foods.length === 0) ? (
           <p className="text-center text-gray-500">No foods registered.</p>
         ) : (
-          <FoodList foods={foods} onDelete={handleDelete} />
+          <FoodList
+            foods={foods}
+            onDelete={handleDelete}
+            onToggle={toggleOpen}
+          />
         )}
       </main>
     </div>

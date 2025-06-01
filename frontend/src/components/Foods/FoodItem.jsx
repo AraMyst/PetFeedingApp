@@ -1,34 +1,29 @@
 // src/components/Foods/FoodItem.jsx
 import React from 'react'
 import { calculateDaysRemaining } from '../../utils/calculateDaysRemaining'
-import { useFoods } from '../../hooks/useFoods'
 
 /**
- * FoodItem displays information about a single food:
- *  - Name, brand, weight, specifications, buy link
- *  - Status: Open vs. Closed (uses food.isOpen and food.openedAt)
- *  - Button to toggle Open/Close
- *  - Only a “Delete” button at the bottom (no Edit)
- *  - Cream-colored background (#F3CF9F) with rounded corners
- *  - Full height (h-full) so that grid’s align-items: stretch makes all cards in the same row equal height
+ * FoodItem displays info about one food object:
+ *   - name, brand, weight, specs, buy link
+ *   - status: Open vs. Closed (food.isOpen, food.openedAt)
+ *   - button to toggle open/close (calls onToggle)
+ *   - “Delete” button at bottom (calls onDelete)
+ *   - cream‐colored background (#F3CF9F), rounded corners, full height
  *
  * Props:
- *  - food: the food object (must include _id, name, brand, weight, specifications, buyLinks, isOpen, openedAt)
- *  - onDelete(foodId): function to delete this food
+ *   - food: { _id, name, brand, weight, specifications, buyLinks, isOpen, openedAt }
+ *   - onDelete(foodId): function to delete this food
+ *   - onToggle(foodId): function to toggle open/close
  */
-export default function FoodItem({ food, onDelete }) {
-  const { toggleOpen } = useFoods()
-
+export default function FoodItem({ food, onDelete, onToggle }) {
   const primaryLink =
     Array.isArray(food.buyLinks) && food.buyLinks.length > 0
       ? food.buyLinks[0]
       : null
 
-  // Calculate days remaining if the package is open and if weight/specs let us do so.
+  // Calculate days remaining if open, openedAt, weight & specifications exist
   let daysRemaining = null
   if (food.isOpen && food.openedAt && food.weight && food.specifications) {
-    // Example: If specifications array contains ["50gPerMeal", "2MealsPerDay", ...],
-    // you could parse those values. Currently using a placeholder.
     daysRemaining = calculateDaysRemaining(
       food.weight,
       /* gramsPerMeal= */ 0,
@@ -36,14 +31,14 @@ export default function FoodItem({ food, onDelete }) {
     )
   }
 
-  // Format openedAt as a readable date string
+  // Format openedAt as localized date
   const openedAtDisplay = food.openedAt
     ? new Date(food.openedAt).toLocaleDateString()
     : null
 
-  const handleToggle = async () => {
+  const handleToggleClick = async () => {
     try {
-      await toggleOpen(food._id)
+      await onToggle(food._id)
     } catch (err) {
       console.error('Failed to toggle open/close:', err)
     }
@@ -81,7 +76,7 @@ export default function FoodItem({ food, onDelete }) {
           </a>
         </div>
 
-        {/* ─── Status & OpenedAt Info ─── */}
+        {/* ─── Status & Opened‐At Info ─── */}
         {food.isOpen ? (
           <div className="mb-2">
             <p className="text-sm text-green-700">
@@ -92,7 +87,6 @@ export default function FoodItem({ food, onDelete }) {
                 Opened at: {openedAtDisplay}
               </p>
             )}
-            {/* If you want to show daysRemaining, uncomment below */}
             {daysRemaining !== null && (
               <p className="text-sm text-red-600">
                 Days remaining: {daysRemaining}
@@ -107,7 +101,7 @@ export default function FoodItem({ food, onDelete }) {
 
         {/* ─── Toggle Open/Close Button ─── */}
         <button
-          onClick={handleToggle}
+          onClick={handleToggleClick}
           className={`mb-4 px-3 py-1 rounded text-white focus:outline-none focus:ring-2 ${
             food.isOpen
               ? 'bg-red-500 hover:bg-red-600 focus:ring-red-300'
@@ -118,7 +112,7 @@ export default function FoodItem({ food, onDelete }) {
         </button>
       </div>
 
-      {/* ─── Delete Button (always at the bottom) ─── */}
+      {/* ─── Delete Button at bottom ─── */}
       <div className="flex justify-center">
         <button
           onClick={handleDeleteClick}

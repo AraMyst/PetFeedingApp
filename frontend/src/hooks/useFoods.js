@@ -9,9 +9,7 @@ import {
 } from '../api/foods'
 
 /**
- * useFoods hook provides food data and CRUD operations, plus toggleOpen().
- * 
- * Returns an object containing:
+ * useFoods hook provides:
  *   - foods: array of food objects
  *   - loading: boolean
  *   - error: Error|null
@@ -41,7 +39,7 @@ export function useFoods() {
     }
   }, [])
 
-  // On mount (and whenever fetchFoods reference changes), load the list
+  // Load once on mount (and any time fetchFoods changes, which is never in practice)
   useEffect(() => {
     fetchFoods()
   }, [fetchFoods])
