@@ -2,32 +2,41 @@
 import React from 'react'
 
 /**
- * PetImageSelector displays a grid of images for the user to choose from.
- * @param {{
- *   selected: string,
- *   onSelect: (value: string) => void
- * }} props
+ * PetImageSelector now lets the user pick one of three animals:
+ *  - Dog
+ *  - Cat
+ *  - Others
+ * 
+ * Props:
+ *  - selected: string   // 'dog' | 'cat' | 'others'
+ *  - onSelect: (value: string) => void
+ *
+ * Expects to find these files under public/assets/images:
+ *   Dog.png, Cat.png, Others.png
  */
 export default function PetImageSelector({ selected, onSelect }) {
-  // Update this list with your actual image filenames in public/assets/images
   const imageOptions = [
-    { value: 'puppy', src: '/assets/images/puppy.jpg', alt: 'Puppy' },
-    { value: 'adult-dog', src: '/assets/images/adult-dog.jpg', alt: 'Adult Dog' },
-    { value: 'senior-dog', src: '/assets/images/senior-dog.jpg', alt: 'Senior Dog' },
-    // add more as needed
+    { value: 'dog', src: '/assets/images/Dog.png', alt: 'Dog' },
+    { value: 'cat', src: '/assets/images/Cat.png', alt: 'Cat' },
+    { value: 'others', src: '/assets/images/Others.png', alt: 'Others' },
   ]
 
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-3 gap-4 mt-2">
       {imageOptions.map((opt) => (
         <div
           key={opt.value}
-          className={`border rounded overflow-hidden cursor-pointer ${
+          className={`border rounded overflow-hidden cursor-pointer p-1 ${
             selected === opt.value ? 'ring-2 ring-blue-500' : ''
           }`}
           onClick={() => onSelect(opt.value)}
         >
-          <img src={opt.src} alt={opt.alt} className="w-full h-24 object-cover" />
+          <img
+            src={opt.src}
+            alt={opt.alt}
+            className="w-full h-20 object-contain"
+          />
+          <p className="text-center text-sm capitalize mt-1">{opt.alt}</p>
         </div>
       ))}
     </div>

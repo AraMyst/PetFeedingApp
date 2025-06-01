@@ -9,6 +9,7 @@ import PetForm from '../components/Pets/PetForm'
 /**
  * PetsCreatePage renders a centered form to add a new pet.
  * After submitting, it navigates back to /pets and refetches the list.
+ * The page uses an image‐based title (instead of “Add Pet” text).
  */
 export default function PetsCreatePage() {
   const { createPet, fetchPets } = usePets()
@@ -52,7 +53,7 @@ export default function PetsCreatePage() {
             />
           </Link>
 
-          {/* Discreet logout button in turquoise-blue */}
+          {/* Discreet logout button in turquoise‐blue */}
           <button
             onClick={handleLogout}
             className="px-3 py-1 bg-teal-400 text-white rounded hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-300 text-sm"
@@ -64,8 +65,15 @@ export default function PetsCreatePage() {
 
       {/* Main container for form, pushed below fixed header */}
       <main className="pt-16 flex flex-col items-center px-4">
-        <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6 mt-8">
-          <h2 className="text-2xl font-bold text-center mb-4">Add Pet</h2>
+        <div className="w-full max-w-sm bg-white rounded-lg shadow-md p-6 mt-8 mx-auto">
+          {/* Instead of “Add Pet” text, we display the Pets image (same image as on the Pets list page) */}
+          <div className="flex justify-center mb-4">
+            <img
+              src="/assets/images/Pets.png"
+              alt="Pets"
+              className="h-12 object-contain"
+            />
+          </div>
 
           {foodsLoading ? (
             <p className="text-center text-gray-500">Loading available foods...</p>

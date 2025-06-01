@@ -5,9 +5,12 @@ import React from 'react'
  * PetItem displays information about a single pet:
  *  - Image, Name, Age, Allergies, Consumption, Food name
  *  - Only a “Delete” button at the bottom (no Edit)
- *  - Cream-colored background (#F3CF9F) with rounded corners
+ *  - Cream‐colored background (#F3CF9F) with rounded corners
  *  - Full height (h-full) so that grid’s align-items: stretch
  *    makes all cards in the same row equal height
+ *
+ * NOTE: We switched to .png extension here so that “DogYoung.png”,
+ * “CatOld.png” etc. load correctly (instead of .jpg).
  */
 export default function PetItem({ pet, onDelete }) {
   const {
@@ -18,7 +21,7 @@ export default function PetItem({ pet, onDelete }) {
     gramsPerMeal,
     mealsPerDay,
     food = {},
-    image,
+    image, // e.g. "DogYoung"
   } = pet
 
   return (
@@ -26,7 +29,7 @@ export default function PetItem({ pet, onDelete }) {
       <div className="flex items-start space-x-4">
         {image && (
           <img
-            src={`/assets/images/${image}.jpg`}
+            src={`/assets/images/${image}.png`}
             alt={name}
             className="w-24 h-24 object-cover rounded"
           />
