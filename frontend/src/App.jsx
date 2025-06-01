@@ -13,7 +13,7 @@ import FoodsPage from './pages/FoodsPage'
 import FoodCreatePage from './pages/FoodCreatePage'
 
 import PetsPage from './pages/PetsPage'
-import PetsCreatePage from './pages/PetsCreatePage'  // Added import for PetsCreatePage
+import PetsCreatePage from './pages/PetsCreatePage'  // Ensure this matches the filename exactly
 
 import NotificationsPage from './pages/NotificationsPage'
 import './index.css'
@@ -41,7 +41,7 @@ export default function App() {
 
               {/* Pets routes */}
               <Route path="/pets" element={<PetsPage />} />
-              <Route path="/pets/new" element={<PetsCreatePage />} />  {/* Added create route */}
+              <Route path="/pets/new" element={<PetsCreatePage />} />
 
               {/* Notifications */}
               <Route path="/notifications" element={<NotificationsPage />} />
