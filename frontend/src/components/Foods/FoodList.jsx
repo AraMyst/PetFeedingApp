@@ -1,4 +1,3 @@
-// src/components/Foods/FoodList.jsx
 import React from 'react'
 import FoodItem from './FoodItem'
 

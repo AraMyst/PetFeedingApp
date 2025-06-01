@@ -1,12 +1,11 @@
-// src/pages/FoodsPage.jsx
 import React, { useEffect } from 'react'
 import { useFoods } from '../hooks/useFoods'
 import FoodList from '../components/Foods/FoodList'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
 
 /**
  * FoodsPage displays:
- *  - Fixed header with logo at top (same as Dashboard)
+ *  - Fixed header with logo (clickable link to Dashboard)
  *  - Below header: Food illustration + “Add New Food” button (always visible)
  *  - If no foods exist (or an error occurred), show “No foods registered.” message under the image/button
  *  - Otherwise, show a responsive grid of FoodItem cards under the image/button
@@ -51,21 +50,33 @@ export default function FoodsPage() {
 
   return (
     <div className="bg-[#DBF3F6] min-h-screen">
-      {/* Fixed header with logo */}
+      {/* Fixed header with logo linking to Dashboard */}
       <header className="fixed top-0 left-0 w-full bg-[#DBF3F6] shadow-sm z-10">
         <div className="flex justify-center py-3">
-          <img
-            src="/assets/images/logo.png"
-            alt="App Logo"
-            className="w-[150px] h-[50px] object-contain"
-          />
+          <Link to="/dashboard">
+            <img
+              src="/assets/images/logo.png"
+              alt="App Logo"
+              className="w-[150px] h-[50px] object-contain"
+            />
+          </Link>
         </div>
       </header>
 
-      {/* Main content with padding to avoid header overlap */}
-      <main className="pt-20 px-4 pb-8 max-w-5xl mx-auto">
-        {/* Always-visible section: Image + Add button */}
-        <div className="flex flex-col items-center mt-6 mb-8">
+      {/**
+        * Main content with extra top padding so header does not overlap:
+        * pt-32 for 8rem (header height + extra space)
+        * px-4 for horizontal padding
+        * pb-8 for bottom padding
+        * max-w-5xl mx-auto to center and constrain width
+        */}
+      <main className="pt-32 px-4 pb-8 max-w-5xl mx-auto">
+        {/**
+          * Always-visible section: Food illustration + Add button
+          * mt-12 pushes the illustration down so it’s fully visible
+          * mb-8 adds spacing below
+          */}
+        <div className="flex flex-col items-center mt-12 mb-8">
           <img
             src="/assets/images/Food.png"
             alt="Food Illustration"
@@ -73,17 +84,19 @@ export default function FoodsPage() {
           />
           <button
             onClick={handleAddNew}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
             Add New Food
           </button>
         </div>
 
-        {/* If there is an error or no foods, show "No foods registered." */}
+        {/**
+          * If there is an error or no foods, show “No foods registered.”
+          * Otherwise, display the responsive grid of FoodItem cards
+          */}
         {(!foods || foods.length === 0 || error) ? (
           <p className="text-center text-gray-500">No foods registered.</p>
         ) : (
-          /* Otherwise, display the responsive grid of FoodItem cards */
           <FoodList
             foods={foods}
             onEdit={handleEdit}

@@ -1,16 +1,15 @@
-// src/components/Foods/FoodItem.jsx
 import React from 'react'
 
 /**
  * FoodItem displays information about a single food:
  *  - Name, brand, weight, specs, buy link
  *  - “Edit” and “Delete” buttons at bottom, spaced apart
- *  - Cream‐colored background (#F5F1E8) with rounded corners
+ *  - Cream-colored background (#F5F1E8) with rounded corners
  */
 export default function FoodItem({ food, onEdit, onDelete }) {
   // Determine primary buy link or fallback to default
-  // (Backend will already ensure buyLinks is non‐empty array,
-  // but here we just take the first one if exists)
+  // (Backend already ensures buyLinks is a non-empty array,
+  // but here we just take the first one if it exists)
   const primaryLink =
     Array.isArray(food.buyLinks) && food.buyLinks.length > 0
       ? food.buyLinks[0]
@@ -29,7 +28,10 @@ export default function FoodItem({ food, onEdit, onDelete }) {
           </p>
         )}
 
-        {/* Always render a “Buy” link: either the provided one or a default Amazon search */}
+        {/**
+          * Always render a “Buy” link: either the provided one or a default Amazon search
+          * Wrapping in a container to add top/bottom margin between specs and buttons
+          */}
         <div className="mt-2 mb-4">
           <a
             href={
@@ -45,7 +47,12 @@ export default function FoodItem({ food, onEdit, onDelete }) {
         </div>
       </div>
 
-      {/* Edit/Delete buttons spaced apart at the bottom */}
+      {/**
+        * Edit/Delete buttons: 
+        * - mt-4 for spacing above
+        * - flex justify-center to center horizontally
+        * - space-x-4 to add horizontal gap between buttons
+        */}
       <div className="mt-4 flex justify-center space-x-4">
         <button
           onClick={() => onEdit(food)}
