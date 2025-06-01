@@ -7,11 +7,12 @@ import { useAuth } from '../contexts/AuthContext'
 
 /**
  * FoodsPage displays:
- *  - A fixed header with a logo linking to Dashboard and a logout button
- *  - Below the header: a Food illustration + “Add New Food” button (always visible)
- *  - If no foods exist (or an error occurred), show “No foods registered.”
- *  - Otherwise, show a responsive grid of FoodItem cards under the image/button
- *  - Supports Delete (via onDelete) and Toggle Open/Close inside each FoodItem
+ *   - A fixed header with a logo linking to Dashboard and a logout button
+ *   - Below the header: a food illustration + “Add New Food” button (always visible)
+ *   - If there was an error fetching, show an error message
+ *   - If no foods exist (and no error), show “No foods registered.”
+ *   - Otherwise, show a responsive grid of FoodItem cards
+ *   - Supports Delete (via onDelete) and Toggle Open/Close inside each FoodItem
  */
 export default function FoodsPage() {
   const { foods, loading, error, deleteFood, fetchFoods } = useFoods()
@@ -19,17 +20,17 @@ export default function FoodsPage() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  // Whenever the path is /foods, reload the list
+  // Whenever the path is /foods (or changes), reload the list
   useEffect(() => {
     fetchFoods()
   }, [location.pathname, fetchFoods])
 
-  // Navigate to the create form
+  // Navigate to the “create new food” form
   const handleAddNew = () => {
     navigate('/foods/new')
   }
 
-  // Delete a food after confirmation, then reload list
+  // Delete a food after confirmation, then reload the list
   const handleDelete = async (id) => {
     const message = 'PetPaunch App: Are you sure you want to delete this food?'
     if (window.confirm(message)) {
@@ -38,13 +39,13 @@ export default function FoodsPage() {
     }
   }
 
-  // Handle logout and redirect to login
+  // Handle logout and redirect to login page
   const handleLogout = () => {
     logout()
     navigate('/login', { replace: true })
   }
 
-  // While data is loading, show “Loading foods...”
+  // While data is loading, show a loading state
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-[#DBF3F6]">
@@ -55,10 +56,7 @@ export default function FoodsPage() {
 
   return (
     <div className="bg-[#DBF3F6] min-h-screen">
-      {/* 
-        Fixed header with logo linking to Dashboard and logout button.
-        Height: 4rem (h-16) = 64px total.
-      */}
+      {/* Fixed header with logo linking to Dashboard and logout button */}
       <header className="fixed top-0 left-0 w-full bg-[#DBF3F6] shadow-sm z-10 h-16">
         <div className="h-full flex items-center justify-between px-4">
           {/* Logo that links back to Dashboard */}
@@ -70,7 +68,7 @@ export default function FoodsPage() {
             />
           </Link>
 
-          {/* Discreet logout button in turquoise-blue */}
+          {/* Logout button */}
           <button
             onClick={handleLogout}
             className="px-3 py-1 bg-teal-400 text-white rounded hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-300 text-sm"
@@ -80,17 +78,9 @@ export default function FoodsPage() {
         </div>
       </header>
 
-      {/*
-        Main content with custom top padding so that the fixed header
-        does not overlap the Food illustration.
-        .main-content = padding-top: 3rem (48px) defined in index.css.
-      */}
+      {/* Main content (with top padding so header doesn’t overlap) */}
       <main className="main-content px-4 pb-8 max-w-5xl mx-auto">
-        {/*
-          Always-visible section:
-          - A container to center the Food illustration and the Add New Food button.
-          - Changed mb-8 → mb-16 for extra vertical space before the card grid.
-        */}
+        {/* Always-visible section: illustration + “Add New Food” button */}
         <div className="flex flex-col items-center mb-16">
           <img
             src="/assets/images/Food.png"
@@ -105,13 +95,18 @@ export default function FoodsPage() {
           </button>
         </div>
 
-        {(!foods || foods.length === 0 || error) ? (
+        {/* If there was an error fetching, show it */}
+        {error && (
+          <p className="text-center text-red-500 mb-4">
+            Error loading foods. Please try again later.
+          </p>
+        )}
+
+        {/* If no foods exist (and no error), show “No foods registered.” */}
+        {!error && (!foods || foods.length === 0) ? (
           <p className="text-center text-gray-500">No foods registered.</p>
         ) : (
-          <FoodList
-            foods={foods}
-            onDelete={handleDelete}
-          />
+          <FoodList foods={foods} onDelete={handleDelete} />
         )}
       </main>
     </div>
