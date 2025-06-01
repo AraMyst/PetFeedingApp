@@ -1,12 +1,12 @@
+// src/components/Foods/FoodItem.jsx
 import React from 'react'
 
 /**
  * FoodItem displays information about a single food:
- *  - Name, brand, weight, specs, buy link
- *  - “Edit” and “Delete” buttons at bottom, spaced farther apart
- *  - Cream-colored background (#F5F1E8) with rounded corners
- *  - Full height (h-full) so that grid’s align-items: stretch
- *    makes all cards in the same row equal height
+ *  - Name, brand, weight, specs, and a “Buy” link
+ *  - “Edit” and “Delete” buttons at the bottom, spaced farther apart
+ *  - Peach-colored background (#F3CF9F) with rounded corners
+ *  - Full height (h-full) so that all cards in the same row share equal height
  */
 export default function FoodItem({ food, onEdit, onDelete }) {
   // Determine primary buy link or fallback to default (Amazon search)
@@ -15,8 +15,18 @@ export default function FoodItem({ food, onEdit, onDelete }) {
       ? food.buyLinks[0]
       : null
 
+  // Custom delete confirmation that displays "PetPaunch App" as the prefix
+  const handleDeleteClick = () => {
+    const confirmed = window.confirm(
+      'PetPaunch App\n\nAre you sure you want to delete this food?'
+    )
+    if (confirmed) {
+      onDelete(food._id)
+    }
+  }
+
   return (
-    <div className="h-full bg-[#F5F1E8] rounded-lg shadow-sm p-4 flex flex-col justify-between">
+    <div className="h-full bg-[#F3CF9F] rounded-lg shadow-sm p-4 flex flex-col justify-between">
       <div>
         <h3 className="text-lg font-semibold mb-1">{food.name}</h3>
         <p className="text-sm text-gray-600 mb-1">{food.brand}</p>
@@ -31,7 +41,7 @@ export default function FoodItem({ food, onEdit, onDelete }) {
         {/*
           Always render a “Buy” link:
           - If the user provided a buyLink, use the first.
-          - Otherwise, perform a default Amazon search for the food name.
+          - Otherwise, perform a default Amazon search by the food name.
         */}
         <div className="mt-2 mb-4">
           <a
@@ -51,10 +61,10 @@ export default function FoodItem({ food, onEdit, onDelete }) {
       {/**
         * Edit/Delete buttons:
         * - mt-4 to add spacing above the buttons
-        * - flex justify-center to center them
-        * - space-x-6 to increase space between “Edit” and “Delete”
+        * - flex justify-center to center them horizontally
+        * - space-x-8 for larger gap (2rem = 32px) between buttons
         */}
-      <div className="mt-4 flex justify-center space-x-6">
+      <div className="mt-4 flex justify-center space-x-8">
         <button
           onClick={() => onEdit(food)}
           className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400"
@@ -62,7 +72,7 @@ export default function FoodItem({ food, onEdit, onDelete }) {
           Edit
         </button>
         <button
-          onClick={() => onDelete(food._id)}
+          onClick={handleDeleteClick}
           className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 text-sm focus:outline-none focus:ring-2 focus:ring-red-400"
         >
           Delete

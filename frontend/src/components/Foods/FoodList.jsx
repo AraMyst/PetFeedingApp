@@ -1,16 +1,17 @@
+// src/components/Foods/FoodList.jsx
 import React from 'react'
 import FoodItem from './FoodItem'
 
 /**
- * FoodList renders a responsive grid of FoodItem cards.
- * Uses the .food-grid utility from index.css:
- *   - auto-fit columns with a minimum width of 300px, each flexible up to 1fr
- *   - gap: 1rem between rows and columns
- *   - align-items: stretch so all cards in a row share the same height
+ * FoodList renders a fixed-column grid of FoodItem cards:
+ *  - 1 column on small screens
+ *  - 2 columns on medium screens (>= 640px)
+ *  - 3 columns on large screens (>= 1024px)
+ *  - gap-6 (1.5rem = 24px) between rows and columns
  */
 export default function FoodList({ foods, onEdit, onDelete }) {
   return (
-    <div className="food-grid">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {foods.map((food) => (
         <FoodItem
           key={food._id}
