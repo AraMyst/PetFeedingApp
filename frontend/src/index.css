@@ -13,8 +13,40 @@
   /* Reset body margins and ensure full height */
   body {
     margin: 0;
-  padding: 0;
-  background-color: #DBF3F6;
+    padding: 0;
+    background-color: #DBF3F6;
     min-height: 100vh;
+  }
+}
+
+/*
+  Custom layout utilities for the Foods page.
+  1) .main-content: ensures there is enough top padding so that a fixed header
+     will not overlap or “cut off” the Food illustration.
+  2) .food-grid: a responsive grid that automatically fits as many columns
+     of a minimum width (300px) as will fit in the container, with a uniform gap.
+*/
+
+@layer utilities {
+  /* 
+    Apply top padding of 5rem (80px) so that a 4rem-height header 
+    will not overlap the main content. Adjust as needed.
+  */
+  .main-content {
+    padding-top: 5rem; /* 5rem = 80px */
+  }
+
+  /*
+    .food-grid creates a responsive grid:
+      - repeat(auto-fit, minmax(300px, 1fr)) → as many 300px-wide columns
+        as will fit, each flexible up to 1fr.
+      - gap: 1rem between rows and columns.
+      - align-items: stretch ensures all items in the same row have equal height.
+  */
+  .food-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    align-items: stretch;
   }
 }

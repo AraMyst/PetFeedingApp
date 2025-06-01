@@ -3,14 +3,14 @@ import FoodItem from './FoodItem'
 
 /**
  * FoodList renders a responsive grid of FoodItem cards.
- * - On small screens: 1 column (grid-cols-1)
- * - On sm (>=640px) screens: 2 columns (sm:grid-cols-2)
- * - On lg (>=1024px) screens: 3 columns (lg:grid-cols-3)
- * - gap-4 para espaçamento médio; items-stretch para alinhar altura dos cards
+ * Uses the .food-grid utility from index.css:
+ *   - auto-fit columns with a minimum width of 300px, each flexible up to 1fr
+ *   - gap: 1rem between rows and columns
+ *   - align-items: stretch so all cards in a row share the same height
  */
 export default function FoodList({ foods, onEdit, onDelete }) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
+    <div className="food-grid">
       {foods.map((food) => (
         <FoodItem
           key={food._id}
