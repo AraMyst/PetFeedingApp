@@ -62,15 +62,14 @@ export default function FoodsPage() {
         </div>
       </header>
 
-      {/* Main content with extra top padding so header does not overlap */}
-      <main className="pt-24 px-4 pb-8 max-w-5xl mx-auto">
+      {/* Main content with padding to avoid header overlap */}
+      <main className="pt-20 px-4 pb-8 max-w-5xl mx-auto">
         {/* Always-visible section: Image + Add button */}
-        <div className="flex flex-col items-center mb-8">
+        <div className="flex flex-col items-center mt-6 mb-8">
           <img
             src="/assets/images/Food.png"
             alt="Food Illustration"
-            className="w-[180px] h-[180px] mb-4 object-contain"
-            style={{ marginTop: '1rem' }} /* push it slightly below header */
+            className="w-[200px] h-[200px] mb-4 object-contain"
           />
           <button
             onClick={handleAddNew}
