@@ -1,25 +1,23 @@
-// src/components/Foods/FoodList.jsx
+// src/components/Pets/PetList.jsx
 import React from 'react'
-import FoodItem from './FoodItem'
+import PetItem from './PetItem'
 
 /**
- * FoodList renders a responsive grid of FoodItem cards.
- * 
+ * PetList renders a responsive grid of PetItem cards.
+ *
  * Props:
- *   - foods: array of food objects
- *   - onDelete: function(foodId) → deletes that food
- *   - onToggle: function(foodId) → toggles open/close on that food
+ *   - pets: array of pet objects
+ *   - onDelete: function(petId) → deletes that pet
  */
-export default function FoodList({ foods, onDelete, onToggle }) {
+export default function PetList({ pets, onDelete }) {
+  if (!pets || pets.length === 0) {
+    return <p className="text-center text-gray-500">No pets registered.</p>
+  }
+
   return (
-    <div className="food-grid">
-      {foods.map((food) => (
-        <FoodItem
-          key={food._id}
-          food={food}
-          onDelete={onDelete}
-          onToggle={onToggle}
-        />
+    <div className="pet-grid">
+      {pets.map((pet) => (
+        <PetItem key={pet._id} pet={pet} onDelete={onDelete} />
       ))}
     </div>
   )
