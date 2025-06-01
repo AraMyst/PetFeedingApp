@@ -11,9 +11,10 @@ export default function FoodItem({ food, onEdit, onDelete }) {
   // Determine primary buy link or fallback to default
   // (Backend will already ensure buyLinks is non‐empty array,
   // but here we just take the first one if exists)
-  const primaryLink = Array.isArray(food.buyLinks) && food.buyLinks.length > 0
-    ? food.buyLinks[0]
-    : null
+  const primaryLink =
+    Array.isArray(food.buyLinks) && food.buyLinks.length > 0
+      ? food.buyLinks[0]
+      : null
 
   return (
     <div className="bg-[#F5F1E8] rounded-lg shadow-md p-4 flex flex-col justify-between">
@@ -31,7 +32,10 @@ export default function FoodItem({ food, onEdit, onDelete }) {
         {/* Always render a “Buy” link: either the provided one or a default Amazon search */}
         <div className="mt-2 mb-4">
           <a
-            href={primaryLink || `https://www.amazon.com/s?k=${encodeURIComponent(food.name)}`}
+            href={
+              primaryLink ||
+              `https://www.amazon.com/s?k=${encodeURIComponent(food.name)}`
+            }
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-700 underline text-sm"
