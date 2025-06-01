@@ -1,4 +1,3 @@
-// src/App.jsx
 import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
@@ -11,7 +10,7 @@ import DashboardPage from './pages/DashboardPage'
 
 import FoodsPage from './pages/FoodsPage'
 import FoodCreatePage from './pages/FoodCreatePage'
-// import FoodEditPage from './pages/FoodEditPage'  // Removed since editing is no longer supported
+import FoodEditPage from './pages/FoodEditPage'
 
 import PetsPage from './pages/PetsPage'
 import NotificationsPage from './pages/NotificationsPage'
@@ -37,7 +36,7 @@ export default function App() {
               {/* Foods routes */}
               <Route path="/foods" element={<FoodsPage />} />
               <Route path="/foods/new" element={<FoodCreatePage />} />
-              {/* Removed edit route: <Route path="/foods/:id/edit" element={<FoodEditPage />} /> */}
+              <Route path="/foods/:id/edit" element={<FoodEditPage />} />
 
               {/* Pets and Notifications */}
               <Route path="/pets" element={<PetsPage />} />
