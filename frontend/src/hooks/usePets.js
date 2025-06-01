@@ -1,5 +1,5 @@
 // src/hooks/usePets.js
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import * as petsApi from '../api/pets'
 
 /**
@@ -15,33 +15,33 @@ import * as petsApi from '../api/pets'
  */
 export function usePets() {
   const [pets, setPets] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  // fetchPets: useCallback to maintain stable reference
-  const fetchPets = useCallback(async () => {
+  // Load all pets on mount
+  useEffect(() => {
+    fetchPets()
+  }, [])
+
+  async function fetchPets() {
     setLoading(true)
     setError(null)
     try {
+      // petsApi.getPets() should return the array of pets directly (not wrapped in .data)
       const data = await petsApi.getPets()
       setPets(data)
     } catch (err) {
       setError(err)
-      setPets([])
     } finally {
       setLoading(false)
     }
-  }, [])
-
-  // Load pets on hook mount
-  useEffect(() => {
-    fetchPets()
-  }, [fetchPets])
+  }
 
   async function createPet(petData) {
     setLoading(true)
     setError(null)
     try {
+      // Assume createPet returns the new pet object directly
       const newPet = await petsApi.createPet(petData)
       setPets((prev) => [...prev, newPet])
       return newPet
@@ -57,8 +57,11 @@ export function usePets() {
     setLoading(true)
     setError(null)
     try {
+      // Assume updatePet returns the updated pet object directly
       const updatedPet = await petsApi.updatePet(id, petData)
-      setPets((prev) => prev.map((p) => (p._id === id ? updatedPet : p)))
+      setPets((prev) =>
+        prev.map((p) => (p._id === id ? updatedPet : p))
+      )
       return updatedPet
     } catch (err) {
       setError(err)
