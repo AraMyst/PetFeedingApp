@@ -90,7 +90,7 @@ frontend/
 ├── postcss.config.js
 ├── package.json
 └── vite.config.js
-
+---
 ## 📦 Installation
 Clone the repository (frontend only):
 
@@ -107,17 +107,18 @@ VITE_API_URL=https://petfeedingapp.onrender.com
 For a local backend at localhost:4000:
 
 VITE_API_URL=http://localhost:4000
+---
 ## 🚀 Running Locally
 
 npm run dev
 The Vite dev-server normally starts at http://localhost:5173/.
-
+---
 ## 📜 Available Scripts
 Script	Description
 npm run dev	Start dev server with HMR
 npm run build	Create production build in dist/
 npm run preview	Serve the build locally (after npm run build)
-
+---
 ## 🧰 Tailwind Setup
 
 // tailwind.config.js
@@ -157,10 +158,11 @@ Global styles (src/index.css):
     min-height: 100vh;
   }
 }
+---
 ## 🔑 Environment Variables
 Name	Required	Description	Example
 VITE_API_URL	✔	Base URL of the backend	http://localhost:4000
-
+---
 ## 🛠️ How It Works
 Authentication Flow (AuthContext)
 Frontend calls /auth/login or /auth/register.
@@ -207,7 +209,7 @@ Hook	CRUD / Action Functions
 useFoods	fetchFoods, createFood, updateFood, deleteFood
 usePets	fetchPets, createPet, updatePet, deletePet
 useNotifications	getLowStockAlerts(thresholdDays) → alerts, refresh
-
+---
 ## 🖥️ Pages & Components
 Login / Register → forms + redirect.
 
@@ -218,7 +220,7 @@ Foods / Pets → responsive grids + CRUD forms.
 Notifications → low-stock alerts list or banner.
 
 NavBar → links + logout (hidden on /login & /register).
-
+---
 ## 🌐 Deployment (Vercel)
 Setting	Value
 Project Root	frontend/
@@ -227,7 +229,7 @@ Output	dist
 Env Vars	VITE_API_URL=https://petfeedingapp.onrender.com
 
 Pushes to the main branch auto-deploy via Vercel.
-
+---
 ## 🔄 Manual QA Checklist
 Register & Login → redirect to /dashboard.
 
@@ -252,7 +254,7 @@ Responsiveness
 ≥ 768 px → 3 columns.
 
 Logout → token cleared, redirect to /login.
-
+---
 ## 🧪 Tests
 No automated tests yet.
 Use the manual QA checklist to verify:
@@ -266,7 +268,7 @@ Foods/Pets CRUD operations
 Responsive layout
 
 Notification retrieval
-
+---
 ## 📜 Additional Notes
 Icons & Logos
 
@@ -277,7 +279,7 @@ public/assets/images/logo.png
 Default Tailwind breakpoints
 
 sm: 640px, md: 768px, lg: 1024px, xl: 1280px
-
+---
 ## 📡 Backend Endpoints
 
 AUTH
@@ -301,7 +303,8 @@ DELETE /api/pets/:id
 
 NOTIFICATIONS
 GET /api/notifications/low-stock?thresholdDays=<n>
-☑️ Environment Tips
+---
+## ☑️ Environment Tips
 Ensure the backend is reachable at VITE_API_URL before starting the frontend.
 
 After editing .env, restart npm run dev.
