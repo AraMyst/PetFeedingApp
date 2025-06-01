@@ -6,7 +6,7 @@ import React from 'react'
  *  - Image, Name, Age, Allergies, Consumption, Food name
  *  - Only a “Delete” button at the bottom (no Edit)
  *  - Cream-colored background (#F3CF9F) with rounded corners
- *  - Each card has a max-width so they don’t stretch to the viewport edges
+ *  - Full height (h-full) so that grid’s align-items: stretch makes all cards in a row equal height
  *  - The image is centered inside a fixed-height container
  */
 export default function PetItem({ pet, onDelete }) {
@@ -22,7 +22,7 @@ export default function PetItem({ pet, onDelete }) {
   } = pet
 
   return (
-    <div className="bg-[#F3CF9F] rounded-lg shadow-sm overflow-hidden flex flex-col justify-between max-w-xs mx-auto">
+    <div className="h-full bg-[#F3CF9F] rounded-lg shadow-sm overflow-hidden flex flex-col justify-between">
       {/* Image container: fixed height, image is centered inside */}
       <div className="flex justify-center items-center h-40 bg-white">
         {image && (

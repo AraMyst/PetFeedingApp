@@ -29,7 +29,7 @@ export default function PetsPage() {
     navigate('/pets/new')
   }
 
-  // Delete a pet after confirmation, then reload list
+  // Delete a pet after confirmation, then reload the list
   const handleDelete = async (id) => {
     const message = 'PetPaunch App: Are you sure you want to delete this pet?'
     if (window.confirm(message)) {
@@ -44,7 +44,7 @@ export default function PetsPage() {
     navigate('/login', { replace: true })
   }
 
-  // While data is loading, show “Loading pets...”
+  // While data is loading, show “Loading pets…”
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-[#DBF3F6]">
@@ -55,7 +55,7 @@ export default function PetsPage() {
 
   return (
     <div className="bg-[#DBF3F6] min-h-screen">
-      {/*
+      {/* 
         Fixed header with logo linking to Dashboard and logout button.
         Height: 4rem (h-16) = 64px total.
       */}
@@ -108,10 +108,7 @@ export default function PetsPage() {
         {(!pets || pets.length === 0 || error) ? (
           <p className="text-center text-gray-500">No pets registered.</p>
         ) : (
-          <PetList
-            pets={pets}
-            onDelete={handleDelete}
-          />
+          <PetList pets={pets} onDelete={handleDelete} />
         )}
       </main>
     </div>
