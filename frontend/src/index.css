@@ -22,20 +22,19 @@
 /*
   Custom layout utilities for multiple pages (Foods, Dashboard, etc.)
 
-  1) .main-content: adds enough top padding so that a fixed header
-     does not overlap the content below it.
+  1) .main-content: adds top padding so a fixed header does not overlap the content.
+     Reduced to 3rem (48px) so the Food illustration moves higher.
 
-  2) .food-grid: a responsive grid that automatically fits as many columns
-     of a minimum width (300px) as will fit in the container, with a uniform gap.
+  2) .food-grid: a responsive grid that fits columns of minimum 300px width, with 1rem gaps.
 */
 @layer utilities {
   /*
-    .main-content applies top padding of 4rem (64px),
+    .main-content applies top padding of 3rem (48px),
     ensuring that the fixed header of 4rem (64px) does not overlap page content.
-    Reduced from 4.5rem (72px) to raise the Food illustration slightly upward.
+    This value has been reduced further to bring the Food illustration closer to the header.
   */
   .main-content {
-    padding-top: 4rem; /* 4rem = 64px */
+    padding-top: 3rem; /* 3rem = 48px */
   }
 
   /*

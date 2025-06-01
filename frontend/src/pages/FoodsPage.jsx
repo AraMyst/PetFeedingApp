@@ -61,7 +61,7 @@ export default function FoodsPage() {
     <div className="bg-[#DBF3F6] min-h-screen">
       {/* 
         Fixed header with logo linking to Dashboard and logout button.
-        Height: 4rem (h-16) = 64px total.
+        Height: 4rem (h-16 = 64px).
       */}
       <header className="fixed top-0 left-0 w-full bg-[#DBF3F6] shadow-sm z-10 h-16">
         <div className="h-full flex items-center justify-between px-4">
@@ -85,17 +85,16 @@ export default function FoodsPage() {
       </header>
 
       {/*
-        Main content with custom top padding so that the fixed header
-        does not overlap the Food illustration. 
-        .main-content = padding-top: 4rem (64px) defined in index.css.
+        Main content uses .main-content to push it below the fixed header.
+        .main-content = padding-top: 3rem (48px), defined in index.css.
       */}
       <main className="main-content px-4 pb-8 max-w-5xl mx-auto">
         {/*
-          Always-visible section:
-          - A container to center the Food illustration and the Add New Food button.
-          - mb-8 for bottom spacing below the illustration.
+          Food illustration and “Add New Food” button.
+          Adding -mt-4 to pull this block upward by 1rem (16px).
+          mb-8 for bottom spacing below the illustration.
         */}
-        <div className="flex flex-col items-center mb-8">
+        <div className="flex flex-col items-center -mt-4 mb-8">
           <img
             src="/assets/images/Food.png"
             alt="Food Illustration"
