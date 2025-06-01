@@ -18,12 +18,15 @@ export function usePets() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
+  // fetchPets is wrapped in useCallback so its identity is stable
   const fetchPets = useCallback(async () => {
     setLoading(true)
     setError(null)
     try {
-      const data = await petsApi.getPets()
-      setPets(Array.isArray(data) ? data : [])
+      // petsApi.getPets() now returns Array<Object>
+      const dataArray = await petsApi.getPets()
+      // Ensure we actually got an array; otherwise default to []
+      setPets(Array.isArray(dataArray) ? dataArray : [])
     } catch (err) {
       setError(err)
       setPets([])
@@ -32,6 +35,7 @@ export function usePets() {
     }
   }, [])
 
+  // Load all pets on mount
   useEffect(() => {
     fetchPets()
   }, [fetchPets])
@@ -41,7 +45,8 @@ export function usePets() {
     setError(null)
     try {
       const newPet = await petsApi.createPet(petData)
-      setPets(prev => [...prev, newPet])
+      // Add the newly created pet into our local state
+      setPets((prev) => [...prev, newPet])
       return newPet
     } catch (err) {
       setError(err)
@@ -56,7 +61,9 @@ export function usePets() {
     setError(null)
     try {
       const updatedPet = await petsApi.updatePet(id, petData)
-      setPets(prev => prev.map(p => (p._id === id ? updatedPet : p)))
+      setPets((prev) =>
+        prev.map((p) => (p._id === id ? updatedPet : p))
+      )
       return updatedPet
     } catch (err) {
       setError(err)
@@ -71,7 +78,7 @@ export function usePets() {
     setError(null)
     try {
       await petsApi.deletePet(id)
-      setPets(prev => prev.filter(p => p._id !== id))
+      setPets((prev) => prev.filter((p) => p._id !== id))
     } catch (err) {
       setError(err)
       throw err

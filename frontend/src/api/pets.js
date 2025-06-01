@@ -6,8 +6,10 @@ import { apiClient } from '../utils/apiClient'
  * @returns {Promise<Array<Object>>} - Resolves with an array of pet objects.
  */
 export async function getPets() {
-  const data = await apiClient.get('/api/pets')
-  return data
+  // apiClient.get('/api/pets') returns an object like { data: [ … ] }
+  const response = await apiClient.get('/api/pets')
+  // Return only the array of pet objects
+  return response.data
 }
 
 /**
@@ -16,8 +18,8 @@ export async function getPets() {
  * @returns {Promise<Object>} - Resolves with the pet object.
  */
 export async function getPetById(id) {
-  const data = await apiClient.get(`/api/pets/${id}`)
-  return data
+  const response = await apiClient.get(`/api/pets/${id}`)
+  return response.data
 }
 
 /**
@@ -33,8 +35,8 @@ export async function getPetById(id) {
  * @returns {Promise<Object>} - Resolves with the newly created pet object.
  */
 export async function createPet(petData) {
-  const data = await apiClient.post('/api/pets', petData)
-  return data
+  const response = await apiClient.post('/api/pets', petData)
+  return response.data
 }
 
 /**
@@ -51,8 +53,8 @@ export async function createPet(petData) {
  * @returns {Promise<Object>} - Resolves with the updated pet object.
  */
 export async function updatePet(id, petData) {
-  const data = await apiClient.put(`/api/pets/${id}`, petData)
-  return data
+  const response = await apiClient.put(`/api/pets/${id}`, petData)
+  return response.data
 }
 
 /**
