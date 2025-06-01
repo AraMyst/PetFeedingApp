@@ -3,7 +3,8 @@ import React from 'react'
 import PetItem from './PetItem'
 
 /**
- * PetList renders a responsive grid of PetItem cards.
+ * PetList renders a responsive grid of PetItem cards, using the same
+ * grid styling as FoodList (i.e., "food-grid" class).
  *
  * Props:
  *   - pets: array of pet objects
@@ -15,7 +16,7 @@ export default function PetList({ pets, onDelete }) {
   }
 
   return (
-    <div className="pet-grid">
+    <div className="food-grid">
       {pets.map((pet) => (
         <PetItem key={pet._id} pet={pet} onDelete={onDelete} />
       ))}

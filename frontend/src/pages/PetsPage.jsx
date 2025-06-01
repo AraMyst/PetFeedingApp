@@ -11,7 +11,7 @@ import { useAuth } from '../contexts/AuthContext'
  *   - Below the header: a Pet illustration + “Add New Pet” button (always visible)
  *   - If there was an error fetching, show an error message
  *   - If no pets exist (and no error), show “No pets registered.”
- *   - Otherwise, show a responsive grid of PetItem cards
+ *   - Otherwise, show a responsive grid of PetItem cards (styled by "food-grid")
  *   - Only “Add” and “Delete” actions (no “Edit”)
  */
 export default function PetsPage() {
