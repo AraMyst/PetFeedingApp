@@ -11,9 +11,10 @@ import DashboardPage from './pages/DashboardPage'
 
 import FoodsPage from './pages/FoodsPage'
 import FoodCreatePage from './pages/FoodCreatePage'
-// import FoodEditPage from './pages/FoodEditPage'  // Removed since editing is no longer supported
 
 import PetsPage from './pages/PetsPage'
+import PetsCreatePage from './pages/PetsCreatePage'  // Import the PetsCreatePage component
+
 import NotificationsPage from './pages/NotificationsPage'
 import './index.css'
 
@@ -37,10 +38,12 @@ export default function App() {
               {/* Foods routes */}
               <Route path="/foods" element={<FoodsPage />} />
               <Route path="/foods/new" element={<FoodCreatePage />} />
-              {/* Removed edit route: <Route path="/foods/:id/edit" element={<FoodEditPage />} /> */}
 
-              {/* Pets and Notifications */}
+              {/* Pets routes */}
               <Route path="/pets" element={<PetsPage />} />
+              <Route path="/pets/new" element={<PetsCreatePage />} />
+
+              {/* Notifications */}
               <Route path="/notifications" element={<NotificationsPage />} />
             </Route>
 
