@@ -66,12 +66,12 @@ export default function PetsCreatePage() {
       {/* Main container for form, pushed below fixed header */}
       <main className="pt-16 flex flex-col items-center px-4">
         <div className="w-full max-w-sm bg-white rounded-lg shadow-md p-6 mt-8 mx-auto">
-          {/* Instead of “Add Pet” text, we display the Pets image (same image as on the Pets list page) */}
-          <div className="flex justify-center mb-4">
+          {/* Pets illustration, sized to 200x200 */}
+          <div className="flex flex-col items-center mb-16">
             <img
               src="/assets/images/Pets.png"
-              alt="Pets"
-              className="h-12 object-contain"
+              alt="Pet Illustration"
+              className="w-[200px] h-[200px] mb-4 object-contain"
             />
           </div>
 

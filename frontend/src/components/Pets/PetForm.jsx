@@ -113,6 +113,19 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
     })
   }
 
+  // Helper to make a user‐friendly label under each image
+  const ageLabelMap = {
+    young: 'Puppy',
+    adult: 'Adult',
+    old: 'Senior',
+  }
+
+  const weightLabelMap = {
+    thin: 'Slim',
+    medium: 'Normal',
+    fat: 'Plump',
+  }
+
   return (
     <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow space-y-6">
       {error && <p className="text-red-500 text-sm text-center">{error}</p>}
@@ -162,7 +175,9 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
                     alt={`${capitalAnimal} ${capitalCat}`}
                     className="w-full h-20 object-contain"
                   />
-                  <p className="text-center text-sm capitalize mt-1">{cat}</p>
+                  <p className="text-center text-sm capitalize mt-1">
+                    {ageLabelMap[cat]}
+                  </p>
                 </div>
               )
             })}
@@ -219,7 +234,9 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
                     alt={`${capitalAnimal} ${capitalWeight}`}
                     className="w-full h-20 object-contain"
                   />
-                  <p className="text-center text-sm capitalize mt-1">{w}</p>
+                  <p className="text-center text-sm capitalize mt-1">
+                    {weightLabelMap[w]}
+                  </p>
                 </div>
               )
             })}
@@ -227,9 +244,9 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
         </div>
       )}
 
-      {/* 6) Allergies (comma-separated) */}
+      {/* 6) Allergies, comma separated */}
       <div>
-        <label className="block text-sm font-medium">Allergies (comma separated)</label>
+        <label className="block text-sm font-medium">Allergies, comma separated</label>
         <input
           type="text"
           value={allergies}
