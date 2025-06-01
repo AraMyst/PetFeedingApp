@@ -1,7 +1,9 @@
+// src/pages/FoodEditPage.jsx
 import React, { useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import FoodForm from '../components/Foods/FoodForm'
 import { useFoods } from '../hooks/useFoods'
+import { useAuth } from '../contexts/AuthContext'
 
 /**
  * FoodEditPage loads an existing food by ID and displays it in FoodForm for editing.
@@ -10,6 +12,7 @@ import { useFoods } from '../hooks/useFoods'
 export default function FoodEditPage() {
   const { id } = useParams()
   const { foods, updateFood, fetchFoods } = useFoods()
+  const { logout } = useAuth()
   const navigate = useNavigate()
   const [initialData, setInitialData] = useState(null)
 
@@ -40,20 +43,37 @@ export default function FoodEditPage() {
     navigate('/foods', { replace: true })
   }
 
+  // Handle logout and redirect to login
+  const handleLogout = () => {
+    logout()
+    navigate('/login', { replace: true })
+  }
+
   return (
     <div className="bg-[#DBF3F6] min-h-screen">
-      {/* Fixed header with logo linking to Dashboard */}
+      {/* Fixed header with logo linking to Dashboard and logout button */}
       <header className="fixed top-0 left-0 w-full bg-[#DBF3F6] shadow-sm z-10 h-16">
-        <div className="h-full flex items-center justify-center">
-          <img
-            src="/assets/images/logo.png"
-            alt="App Logo"
-            className="w-[150px] h-[50px] object-contain"
-          />
+        <div className="h-full flex items-center justify-between px-4">
+          {/* Logo that links back to Dashboard */}
+          <Link to="/dashboard">
+            <img
+              src="/assets/images/logo.png"
+              alt="App Logo"
+              className="w-[150px] h-[50px] object-contain"
+            />
+          </Link>
+
+          {/* Discreet logout button in turquoise-blue */}
+          <button
+            onClick={handleLogout}
+            className="px-3 py-1 bg-teal-400 text-white rounded hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-300 text-sm"
+          >
+            Logout
+          </button>
         </div>
       </header>
 
-      {/* Main content with padding-top equal to header height */}
+      {/* Main content with padding-top equal to header height (4rem = 64px) */}
       <main className="pt-16 px-4 pb-8 max-w-2xl mx-auto">
         <h2 className="text-2xl font-bold mb-4">Edit Food</h2>
         <FoodForm

@@ -1,11 +1,13 @@
+// src/pages/FoodsPage.jsx
 import React, { useEffect } from 'react'
 import { useFoods } from '../hooks/useFoods'
 import FoodList from '../components/Foods/FoodList'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 
 /**
  * FoodsPage displays:
- *  - Fixed header with logo at top (same as Dashboard)
+ *  - Fixed header with logo linking to Dashboard and a logout button
  *  - Below header: Food illustration + “Add New Food” button (always visible)
  *  - If no foods exist (or an error occurred), show “No foods registered.” message under the image/button
  *  - Otherwise, show a responsive grid of FoodItem cards under the image/button
@@ -13,6 +15,7 @@ import { useNavigate, useLocation, Link } from 'react-router-dom'
  */
 export default function FoodsPage() {
   const { foods, loading, error, deleteFood, fetchFoods } = useFoods()
+  const { logout } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -39,6 +42,12 @@ export default function FoodsPage() {
     }
   }
 
+  // Handle logout and redirect to login
+  const handleLogout = () => {
+    logout()
+    navigate('/login', { replace: true })
+  }
+
   // While data is loading, show “Loading foods...”
   if (loading) {
     return (
@@ -50,12 +59,13 @@ export default function FoodsPage() {
 
   return (
     <div className="bg-[#DBF3F6] min-h-screen">
-      {/**
-        * Fixed header with logo linking to Dashboard.
-        * We give it a fixed height of 64px (h-16). 
-        */}
+      {/*
+        Fixed header with logo linking to Dashboard and logout button.
+        - Height: 4rem (h-16) = 64px total.
+      */}
       <header className="fixed top-0 left-0 w-full bg-[#DBF3F6] shadow-sm z-10 h-16">
-        <div className="h-full flex items-center justify-center">
+        <div className="h-full flex items-center justify-between px-4">
+          {/* Logo that links back to Dashboard */}
           <Link to="/dashboard">
             <img
               src="/assets/images/logo.png"
@@ -63,19 +73,27 @@ export default function FoodsPage() {
               className="w-[150px] h-[50px] object-contain"
             />
           </Link>
+
+          {/* Discreet logout button in turquoise-blue */}
+          <button
+            onClick={handleLogout}
+            className="px-3 py-1 bg-teal-400 text-white rounded hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-300 text-sm"
+          >
+            Logout
+          </button>
         </div>
       </header>
 
-      {/**
-        * Main content with padding-top equal to header height (16 = 4rem = 64px).
-        * That way, nothing fica atrás do header fixo.
-        */}
+      {/*
+        Main content with padding-top equal to header height (16 = 4rem = 64px).
+        This ensures nothing is hidden behind the fixed header.
+      */}
       <main className="pt-16 px-4 pb-8 max-w-5xl mx-auto">
-        {/**
-          * Always-visible section: 
-          *   - mt-8 to push nossa “Food” image um pouco abaixo do header.
-          *   - mb-8 para espaçamento inferior.
-          */}
+        {/*
+          Always-visible section:
+          - mt-8 to push our “Food” illustration down a bit below the header.
+          - mb-8 for bottom spacing.
+        */}
         <div className="flex flex-col items-center mt-8 mb-8">
           <img
             src="/assets/images/Food.png"
@@ -90,10 +108,10 @@ export default function FoodsPage() {
           </button>
         </div>
 
-        {/**
-          * If there is an error or no foods, show “No foods registered.”
-          * Otherwise, display the responsive grid of FoodItem cards.
-          */}
+        {/*
+          If there is an error or no foods, show “No foods registered.”
+          Otherwise, display the responsive grid of FoodItem cards.
+        */}
         {(!foods || foods.length === 0 || error) ? (
           <p className="text-center text-gray-500">No foods registered.</p>
         ) : (

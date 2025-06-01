@@ -79,25 +79,6 @@ export default function DashboardPage() {
           - max-w-5xl mx-auto: center horizontally and constrain width
         */}
         <div className="flex flex-col md:flex-row gap-6 max-w-5xl mx-auto">
-          {/* Section: Pets */}
-          <div className="w-full md:w-1/3 bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
-            <Link to="/pets">
-              <img
-                src="/assets/images/Pets.png"
-                alt="Pets illustration"
-                className="w-[250px] h-[250px] mb-4 object-contain"
-              />
-            </Link>
-            <h2 className="text-2xl font-semibold mb-2 text-center">Pets</h2>
-            <p className="text-4xl font-bold mb-4 text-center">{pets.length}</p>
-            <button
-              onClick={() => (window.location.href = '/pets')}
-              className="py-2 px-6 bg-green-500 hover:bg-green-700 focus:bg-green-700 text-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
-            >
-              Manage Pets
-            </button>
-          </div>
-
           {/* Section: Food */}
           <div className="w-full md:w-1/3 bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
             <Link to="/foods">
@@ -114,6 +95,25 @@ export default function DashboardPage() {
               className="py-2 px-6 bg-green-500 hover:bg-green-700 focus:bg-green-700 text-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
             >
               Manage Foods
+            </button>
+          </div>
+
+          {/* Section: Pets */}
+          <div className="w-full md:w-1/3 bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+            <Link to="/pets">
+              <img
+                src="/assets/images/Pets.png"
+                alt="Pets illustration"
+                className="w-[250px] h-[250px] mb-4 object-contain"
+              />
+            </Link>
+            <h2 className="text-2xl font-semibold mb-2 text-center">Pets</h2>
+            <p className="text-4xl font-bold mb-4 text-center">{pets.length}</p>
+            <button
+              onClick={() => (window.location.href = '/pets')}
+              className="py-2 px-6 bg-green-500 hover:bg-green-700 focus:bg-green-700 text-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
+            >
+              Manage Pets
             </button>
           </div>
 
