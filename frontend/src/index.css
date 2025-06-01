@@ -7,7 +7,7 @@
 @layer base {
   /* Use a system font stack */
   html {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont,
+    font-family: system-ui, -apple-system, BlinkMacOSSystemFont,
       "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
   /* Reset body margins and ensure full height */
@@ -29,11 +29,11 @@
 
 @layer utilities {
   /* 
-    Apply top padding of 5rem (80px) so that a 4rem-height header 
-    will not overlap the main content. Adjust as needed.
+    Apply top padding of 4.5rem (72px) instead of 5rem (80px),
+    so that the Food illustration moves up slightly.
   */
   .main-content {
-    padding-top: 5rem; /* 5rem = 80px */
+    padding-top: 4.5rem; /* 4.5rem = 72px */
   }
 
   /*

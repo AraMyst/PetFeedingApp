@@ -4,7 +4,7 @@ import React from 'react'
  * FoodItem displays information about a single food:
  *  - Name, brand, weight, specs, buy link
  *  - “Edit” and “Delete” buttons at bottom, spaced apart
- *  - Cream-colored background (#F5F1E8) with rounded corners
+ *  - Cream-colored background (#F6C17F) with rounded corners
  *  - Full height (h-full) so that grid’s align-items: stretch
  *    makes all cards in the same row equal height
  */
@@ -16,7 +16,7 @@ export default function FoodItem({ food, onEdit, onDelete }) {
       : null
 
   return (
-    <div className="h-full bg-[#F5F1E8] rounded-lg shadow-sm p-4 flex flex-col justify-between">
+    <div className="h-full bg-[#F6C17F] rounded-lg shadow-sm p-4 flex flex-col justify-between">
       <div>
         <h3 className="text-lg font-semibold mb-1">{food.name}</h3>
         <p className="text-sm text-gray-600 mb-1">{food.brand}</p>

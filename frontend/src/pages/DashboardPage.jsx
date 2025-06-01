@@ -8,20 +8,20 @@ import { useAuth } from '../contexts/AuthContext'
 
 /**
  * DashboardPage displays three main cards:
- *  - Pets: shows number of registered pets and a button to manage pets
- *  - Food: shows number of registered foods and a button to manage foods
- *  - Notifications: shows number of alerts and a button to manage notifications
+ *  - Food: number of registered foods + button to manage foods
+ *  - Pets: number of registered pets + button to manage pets
+ *  - Notifications: number of alerts + button to manage notifications
  *
  * Features:
- *  - Fixed header at top with a small rectangular logo and logout button
- *  - Responsive flex layout:
- *      • flex-col on small screens (stacked vertically)
- *      • md:flex-row on medium+ screens (side by side)
- *  - Section title centered under its image
- *  - Count centered under title
- *  - Button centered under count
+ *  - Fixed header at top with a logo and logout button
+ *  - Responsive grid layout:
+ *      • 1 column on small screens (cards stack vertically)
+ *      • 3 columns on medium+ screens (cards side by side)
+ *  - Each section is centered under its image
+ *  - Count is centered under title
+ *  - Button is centered under count
  *  - Buttons change color on hover and have a focus ring
- *  - Background matches login/register pages (#DBF3F6)
+ *  - Background matches the login/register pages (#DBF3F6)
  */
 export default function DashboardPage() {
   const { foods, loading: loadingFoods } = useFoods()
@@ -69,18 +69,22 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      {/* Main content has top padding to avoid being hidden under header */}
-      <main className="pt-20 px-4 pb-8">
+      {/* 
+        Main content with custom top padding so the fixed header
+        does not overlap the cards. .main-content = padding-top: 4.5rem
+        (72px) defined in index.css. Adjust that value if your header height changes.
+      */}
+      <main className="main-content px-4 pb-8">
         {/*
-          Responsive flex container:
-          - flex-col on small screens (cards stack vertically)
-          - md:flex-row on medium+ screens (side by side)
-          - gap-6: spacing between cards
-          - max-w-5xl mx-auto: center horizontally and constrain width
+          Responsive grid container:
+            - grid-cols-1 on small screens (stacked)
+            - md:grid-cols-3 on medium+ (three columns side by side)
+            - gap-6: uniform spacing between all cards
+            - max-w-5xl mx-auto: center container and constrain its width
         */}
-        <div className="flex flex-col md:flex-row gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {/* Section: Food */}
-          <div className="w-full md:w-1/3 bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+          <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
             <Link to="/foods">
               <img
                 src="/assets/images/Food.png"
@@ -89,9 +93,11 @@ export default function DashboardPage() {
               />
             </Link>
             <h2 className="text-2xl font-semibold mb-2 text-center">Food</h2>
-            <p className="text-4xl font-bold mb-4 text-center">{foods.length}</p>
+            <p className="text-4xl font-bold mb-4 text-center">
+              {foods.length}
+            </p>
             <button
-              onClick={() => (window.location.href = '/foods')}
+              onClick={() => navigate('/foods')}
               className="py-2 px-6 bg-green-500 hover:bg-green-700 focus:bg-green-700 text-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
             >
               Manage Foods
@@ -99,7 +105,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Section: Pets */}
-          <div className="w-full md:w-1/3 bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+          <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
             <Link to="/pets">
               <img
                 src="/assets/images/Pets.png"
@@ -108,9 +114,11 @@ export default function DashboardPage() {
               />
             </Link>
             <h2 className="text-2xl font-semibold mb-2 text-center">Pets</h2>
-            <p className="text-4xl font-bold mb-4 text-center">{pets.length}</p>
+            <p className="text-4xl font-bold mb-4 text-center">
+              {pets.length}
+            </p>
             <button
-              onClick={() => (window.location.href = '/pets')}
+              onClick={() => navigate('/pets')}
               className="py-2 px-6 bg-green-500 hover:bg-green-700 focus:bg-green-700 text-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
             >
               Manage Pets
@@ -118,7 +126,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Section: Notifications */}
-          <div className="w-full md:w-1/3 bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+          <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
             <Link to="/notifications">
               <img
                 src="/assets/images/Notifications.png"
@@ -126,10 +134,14 @@ export default function DashboardPage() {
                 className="w-[250px] h-[250px] mb-4 object-contain"
               />
             </Link>
-            <h2 className="text-2xl font-semibold mb-2 text-center">Notifications</h2>
-            <p className="text-4xl font-bold mb-4 text-center">{alerts.length}</p>
+            <h2 className="text-2xl font-semibold mb-2 text-center">
+              Notifications
+            </h2>
+            <p className="text-4xl font-bold mb-4 text-center">
+              {alerts.length}
+            </p>
             <button
-              onClick={() => (window.location.href = '/notifications')}
+              onClick={() => navigate('/notifications')}
               className="py-2 px-6 bg-green-500 hover:bg-green-700 focus:bg-green-700 text-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
             >
               Manage Notifications
