@@ -5,6 +5,7 @@ import React from 'react'
  *  - Name, brand, weight, specs, buy link
  *  - “Edit” and “Delete” buttons at bottom, spaced apart
  *  - Cream-colored background (#F5F1E8) with rounded corners
+ *  - Full height (h-full) to permitir que o grid items-stretch alinhe as linhas
  */
 export default function FoodItem({ food, onEdit, onDelete }) {
   // Determine primary buy link or fallback to default (Amazon search)
@@ -14,7 +15,7 @@ export default function FoodItem({ food, onEdit, onDelete }) {
       : null
 
   return (
-    <div className="bg-[#F5F1E8] rounded-lg shadow-sm p-4 flex flex-col justify-between h-full">
+    <div className="h-full bg-[#F5F1E8] rounded-lg shadow-sm p-4 flex flex-col justify-between">
       <div>
         <h3 className="text-lg font-semibold mb-1">{food.name}</h3>
         <p className="text-sm text-gray-600 mb-1">{food.brand}</p>
