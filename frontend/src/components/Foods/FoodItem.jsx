@@ -14,7 +14,7 @@ export default function FoodItem({ food, onEdit, onDelete }) {
       : null
 
   return (
-    <div className="bg-[#F5F1E8] rounded-lg shadow-md p-4 flex flex-col justify-between aspect-square">
+    <div className="bg-[#F5F1E8] rounded-lg shadow-sm p-4 flex flex-col justify-between h-full">
       <div>
         <h3 className="text-lg font-semibold mb-1">{food.name}</h3>
         <p className="text-sm text-gray-600 mb-1">{food.brand}</p>
