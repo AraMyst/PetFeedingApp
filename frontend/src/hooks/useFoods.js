@@ -18,23 +18,20 @@ export function useFoods() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  // fetchFoods: useCallback to maintain stable reference
   const fetchFoods = useCallback(async () => {
     setLoading(true)
     setError(null)
     try {
-      // foodsApi.getFoods returns an array of food objects
       const data = await foodsApi.getFoods()
-      setFoods(data)
+      setFoods(Array.isArray(data) ? data : [])
     } catch (err) {
       setError(err)
-      setFoods([]) // on error, keep list empty
+      setFoods([])
     } finally {
       setLoading(false)
     }
   }, [])
 
-  // Load foods on hook mount
   useEffect(() => {
     fetchFoods()
   }, [fetchFoods])

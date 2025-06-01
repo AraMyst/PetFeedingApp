@@ -1,13 +1,13 @@
 // src/api/foods.js
-
 import { apiClient } from '../utils/apiClient'
 
 /**
  * Fetch all foods.
  * @returns {Promise<Array<Object>>} - Resolves with an array of food objects.
  */
-export function getFoods() {
-  return apiClient.get('/api/foods')
+export async function getFoods() {
+  const data = await apiClient.get('/api/foods')
+  return data
 }
 
 /**
@@ -15,8 +15,9 @@ export function getFoods() {
  * @param {string} id - Food ID
  * @returns {Promise<Object>} - Resolves with the food object.
  */
-export function getFoodById(id) {
-  return apiClient.get(`/api/foods/${id}`)
+export async function getFoodById(id) {
+  const data = await apiClient.get(`/api/foods/${id}`)
+  return data
 }
 
 /**
@@ -24,8 +25,9 @@ export function getFoodById(id) {
  * @param {{ name: string, brand: string, specifications: string[], weight: number, buyLinks?: string[] }} foodData
  * @returns {Promise<Object>} - Resolves with the newly created food object.
  */
-export function createFood(foodData) {
-  return apiClient.post('/api/foods', foodData)
+export async function createFood(foodData) {
+  const data = await apiClient.post('/api/foods', foodData)
+  return data
 }
 
 /**
@@ -34,15 +36,16 @@ export function createFood(foodData) {
  * @param {{ name?: string, brand?: string, specifications?: string[], weight?: number, buyLinks?: string[] }} foodData
  * @returns {Promise<Object>} - Resolves with the updated food object.
  */
-export function updateFood(id, foodData) {
-  return apiClient.put(`/api/foods/${id}`, foodData)
+export async function updateFood(id, foodData) {
+  const data = await apiClient.put(`/api/foods/${id}`, foodData)
+  return data
 }
 
 /**
  * Delete a food by its ID.
  * @param {string} id - Food ID
- * @returns {Promise<Object>} - Resolves with a success message or empty object.
+ * @returns {Promise<void>} - Resolves when deletion succeeds.
  */
-export function deleteFood(id) {
-  return apiClient.delete(`/api/foods/${id}`)
+export async function deleteFood(id) {
+  await apiClient.delete(`/api/foods/${id}`)
 }

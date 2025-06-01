@@ -19,17 +19,16 @@ export function useNotifications(thresholdDays = 3, refreshIntervalMs = 3600000)
     setLoading(true)
     setError(null)
     try {
-      // notificationsApi.getLowStockAlerts should return the array of alerts directly
       const data = await notificationsApi.getLowStockAlerts(thresholdDays)
-      setAlerts(data)
+      setAlerts(Array.isArray(data) ? data : [])
     } catch (err) {
       setError(err)
+      setAlerts([])
     } finally {
       setLoading(false)
     }
   }
 
-  // Fetch on mount and at specified intervals
   useEffect(() => {
     fetchAlerts()
     const interval = setInterval(fetchAlerts, refreshIntervalMs)
