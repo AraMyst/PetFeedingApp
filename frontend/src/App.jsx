@@ -4,27 +4,27 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import { NotificationProvider } from './contexts/NotificationContext'
 import PrivateRoute from './routes/PrivateRoute'
+
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import DashboardPage from './pages/DashboardPage'
+
 import FoodsPage from './pages/FoodsPage'
 import FoodCreatePage from './pages/FoodCreatePage'
-import FoodEditPage from './pages/FoodEditPage'
+
 import PetsPage from './pages/PetsPage'
+import PetsCreatePage from './pages/PetsCreatePage'  // Added import for PetsCreatePage
+
 import NotificationsPage from './pages/NotificationsPage'
 import './index.css'
 
-/**
- * App wraps the entire application in AuthProvider and NotificationProvider.
- * It defines public and protected routes.
- */
 export default function App() {
   return (
     <AuthProvider>
       <NotificationProvider>
         <BrowserRouter>
           <Routes>
-            {/* Redirect root (“/”) to login */}
+            {/* Redirect root “/” to login */}
             <Route path="/" element={<Navigate to="/login" replace />} />
 
             {/* Public routes */}
@@ -38,10 +38,12 @@ export default function App() {
               {/* Foods routes */}
               <Route path="/foods" element={<FoodsPage />} />
               <Route path="/foods/new" element={<FoodCreatePage />} />
-              <Route path="/foods/:id/edit" element={<FoodEditPage />} />
 
-              {/* Pets and Notifications */}
+              {/* Pets routes */}
               <Route path="/pets" element={<PetsPage />} />
+              <Route path="/pets/new" element={<PetsCreatePage />} />  {/* Added create route */}
+
+              {/* Notifications */}
               <Route path="/notifications" element={<NotificationsPage />} />
             </Route>
 
