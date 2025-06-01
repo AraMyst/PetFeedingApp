@@ -26,7 +26,8 @@
      Reduced to 3rem (48px) so the Food illustration moves higher.
 
   2) .food-grid: a responsive grid that fits columns of minimum 300px width, with 1rem gaps,
-     and 1rem padding on left/right so cards don’t touch the viewport edges.
+     1rem padding on left/right so cards don’t touch the viewport edges,
+     and 1rem padding on top/bottom so cards have space above and below.
 */
 @layer utilities {
   /*
@@ -44,14 +45,17 @@
         as will fit, each able to expand equally (1fr).
       - gap: 1rem (16px) between rows and columns.
       - padding-left/right: 1rem (16px) so cards never touch the viewport edges.
+      - padding-top/bottom: 1rem (16px) so cards have space above and below.
       - align-items: stretch ensures all items in the same row share equal height.
   */
   .food-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1rem;            /* 1rem = 16px between cards */
-    padding-left: 1rem;   /* 1rem = 16px of space before the first card */
-    padding-right: 1rem;  /* 1rem = 16px of space after the last card */
+    gap: 1rem;             /* 1rem = 16px between cards */
+    padding-left: 1rem;    /* 1rem = 16px of space before the first card */
+    padding-right: 1rem;   /* 1rem = 16px of space after the last card */
+    padding-top: 1rem;     /* 1rem = 16px of space above the first row of cards */
+    padding-bottom: 1rem;  /* 1rem = 16px of space below the last row of cards */
     align-items: stretch;
   }
 }
