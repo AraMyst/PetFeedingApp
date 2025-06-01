@@ -5,10 +5,9 @@ import React from 'react'
  *  - Name, brand, weight, specs, buy link
  *  - “Edit” and “Delete” buttons at bottom, spaced apart
  *  - Cream-colored background (#F5F1E8) with rounded corners
- *  - Full height (h-full) to permitir que o grid items-stretch alinhe as linhas
+ *  - h-full para, caso o pai force altura mínima, o card preencher corretamente
  */
 export default function FoodItem({ food, onEdit, onDelete }) {
-  // Determine primary buy link or fallback to default (Amazon search)
   const primaryLink =
     Array.isArray(food.buyLinks) && food.buyLinks.length > 0
       ? food.buyLinks[0]
@@ -27,11 +26,6 @@ export default function FoodItem({ food, onEdit, onDelete }) {
           </p>
         )}
 
-        {/*
-          Always render a “Buy” link:
-          - If the user provided a buyLink, use the first.
-          - Otherwise, perform a default Amazon search for the food name.
-        */}
         <div className="mt-2 mb-4">
           <a
             href={
@@ -47,12 +41,6 @@ export default function FoodItem({ food, onEdit, onDelete }) {
         </div>
       </div>
 
-      {/**
-        * Edit/Delete buttons:
-        * - mt-4 to add spacing above the buttons
-        * - flex justify-center to center them
-        * - space-x-4 to separate “Edit” and “Delete”
-        */}
       <div className="mt-4 flex justify-center space-x-4">
         <button
           onClick={() => onEdit(food)}
