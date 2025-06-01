@@ -5,7 +5,7 @@ import PetItem from './PetItem'
 /**
  * PetList renders a responsive grid of PetItem cards.
  * Uses the .food-grid utility from index.css:
- *   - repeat(auto-fit, minmax(300px, 1fr)): create as many 300px-wide columns as will fit
+ *   - repeat(auto-fit, minmax(300px, 1fr)): create as many 300px‐wide columns as will fit
  *   - gap: 1rem between items
  *   - padding and align-items: stretch handled by .food-grid in index.css
  */

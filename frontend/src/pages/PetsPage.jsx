@@ -55,7 +55,7 @@ export default function PetsPage() {
 
   return (
     <div className="bg-[#DBF3F6] min-h-screen">
-      {/* 
+      {/*
         Fixed header with logo linking to Dashboard and logout button.
         Height: 4rem (h-16) = 64px total.
       */}
@@ -105,11 +105,6 @@ export default function PetsPage() {
           </button>
         </div>
 
-        {/*
-          If there is an error or no pets, show “No pets registered.”
-          Otherwise, display the responsive grid of PetItem cards.
-          We only pass onDelete (no onEdit).
-        */}
         {(!pets || pets.length === 0 || error) ? (
           <p className="text-center text-gray-500">No pets registered.</p>
         ) : (

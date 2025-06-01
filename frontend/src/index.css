@@ -23,7 +23,7 @@
   Custom layout utilities for multiple pages (Foods, Dashboard, etc.)
 
   1) .main-content: adds top padding so a fixed header does not overlap the content.
-     Reduced to 3rem (48px) so the Food illustration moves higher.
+     Reduced to 3rem (48px) so the Food/ Pet illustration moves higher.
 
   2) .food-grid: a responsive grid that fits columns of minimum 300px width, with 1rem gaps,
      1rem padding on left/right so cards don’t touch the viewport edges,
@@ -32,8 +32,7 @@
 @layer utilities {
   /*
     .main-content applies top padding of 3rem (48px),
-    ensuring that the fixed header of 4rem (64px) does not overlap page content.
-    This value has been reduced further to bring the Food illustration closer to the header.
+    ensuring that the fixed header (4rem = 64px) does not overlap page content.
   */
   .main-content {
     padding-top: 3rem; /* 3rem = 48px */
@@ -41,21 +40,20 @@
 
   /*
     .food-grid sets up a responsive grid:
-      - repeat(auto-fit, minmax(300px, 1fr)): create as many 300px-wide columns
-        as will fit, each able to expand equally (1fr).
-      - gap: 1rem (16px) between rows and columns.
-      - padding-left/right: 1rem (16px) so cards never touch the viewport edges.
-      - padding-top/bottom: 1rem (16px) so cards have space above and below.
-      - align-items: stretch ensures all items in the same row share equal height.
+      - repeat(auto-fit, minmax(300px, 1fr)): create as many 300px-wide columns as will fit
+      - gap: 1rem (16px) between rows and columns
+      - padding-left/right: 1rem (16px) so cards never touch the viewport edges
+      - padding-top/bottom: 1rem (16px) so cards have space above and below
+      - align-items: stretch ensures all items in the same row share equal height
   */
   .food-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1rem;             /* 1rem = 16px between cards */
-    padding-left: 1rem;    /* 1rem = 16px of space before the first card */
-    padding-right: 1rem;   /* 1rem = 16px of space after the last card */
-    padding-top: 1rem;     /* 1rem = 16px of space above the first row of cards */
-    padding-bottom: 1rem;  /* 1rem = 16px of space below the last row of cards */
+    padding-left: 1rem;    /* 1rem = 16px before first card */
+    padding-right: 1rem;   /* 1rem = 16px after last card */
+    padding-top: 1rem;     /* 1rem = 16px above first row */
+    padding-bottom: 1rem;  /* 1rem = 16px below last row */
     align-items: stretch;
   }
 }
