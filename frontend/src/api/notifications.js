@@ -13,10 +13,11 @@ import { calculateDaysRemaining, shouldNotify } from '../utils/calculateDaysRema
  * }>>}
  */
 export async function getLowStockAlerts(thresholdDays = 3) {
+  // Fetch all pets. getPets() now calls GET /pets (no "/api" prefix).
   const pets = await getPets()
 
   return pets
-    .map(pet => {
+    .map((pet) => {
       const { _id: petId, name: petName, gramsPerMeal, mealsPerDay, food } = pet
       const weightInGrams = food?.weight || 0
       const daysRemaining = calculateDaysRemaining(weightInGrams, gramsPerMeal, mealsPerDay)
@@ -27,5 +28,5 @@ export async function getLowStockAlerts(thresholdDays = 3) {
 
       return { petId, petName, daysRemaining, message }
     })
-    .filter(alert => alert !== null)
+    .filter((alert) => alert !== null)
 }

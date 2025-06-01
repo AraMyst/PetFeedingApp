@@ -1,15 +1,17 @@
 // src/utils/apiClient.js
 
-// The base URL for all API requests.
-// In Vercel, set VITE_API_URL to your backend’s URL (e.g., "https://petfeedingapp.onrender.com")
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000'
+// Base URL for all API requests.
+// In production (e.g., on Vercel), you should set VITE_API_URL to your backend’s full URL
+// (e.g., "https://petfeedingapp.onrender.com").
+// If VITE_API_URL is not defined, we default to an empty string so that all calls are relative.
+const API_URL = import.meta.env.VITE_API_URL || ''
 
 /**
  * Generic helper for making HTTP requests to your API.
- * Each call automatically reads `localStorage.getItem('token')`
+ * Automatically reads `localStorage.getItem('token')` for a JWT
  * and sets the Authorization header if a token exists.
  *
- * @param {string} endpoint  - The API path (e.g., '/auth/login')
+ * @param {string} endpoint  - The API path (e.g., '/pets', '/auth/login')
  * @param {object} options   - Fetch options (method, headers, body, etc.)
  * @returns {Promise<any>}    - Resolves with parsed JSON data or rejects with an Error
  */
@@ -17,7 +19,7 @@ async function request(endpoint, options = {}) {
   // Read the JWT token from localStorage (if present)
   const token = localStorage.getItem('token') || null
 
-  // Build our headers object, including Authorization if token exists
+  // Build headers, including Authorization if token exists
   const headers = {
     'Content-Type': 'application/json',
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
@@ -28,25 +30,25 @@ async function request(endpoint, options = {}) {
   const response = await fetch(`${API_URL}${endpoint}`, {
     ...options,
     headers,
-    // Include credentials only if you need cookies; here we send JWT in header
+    // Include credentials if you use cookies; here we rely on JWT in header
     credentials: 'include',
   })
 
-  // Attempt to parse the JSON body (if any)
+  // Attempt to parse JSON response body (if any)
   let data = null
   try {
     data = await response.json()
   } catch {
-    // If body is not JSON, ignore parse error
+    // If no JSON body, ignore parse error
   }
 
-  // If response not OK (status 4xx or 5xx), throw an Error
+  // If response is not OK (status 4xx or 5xx), throw an Error
   if (!response.ok) {
     const errorMessage = (data && data.message) || 'API request failed'
     throw new Error(errorMessage)
   }
 
-  // Return parsed JSON
+  // Return parsed JSON (or null if no body)
   return data
 }
 
