@@ -1,6 +1,14 @@
 // src/components/Pets/PetItem.jsx
 import React from 'react'
 
+/**
+ * PetItem displays information about a single pet:
+ *  - Image, Name, Age, Allergies, Consumption, Food name
+ *  - Only a “Delete” button at the bottom (no Edit)
+ *  - Cream-colored background (#F3CF9F) with rounded corners
+ *  - Full height (h-full) so that grid’s align-items: stretch
+ *    makes all cards in the same row equal height
+ */
 export default function PetItem({ pet, onDelete }) {
   const {
     _id,

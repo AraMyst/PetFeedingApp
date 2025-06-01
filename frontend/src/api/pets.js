@@ -1,20 +1,23 @@
-import { apiClient } from '../utils/apiClient';
+// src/api/pets.js
+import { apiClient } from '../utils/apiClient'
 
 /**
  * Fetch all pets (with populated food details).
- * @returns {Promise<import('axios').AxiosResponse>}
+ * @returns {Promise<Array<Object>>} - Resolves with an array of pet objects.
  */
-export function getPets() {
-  return apiClient.get('/api/pets');
+export async function getPets() {
+  const response = await apiClient.get('/api/pets')
+  return response.data
 }
 
 /**
  * Fetch a single pet by its ID.
  * @param {string} id - Pet ID
- * @returns {Promise<import('axios').AxiosResponse>}
+ * @returns {Promise<Object>} - Resolves with the pet object.
  */
-export function getPetById(id) {
-  return apiClient.get(`/api/pets/${id}`);
+export async function getPetById(id) {
+  const response = await apiClient.get(`/api/pets/${id}`)
+  return response.data
 }
 
 /**
@@ -27,10 +30,11 @@ export function getPetById(id) {
  *   mealsPerDay: number,
  *   food: string  // Food ID
  * }} petData
- * @returns {Promise<import('axios').AxiosResponse>}
+ * @returns {Promise<Object>} - Resolves with the newly created pet object.
  */
-export function createPet(petData) {
-  return apiClient.post('/api/pets', petData);
+export async function createPet(petData) {
+  const response = await apiClient.post('/api/pets', petData)
+  return response.data
 }
 
 /**
@@ -44,17 +48,18 @@ export function createPet(petData) {
  *   mealsPerDay?: number,
  *   food?: string
  * }} petData
- * @returns {Promise<import('axios').AxiosResponse>}
+ * @returns {Promise<Object>} - Resolves with the updated pet object.
  */
-export function updatePet(id, petData) {
-  return apiClient.put(`/api/pets/${id}`, petData);
+export async function updatePet(id, petData) {
+  const response = await apiClient.put(`/api/pets/${id}`, petData)
+  return response.data
 }
 
 /**
  * Delete a pet by its ID.
  * @param {string} id - Pet ID
- * @returns {Promise<import('axios').AxiosResponse>}
+ * @returns {Promise<void>} - Resolves when deletion succeeds.
  */
-export function deletePet(id) {
-  return apiClient.delete(`/api/pets/${id}`);
+export async function deletePet(id) {
+  await apiClient.delete(`/api/pets/${id}`)
 }
