@@ -25,7 +25,8 @@
   1) .main-content: adds top padding so a fixed header does not overlap the content.
      Reduced to 3rem (48px) so the Food illustration moves higher.
 
-  2) .food-grid: a responsive grid that fits columns of minimum 300px width, with 1rem gaps.
+  2) .food-grid: a responsive grid that fits columns of minimum 300px width, with 1rem gaps,
+     and 1rem padding on left/right so cards don’t touch the viewport edges.
 */
 @layer utilities {
   /*
@@ -42,12 +43,15 @@
       - repeat(auto-fit, minmax(300px, 1fr)): create as many 300px-wide columns
         as will fit, each able to expand equally (1fr).
       - gap: 1rem (16px) between rows and columns.
+      - padding-left/right: 1rem (16px) so cards never touch the viewport edges.
       - align-items: stretch ensures all items in the same row share equal height.
   */
   .food-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1rem; /* 1rem = 16px */
+    gap: 1rem;            /* 1rem = 16px between cards */
+    padding-left: 1rem;   /* 1rem = 16px of space before the first card */
+    padding-right: 1rem;  /* 1rem = 16px of space after the last card */
     align-items: stretch;
   }
 }
