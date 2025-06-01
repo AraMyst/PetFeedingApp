@@ -10,7 +10,7 @@ import { useAuth } from '../contexts/AuthContext'
  *  - A fixed header with a logo linking to Dashboard and a logout button
  *  - Below the header: a Food illustration + “Add New Food” button (always visible)
  *  - If no foods exist (or an error occurred), show “No foods registered.”
- *  - Otherwise, show a responsive grid of FoodItem cards under the image/button
+ *  - Otherwise, show a centered 3-column grid of FoodItem cards under the image/button
  *  - “Edit” button on each card navigates to /foods/:id/edit
  */
 export default function FoodsPage() {
@@ -59,7 +59,7 @@ export default function FoodsPage() {
 
   return (
     <div className="bg-[#DBF3F6] min-h-screen">
-      {/* 
+      {/*
         Fixed header with logo linking to Dashboard and logout button.
         Height: 4rem (h-16 = 64px).
       */}
@@ -88,13 +88,12 @@ export default function FoodsPage() {
         Main content uses .main-content to push it below the fixed header.
         .main-content = padding-top: 3rem (48px), defined in index.css.
       */}
-      <main className="main-content px-4 pb-8 max-w-5xl mx-auto">
+      <main className="main-content px-4 pb-8">
         {/*
           Food illustration and “Add New Food” button.
-          Adding -mt-4 to pull this block upward by 1rem (16px).
-          mb-8 for bottom spacing below the illustration.
+          mb-12 gives extra vertical space (3rem = 48px) before showing cards.
         */}
-        <div className="flex flex-col items-center -mt-4 mb-8">
+        <div className="flex flex-col items-center mb-12">
           <img
             src="/assets/images/Food.png"
             alt="Food Illustration"
@@ -110,16 +109,19 @@ export default function FoodsPage() {
 
         {/*
           If there is an error or no foods, show “No foods registered.”
-          Otherwise, display the responsive grid of FoodItem cards.
+          Otherwise, wrap the 3-column grid in a max-width container (960px)
+          and center it with mx-auto.
         */}
         {(!foods || foods.length === 0 || error) ? (
           <p className="text-center text-gray-500">No foods registered.</p>
         ) : (
-          <FoodList
-            foods={foods}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-          />
+          <div className="max-w-[960px] mx-auto">
+            <FoodList
+              foods={foods}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
+          </div>
         )}
       </main>
     </div>

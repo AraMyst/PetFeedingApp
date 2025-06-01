@@ -19,30 +19,13 @@
   }
 }
 
-/*
-  Custom layout utilities for multiple pages (Foods, Dashboard, etc.)
-
-  1) .main-content: adds top padding so a fixed header does not overlap the content.
-     We leave this at 3rem so that the Food illustration is pulled up closer to the header.
-
-  2) .food-grid: (now unused) was a responsive auto-fit grid. You can safely delete this block
-     if you prefer, since we will use a fixed grid in FoodList.jsx instead.
+/* 
+  Custom utility for main content padding.
+  .main-content applies 3rem (48px) top padding so that the fixed header
+  of 4rem (64px) does not overlap the page content.
 */
 @layer utilities {
-  /*
-    .main-content applies top padding of 3rem (48px),
-    ensuring that the fixed header of 4rem (64px) does not overlap page content.
-  */
   .main-content {
     padding-top: 3rem; /* 3rem = 48px */
   }
-
-  /*
-  .food-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1rem; /* 16px */
-    align-items: stretch;
-  }
-  */
 }
