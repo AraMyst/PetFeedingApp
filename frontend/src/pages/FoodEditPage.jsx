@@ -1,12 +1,11 @@
-// src/pages/FoodEditPage.jsx
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import FoodForm from '../components/Foods/FoodForm'
 import { useFoods } from '../hooks/useFoods'
 
 /**
- * FoodEditPage loads an existing food by ID e exibe o formulário para edição.
- * Após submeter, atualiza e volta para /foods (refetch incluindo a edição).
+ * FoodEditPage loads an existing food by ID and displays it in FoodForm for editing.
+ * After submission, it navigates back to /foods.
  */
 export default function FoodEditPage() {
   const { id } = useParams()
@@ -14,18 +13,18 @@ export default function FoodEditPage() {
   const navigate = useNavigate()
   const [initialData, setInitialData] = useState(null)
 
-  // On mount ou quando a lista de foods muda, localiza o food pelo ID
+  // On mount or when foods change, find the food with matching ID
   useEffect(() => {
     const existingFood = foods.find((f) => f._id === id)
     if (existingFood) {
       setInitialData(existingFood)
     } else {
-      // Se não encontrar (por URL direta), volta para /foods
+      // If not found (e.g., direct URL load), redirect back to /foods
       navigate('/foods', { replace: true })
     }
   }, [id, foods, navigate])
 
-  // Enquanto não houver initialData, mostra loading
+  // While waiting for initialData, show a loading state
   if (!initialData) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-[#DBF3F6]">
@@ -34,22 +33,18 @@ export default function FoodEditPage() {
     )
   }
 
-  // Handle form submission: atualiza, refetch e redireciona
+  // Handle form submission: update then navigate back
   const handleSubmit = async (data) => {
-    try {
-      await updateFood(id, data)
-      await fetchFoods()
-      navigate('/foods', { replace: true })
-    } catch (err) {
-      console.error('Error updating food:', err)
-    }
+    await updateFood(id, data)
+    await fetchFoods()
+    navigate('/foods', { replace: true })
   }
 
   return (
     <div className="bg-[#DBF3F6] min-h-screen">
-      {/* Fixed header com logo */}
-      <header className="fixed top-0 left-0 w-full bg-[#DBF3F6] shadow-sm z-10">
-        <div className="flex justify-center py-3">
+      {/* Fixed header with logo linking to Dashboard */}
+      <header className="fixed top-0 left-0 w-full bg-[#DBF3F6] shadow-sm z-10 h-16">
+        <div className="h-full flex items-center justify-center">
           <img
             src="/assets/images/logo.png"
             alt="App Logo"
@@ -58,8 +53,8 @@ export default function FoodEditPage() {
         </div>
       </header>
 
-      {/* Conteúdo principal */}
-      <main className="pt-20 px-4 pb-8 max-w-2xl mx-auto">
+      {/* Main content with padding-top equal to header height */}
+      <main className="pt-16 px-4 pb-8 max-w-2xl mx-auto">
         <h2 className="text-2xl font-bold mb-4">Edit Food</h2>
         <FoodForm
           initialData={initialData}

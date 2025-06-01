@@ -7,9 +7,7 @@ import React from 'react'
  *  - Cream-colored background (#F5F1E8) with rounded corners
  */
 export default function FoodItem({ food, onEdit, onDelete }) {
-  // Determine primary buy link or fallback to default
-  // (Backend already ensures buyLinks is a non-empty array,
-  // but here we just take the first one if it exists)
+  // Determine primary buy link or fallback to default (Amazon search)
   const primaryLink =
     Array.isArray(food.buyLinks) && food.buyLinks.length > 0
       ? food.buyLinks[0]
@@ -28,10 +26,11 @@ export default function FoodItem({ food, onEdit, onDelete }) {
           </p>
         )}
 
-        {/**
-          * Always render a “Buy” link: either the provided one or a default Amazon search
-          * Wrapping in a container to add top/bottom margin between specs and buttons
-          */}
+        {/* 
+          Always render a “Buy” link:
+          - If the user forneceu um buyLink, usa o primeiro.
+          - Senão, faz pesquisa padrão na Amazon pelo nome do alimento. 
+        */}
         <div className="mt-2 mb-4">
           <a
             href={
@@ -48,10 +47,10 @@ export default function FoodItem({ food, onEdit, onDelete }) {
       </div>
 
       {/**
-        * Edit/Delete buttons: 
-        * - mt-4 for spacing above
-        * - flex justify-center to center horizontally
-        * - space-x-4 to add horizontal gap between buttons
+        * Edit/Delete buttons:
+        * - mt-4 para espaçar acima dos botões
+        * - flex justify-center para centralizar
+        * - space-x-4 para afastar “Edit” e “Delete”
         */}
       <div className="mt-4 flex justify-center space-x-4">
         <button

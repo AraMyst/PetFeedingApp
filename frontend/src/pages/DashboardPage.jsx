@@ -1,9 +1,10 @@
 // src/pages/DashboardPage.jsx
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useFoods } from '../hooks/useFoods'
 import { usePets } from '../hooks/usePets'
 import { useNotifications } from '../hooks/useNotifications'
+import { useAuth } from '../contexts/AuthContext'
 
 /**
  * DashboardPage displays three main cards:
@@ -12,7 +13,7 @@ import { useNotifications } from '../hooks/useNotifications'
  *  - Notifications: shows number of alerts and a button to manage notifications
  *
  * Features:
- *  - Fixed header at top with a small rectangular logo
+ *  - Fixed header at top with a small rectangular logo and logout button
  *  - Responsive flex layout:
  *      • flex-col on small screens (stacked vertically)
  *      • md:flex-row on medium+ screens (side by side)
@@ -26,6 +27,8 @@ export default function DashboardPage() {
   const { foods, loading: loadingFoods } = useFoods()
   const { pets, loading: loadingPets } = usePets()
   const { alerts, loading: loadingAlerts } = useNotifications()
+  const { logout } = useAuth()
+  const navigate = useNavigate()
 
   // While any data is loading, show a centered loading message
   if (loadingFoods || loadingPets || loadingAlerts) {
@@ -36,16 +39,33 @@ export default function DashboardPage() {
     )
   }
 
+  // Handle user logout
+  const handleLogout = () => {
+    logout()
+    navigate('/login', { replace: true })
+  }
+
   return (
     <div className="bg-[#DBF3F6] min-h-screen">
-      {/* Fixed header with small rectangular logo */}
-      <header className="fixed top-0 left-0 w-full bg-[#DBF3F6] shadow-sm z-10">
-        <div className="flex justify-center py-3">
-          <img
-            src="/assets/images/logo.png"
-            alt="App Logo"
-            className="w-[150px] h-[50px] object-contain"
-          />
+      {/* Fixed header with logo and logout button */}
+      <header className="fixed top-0 left-0 w-full bg-[#DBF3F6] shadow-sm z-10 h-16">
+        <div className="h-full flex items-center justify-between px-4">
+          {/* Logo links to Dashboard */}
+          <Link to="/dashboard">
+            <img
+              src="/assets/images/logo.png"
+              alt="App Logo"
+              className="w-[150px] h-[50px] object-contain"
+            />
+          </Link>
+
+          {/* Discreet logout button in turquoise-blue */}
+          <button
+            onClick={handleLogout}
+            className="px-3 py-1 bg-teal-400 text-white rounded hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-300 text-sm"
+          >
+            Logout
+          </button>
         </div>
       </header>
 
@@ -53,8 +73,8 @@ export default function DashboardPage() {
       <main className="pt-20 px-4 pb-8">
         {/*
           Responsive flex container:
-          - flex-col: stack cards on small screens
-          - md:flex-row: place cards side by side on medium+ screens
+          - flex-col on small screens (cards stack vertically)
+          - md:flex-row on medium+ screens (side by side)
           - gap-6: spacing between cards
           - max-w-5xl mx-auto: center horizontally and constrain width
         */}

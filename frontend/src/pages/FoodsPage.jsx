@@ -5,7 +5,7 @@ import { useNavigate, useLocation, Link } from 'react-router-dom'
 
 /**
  * FoodsPage displays:
- *  - Fixed header with logo (clickable link to Dashboard)
+ *  - Fixed header with logo at top (same as Dashboard)
  *  - Below header: Food illustration + “Add New Food” button (always visible)
  *  - If no foods exist (or an error occurred), show “No foods registered.” message under the image/button
  *  - Otherwise, show a responsive grid of FoodItem cards under the image/button
@@ -50,9 +50,12 @@ export default function FoodsPage() {
 
   return (
     <div className="bg-[#DBF3F6] min-h-screen">
-      {/* Fixed header with logo linking to Dashboard */}
-      <header className="fixed top-0 left-0 w-full bg-[#DBF3F6] shadow-sm z-10">
-        <div className="flex justify-center py-3">
+      {/**
+        * Fixed header with logo linking to Dashboard.
+        * We give it a fixed height of 64px (h-16). 
+        */}
+      <header className="fixed top-0 left-0 w-full bg-[#DBF3F6] shadow-sm z-10 h-16">
+        <div className="h-full flex items-center justify-center">
           <Link to="/dashboard">
             <img
               src="/assets/images/logo.png"
@@ -64,19 +67,16 @@ export default function FoodsPage() {
       </header>
 
       {/**
-        * Main content with extra top padding so header does not overlap:
-        * pt-32 for 8rem (header height + extra space)
-        * px-4 for horizontal padding
-        * pb-8 for bottom padding
-        * max-w-5xl mx-auto to center and constrain width
+        * Main content with padding-top equal to header height (16 = 4rem = 64px).
+        * That way, nothing fica atrás do header fixo.
         */}
-      <main className="pt-32 px-4 pb-8 max-w-5xl mx-auto">
+      <main className="pt-16 px-4 pb-8 max-w-5xl mx-auto">
         {/**
-          * Always-visible section: Food illustration + Add button
-          * mt-12 pushes the illustration down so it’s fully visible
-          * mb-8 adds spacing below
+          * Always-visible section: 
+          *   - mt-8 to push nossa “Food” image um pouco abaixo do header.
+          *   - mb-8 para espaçamento inferior.
           */}
-        <div className="flex flex-col items-center mt-12 mb-8">
+        <div className="flex flex-col items-center mt-8 mb-8">
           <img
             src="/assets/images/Food.png"
             alt="Food Illustration"
@@ -92,7 +92,7 @@ export default function FoodsPage() {
 
         {/**
           * If there is an error or no foods, show “No foods registered.”
-          * Otherwise, display the responsive grid of FoodItem cards
+          * Otherwise, display the responsive grid of FoodItem cards.
           */}
         {(!foods || foods.length === 0 || error) ? (
           <p className="text-center text-gray-500">No foods registered.</p>
