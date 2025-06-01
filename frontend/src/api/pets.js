@@ -6,8 +6,8 @@ import { apiClient } from '../utils/apiClient'
  * @returns {Promise<Array<Object>>} - Resolves with an array of pet objects.
  */
 export async function getPets() {
-  // Call GET /pets (no "/api" prefix)
-  const petsArray = await apiClient.get('/pets')
+  // Call GET /api/pets (instead of '/pets')
+  const petsArray = await apiClient.get('/api/pets')
   return Array.isArray(petsArray) ? petsArray : []
 }
 
@@ -17,8 +17,8 @@ export async function getPets() {
  * @returns {Promise<Object>} - Resolves with the pet object.
  */
 export async function getPetById(id) {
-  // Call GET /pets/:id
-  const pet = await apiClient.get(`/pets/${id}`)
+  // Call GET /api/pets/:id
+  const pet = await apiClient.get(`/api/pets/${id}`)
   return pet
 }
 
@@ -35,8 +35,8 @@ export async function getPetById(id) {
  * @returns {Promise<Object>} - Resolves with the newly created pet object.
  */
 export async function createPet(petData) {
-  // Call POST /pets
-  const createdPet = await apiClient.post('/pets', petData)
+  // Call POST /api/pets
+  const createdPet = await apiClient.post('/api/pets', petData)
   return createdPet
 }
 
@@ -54,8 +54,8 @@ export async function createPet(petData) {
  * @returns {Promise<Object>} - Resolves with the updated pet object.
  */
 export async function updatePet(id, petData) {
-  // Call PUT /pets/:id
-  const updatedPet = await apiClient.put(`/pets/${id}`, petData)
+  // Call PUT /api/pets/:id
+  const updatedPet = await apiClient.put(`/api/pets/${id}`, petData)
   return updatedPet
 }
 
@@ -65,6 +65,6 @@ export async function updatePet(id, petData) {
  * @returns {Promise<void>} - Resolves when deletion succeeds.
  */
 export async function deletePet(id) {
-  // Call DELETE /pets/:id
-  await apiClient.delete(`/pets/${id}`)
+  // Call DELETE /api/pets/:id
+  await apiClient.delete(`/api/pets/${id}`)
 }

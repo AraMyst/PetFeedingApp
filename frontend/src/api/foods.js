@@ -6,8 +6,8 @@ import { apiClient } from '../utils/apiClient'
  * @returns {Promise<Array<Object>>} - Resolves with an array of food objects.
  */
 export async function getFoods() {
-  // Call GET /foods (no "/api" prefix)
-  const foodsArray = await apiClient.get('/foods')
+  // Call GET /api/foods
+  const foodsArray = await apiClient.get('/api/foods')
   return Array.isArray(foodsArray) ? foodsArray : []
 }
 
@@ -17,8 +17,8 @@ export async function getFoods() {
  * @returns {Promise<Object>} - Resolves with the food object.
  */
 export async function getFoodById(id) {
-  // Call GET /foods/:id
-  const food = await apiClient.get(`/foods/${id}`)
+  // Call GET /api/foods/:id
+  const food = await apiClient.get(`/api/foods/${id}`)
   return food
 }
 
@@ -28,8 +28,8 @@ export async function getFoodById(id) {
  * @returns {Promise<Object>} - Resolves with the newly created food object.
  */
 export async function createFood(foodData) {
-  // Call POST /foods
-  const createdFood = await apiClient.post('/foods', foodData)
+  // Call POST /api/foods
+  const createdFood = await apiClient.post('/api/foods', foodData)
   return createdFood
 }
 
@@ -40,8 +40,8 @@ export async function createFood(foodData) {
  * @returns {Promise<Object>} - Resolves with the updated food object.
  */
 export async function updateFood(id, foodData) {
-  // Call PUT /foods/:id
-  const updatedFood = await apiClient.put(`/foods/${id}`, foodData)
+  // Call PUT /api/foods/:id
+  const updatedFood = await apiClient.put(`/api/foods/${id}`, foodData)
   return updatedFood
 }
 
@@ -51,6 +51,6 @@ export async function updateFood(id, foodData) {
  * @returns {Promise<void>} - Resolves when deletion succeeds.
  */
 export async function deleteFood(id) {
-  // Call DELETE /foods/:id
-  await apiClient.delete(`/foods/${id}`)
+  // Call DELETE /api/foods/:id
+  await apiClient.delete(`/api/foods/${id}`)
 }

@@ -13,7 +13,7 @@ import { calculateDaysRemaining, shouldNotify } from '../utils/calculateDaysRema
  * }>>}
  */
 export async function getLowStockAlerts(thresholdDays = 3) {
-  // Fetch all pets. getPets() now calls GET /pets (no "/api" prefix).
+  // Fetch all pets using getPets(), que agora chama GET /api/pets
   const pets = await getPets()
 
   return pets
