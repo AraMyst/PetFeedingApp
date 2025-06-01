@@ -25,6 +25,7 @@ export function usePets() {
     try {
       // petsApi.getPets() now returns Array<Object>
       const dataArray = await petsApi.getPets()
+      console.log('🔍 [usePets] fetched dataArray =', dataArray)  // <<-- test log
       // Ensure we actually got an array; otherwise default to []
       setPets(Array.isArray(dataArray) ? dataArray : [])
     } catch (err) {
