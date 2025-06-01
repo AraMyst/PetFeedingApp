@@ -7,7 +7,7 @@ import { apiClient } from '../utils/apiClient'
  */
 export async function getFoods() {
   const response = await apiClient.get('/api/foods')
-  return response.data
+  return response
 }
 
 /**
@@ -17,7 +17,7 @@ export async function getFoods() {
  */
 export async function getFoodById(id) {
   const response = await apiClient.get(`/api/foods/${id}`)
-  return response.data
+  return response
 }
 
 /**
@@ -27,7 +27,7 @@ export async function getFoodById(id) {
  */
 export async function createFood(foodData) {
   const response = await apiClient.post('/api/foods', foodData)
-  return response.data
+  return response
 }
 
 /**
@@ -38,7 +38,7 @@ export async function createFood(foodData) {
  */
 export async function updateFood(id, foodData) {
   const response = await apiClient.put(`/api/foods/${id}`, foodData)
-  return response.data
+  return response
 }
 
 /**
@@ -57,5 +57,5 @@ export async function deleteFood(id) {
  */
 export async function toggleOpenFood(id) {
   const response = await apiClient.patch(`/api/foods/${id}/toggle-open`)
-  return response.data
+  return response
 }
