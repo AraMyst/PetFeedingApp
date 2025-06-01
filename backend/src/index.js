@@ -18,7 +18,7 @@ app.use(
   cors({
     origin: FRONTEND_URL,
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], // <-- Added 'PATCH' here
     allowedHeaders: ['Content-Type', 'Authorization'],
   })
 )
