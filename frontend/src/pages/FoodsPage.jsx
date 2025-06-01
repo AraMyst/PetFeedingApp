@@ -31,12 +31,15 @@ export default function FoodsPage() {
 
   // Navigate to the edit screen for a specific food
   const handleEdit = (food) => {
+    // Use a template string so that the route is built correctly:
     navigate(`/foods/${food._id}/edit`)
   }
 
   // Delete a food after confirmation, then reload list
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this food?')) {
+    // Show a confirm dialog that includes your brand name:
+    const message = 'PetPaunch App: Are you sure you want to delete this food?'
+    if (window.confirm(message)) {
       await deleteFood(id)
       await fetchFoods()
     }
@@ -69,7 +72,7 @@ export default function FoodsPage() {
           <Link to="/dashboard">
             <img
               src="/assets/images/logo.png"
-              alt="App Logo"
+              alt="PetPaunch App Logo"
               className="w-[150px] h-[50px] object-contain"
             />
           </Link>
@@ -86,7 +89,7 @@ export default function FoodsPage() {
 
       {/*
         Main content with custom top padding so that the fixed header
-        does not overlap the Food illustration. 
+        does not overlap the Food illustration.
         .main-content = padding-top: 4rem (64px) defined in index.css.
       */}
       <main className="main-content px-4 pb-8 max-w-5xl mx-auto">
