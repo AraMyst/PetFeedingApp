@@ -1,10 +1,8 @@
 // src/utils/apiClient.js
 
 // Base URL for all API requests.
-// In production, you should set VITE_API_URL to your backend’s full URL,
-// e.g. "https://petfeedingapp.onrender.com". If VITE_API_URL is not defined,
-// we default here to the Render backend directly so that fetch('/api/...')
-// goes to the correct server instead of the same origin.
+// In production, set VITE_API_URL to your backend’s URL (e.g. "https://petfeedingapp.onrender.com").
+// If VITE_API_URL is not defined, default to the Render backend directly:
 const API_URL = import.meta.env.VITE_API_URL || 'https://petfeedingapp.onrender.com'
 
 /**
@@ -31,7 +29,7 @@ async function request(endpoint, options = {}) {
   const response = await fetch(`${API_URL}${endpoint}`, {
     ...options,
     headers,
-    credentials: 'include',
+    credentials: 'include', // Include credentials if you use cookies; otherwise JWT is enough
   })
 
   // Attempt to parse JSON response body (if any)
@@ -52,11 +50,11 @@ async function request(endpoint, options = {}) {
   return data
 }
 
-// Export convenience methods for each HTTP verb, including PATCH now:
+// Export convenience methods for each HTTP verb, including PATCH:
 export const apiClient = {
   get:     (endpoint)         => request(endpoint, { method: 'GET' }),
-  post:    (endpoint, body)   => request(endpoint, { method: 'POST',   body: JSON.stringify(body) }),
-  put:     (endpoint, body)   => request(endpoint, { method: 'PUT',    body: JSON.stringify(body) }),
+  post:    (endpoint, body)   => request(endpoint, { method: 'POST',  body: JSON.stringify(body) }),
+  put:     (endpoint, body)   => request(endpoint, { method: 'PUT',   body: JSON.stringify(body) }),
   delete:  (endpoint)         => request(endpoint, { method: 'DELETE' }),
-  patch:   (endpoint, body)   => request(endpoint, { method: 'PATCH',  body: body ? JSON.stringify(body) : undefined }),
+  patch:   (endpoint, body)   => request(endpoint, { method: 'PATCH', body: body ? JSON.stringify(body) : undefined }),
 }

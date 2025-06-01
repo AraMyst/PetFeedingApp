@@ -5,13 +5,13 @@ import * as petsApi from '../api/pets'
 /**
  * usePets hook provides pet data and CRUD operations.
  * Returns:
- *  - pets: array of pet objects
- *  - loading: boolean
- *  - error: any
- *  - fetchPets(): reload list
- *  - createPet(data): create new pet
- *  - updatePet(id, data): update existing pet
- *  - deletePet(id): delete pet
+ *   - pets: array of pet objects
+ *   - loading: boolean
+ *   - error: any
+ *   - fetchPets(): reload list
+ *   - createPet(data): create new pet
+ *   - updatePet(id, data): update existing pet
+ *   - deletePet(id): delete pet
  */
 export function usePets() {
   const [pets, setPets] = useState([])
@@ -28,6 +28,7 @@ export function usePets() {
       // Ensure we actually got an array; otherwise default to []
       setPets(Array.isArray(dataArray) ? dataArray : [])
     } catch (err) {
+      console.error('Error fetching pets:', err)
       setError(err)
       setPets([])
     } finally {
@@ -49,6 +50,7 @@ export function usePets() {
       setPets((prev) => [...prev, newPet])
       return newPet
     } catch (err) {
+      console.error('Error creating pet:', err)
       setError(err)
       throw err
     } finally {
@@ -66,6 +68,7 @@ export function usePets() {
       )
       return updatedPet
     } catch (err) {
+      console.error('Error updating pet:', err)
       setError(err)
       throw err
     } finally {
@@ -80,6 +83,7 @@ export function usePets() {
       await petsApi.deletePet(id)
       setPets((prev) => prev.filter((p) => p._id !== id))
     } catch (err) {
+      console.error('Error deleting pet:', err)
       setError(err)
       throw err
     } finally {

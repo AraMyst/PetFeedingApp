@@ -6,19 +6,17 @@ import { apiClient } from '../utils/apiClient'
  * @returns {Promise<Array<Object>>} - Resolves with an array of pet objects.
  */
 export async function getPets() {
-  // Call GET /api/pets
-  // The backend returns an object like { data: [ … ] },
-  // so extract .data before returning.
+  // The backend’s GET /api/pets should return a JSON array of pets directly:
   const response = await apiClient.get('/api/pets')
-  // If the server uses { data: [ … ] }, then:
+  // If your backend sometimes wraps in { data: [...] }, check for that:
   if (Array.isArray(response.data)) {
     return response.data
   }
-  // If the server simply returns [ … ] at top level, then response is already an array:
+  // Otherwise assume response itself is an array:
   if (Array.isArray(response)) {
     return response
   }
-  // Otherwise default to empty array
+  // Fallback to empty array
   return []
 }
 
@@ -28,9 +26,8 @@ export async function getPets() {
  * @returns {Promise<Object>} - Resolves with the pet object.
  */
 export async function getPetById(id) {
-  // Call GET /api/pets/:id
   const response = await apiClient.get(`/api/pets/${id}`)
-  // If your backend wraps it in { data: petObj }, extract .data:
+  // If wrapped in { data: petObj }, extract .data:
   return response.data || response
 }
 
@@ -47,7 +44,6 @@ export async function getPetById(id) {
  * @returns {Promise<Object>} - Resolves with the newly created pet object.
  */
 export async function createPet(petData) {
-  // Call POST /api/pets
   const response = await apiClient.post('/api/pets', petData)
   return response.data || response
 }
@@ -66,7 +62,6 @@ export async function createPet(petData) {
  * @returns {Promise<Object>} - Resolves with the updated pet object.
  */
 export async function updatePet(id, petData) {
-  // Call PUT /api/pets/:id
   const response = await apiClient.put(`/api/pets/${id}`, petData)
   return response.data || response
 }
@@ -77,6 +72,5 @@ export async function updatePet(id, petData) {
  * @returns {Promise<void>} - Resolves when deletion succeeds.
  */
 export async function deletePet(id) {
-  // Call DELETE /api/pets/:id
   await apiClient.delete(`/api/pets/${id}`)
 }
