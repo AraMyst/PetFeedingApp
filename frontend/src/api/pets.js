@@ -6,9 +6,20 @@ import { apiClient } from '../utils/apiClient'
  * @returns {Promise<Array<Object>>} - Resolves with an array of pet objects.
  */
 export async function getPets() {
-  // Call GET /api/pets (instead of '/pets')
-  const petsArray = await apiClient.get('/api/pets')
-  return Array.isArray(petsArray) ? petsArray : []
+  // Call GET /api/pets
+  // The backend returns an object like { data: [ … ] },
+  // so extract .data before returning.
+  const response = await apiClient.get('/api/pets')
+  // If the server uses { data: [ … ] }, then:
+  if (Array.isArray(response.data)) {
+    return response.data
+  }
+  // If the server simply returns [ … ] at top level, then response is already an array:
+  if (Array.isArray(response)) {
+    return response
+  }
+  // Otherwise default to empty array
+  return []
 }
 
 /**
@@ -18,8 +29,9 @@ export async function getPets() {
  */
 export async function getPetById(id) {
   // Call GET /api/pets/:id
-  const pet = await apiClient.get(`/api/pets/${id}`)
-  return pet
+  const response = await apiClient.get(`/api/pets/${id}`)
+  // If your backend wraps it in { data: petObj }, extract .data:
+  return response.data || response
 }
 
 /**
@@ -36,8 +48,8 @@ export async function getPetById(id) {
  */
 export async function createPet(petData) {
   // Call POST /api/pets
-  const createdPet = await apiClient.post('/api/pets', petData)
-  return createdPet
+  const response = await apiClient.post('/api/pets', petData)
+  return response.data || response
 }
 
 /**
@@ -55,8 +67,8 @@ export async function createPet(petData) {
  */
 export async function updatePet(id, petData) {
   // Call PUT /api/pets/:id
-  const updatedPet = await apiClient.put(`/api/pets/${id}`, petData)
-  return updatedPet
+  const response = await apiClient.put(`/api/pets/${id}`, petData)
+  return response.data || response
 }
 
 /**
