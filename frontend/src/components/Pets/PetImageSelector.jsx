@@ -7,7 +7,7 @@ import React from 'react'
  *   - Cat
  *   - Others
  *
- * The image size is now reduced to 150×150 pixels.
+ * The image size is now 120×120 pixels to remain proportional.
  *
  * Props:
  *   - selected: string   // 'dog' | 'cat' | 'others'
@@ -36,7 +36,7 @@ export default function PetImageSelector({ selected, onSelect }) {
           <img
             src={opt.src}
             alt={opt.alt}
-            className="w-[150px] h-[150px] object-contain mx-auto"
+            className="w-[120px] h-[120px] object-contain mx-auto"
           />
           <p className="text-center text-sm capitalize mt-1">{opt.alt}</p>
         </div>

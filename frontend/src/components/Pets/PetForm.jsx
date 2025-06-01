@@ -31,12 +31,12 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
   const [name, setName] = useState('')
   const [animalType, setAnimalType] = useState('')           // 'dog' | 'cat' | 'others'
   const [ageCategory, setAgeCategory] = useState('')         // 'young' | 'adult' | 'old'
-  const [ageValue, setAgeValue] = useState('')               // numeric value (months if young, years otherwise)
+  const [ageValue, setAgeValue] = useState('')               // numeric (months if young, years otherwise)
   const [weightCategory, setWeightCategory] = useState('')   // 'thin' | 'medium' | 'fat'
   const [allergies, setAllergies] = useState('')
   const [gramsPerMeal, setGramsPerMeal] = useState('')
   const [mealsPerDay, setMealsPerDay] = useState('')
-  const [food, setFood] = useState('')                      // start with empty, so user clearly sees the drop-down
+  const [food, setFood] = useState('')                      // start empty so user sees the dropdown
   const [error, setError] = useState('')
 
   // Whenever the list of foods changes, auto-select the first if none chosen yet
@@ -46,18 +46,18 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
     }
   }, [foods, food])
 
-  // Helper: Build age‐options based on category
+  // Build age‐options based on category
   const getAgeOptions = () => {
     if (!ageCategory) return []
     if (ageCategory === 'young') {
       // 0 to 12 months
-      return Array.from({ length: 13 }, (_, i) => i) // [0,1,2,...,12]
+      return Array.from({ length: 13 }, (_, i) => i)
     } else if (ageCategory === 'adult') {
       // 1 to 7 years
-      return Array.from({ length: 7 }, (_, i) => i + 1) // [1,2,...,7]
+      return Array.from({ length: 7 }, (_, i) => i + 1)
     } else if (ageCategory === 'old') {
       // 7 to 30 years
-      return Array.from({ length: 24 }, (_, i) => i + 7) // [7,8,...,30]
+      return Array.from({ length: 24 }, (_, i) => i + 7)
     } else {
       return []
     }
@@ -71,7 +71,7 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
       .map((a) => a.trim())
       .filter(Boolean)
 
-    // Validate everything
+    // Validate required fields
     if (
       !name ||
       !animalType ||
@@ -89,15 +89,15 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
     // Compute numeric age (in years). If “young” (months), convert to decimal.
     let numericAge = Number(ageValue)
     if (ageCategory === 'young') {
-      // Convert months to years with two‐decimal precision
       numericAge = Number((Number(ageValue) / 12).toFixed(2))
     }
-    // Build the “image” string for this pet (used by PetItem to render the correct PNG)
-    // e.g. “DogYoung” or “CatAdult” etc. (must match filenames exactly)
-    const capitalizedAnimal = animalType.charAt(0).toUpperCase() + animalType.slice(1) // “Dog”, “Cat”, “Others”
+
+    // Build the “image” string (e.g. “DogYoung”)
+    const capitalizedAnimal =
+      animalType.charAt(0).toUpperCase() + animalType.slice(1) // “Dog”, “Cat”, “Others”
     const capitalizedAgeCat =
       ageCategory.charAt(0).toUpperCase() + ageCategory.slice(1) // “Young” | “Adult” | “Old”
-    const imageString = `${capitalizedAnimal}${capitalizedAgeCat}` // e.g. “DogYoung”
+    const imageString = `${capitalizedAnimal}${capitalizedAgeCat}`
 
     onSubmit({
       name,
@@ -113,14 +113,14 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
     })
   }
 
-  // User‐friendly labels under each age image
+  // Labels under each age image
   const ageLabelMap = {
     young: 'Puppy',
     adult: 'Adult',
     old: 'Senior',
   }
 
-  // User‐friendly labels under each weight image
+  // Labels under each weight image
   const weightLabelMap = {
     thin: 'Slim',
     medium: 'Normal',
@@ -128,44 +128,45 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6">
       {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
       {/* 1) Pet Name */}
       <div>
-        <label className="block text-sm font-medium">Name *</label>
+        <label className="block text-sm font-medium text-center">Name *</label>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
-          className="mt-1 block w-full max-w-xs border border-gray-300 rounded px-3 py-2"
+          className="mt-1 block w-full max-w-[200px] mx-auto border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
       {/* 2) Animal Type Selector (dog | cat | others) */}
       <div>
-        <label className="block text-sm font-medium">Select Animal *</label>
+        <label className="block text-sm font-medium text-center">Select Animal *</label>
         <PetImageSelector selected={animalType} onSelect={setAnimalType} />
       </div>
 
       {/* 3) Age Category (young, adult, old) */}
       {animalType && (
         <div>
-          <label className="block text-sm font-medium">Select Age Category *</label>
+          <label className="block text-sm font-medium text-center">
+            Select Age Category *
+          </label>
           <div className="grid grid-cols-3 gap-4 mt-2">
             {['young', 'adult', 'old'].map((cat) => {
-              // Determine which PNG to show based on animalType + category
-              const capitalAnimal = animalType.charAt(0).toUpperCase() + animalType.slice(1) // “Dog” etc.
-              const capitalCat = cat.charAt(0).toUpperCase() + cat.slice(1) // “Young” / “Adult” / “Old”
+              const capitalAnimal =
+                animalType.charAt(0).toUpperCase() + animalType.slice(1)
+              const capitalCat = cat.charAt(0).toUpperCase() + cat.slice(1)
               const imageSrc = `/assets/images/${capitalAnimal}${capitalCat}.png`
-
               return (
                 <div
                   key={cat}
                   onClick={() => {
                     setAgeCategory(cat)
-                    setAgeValue('') // reset numeric age whenever category changes
+                    setAgeValue('')
                   }}
                   className={`border rounded overflow-hidden cursor-pointer p-1 ${
                     ageCategory === cat ? 'ring-2 ring-blue-500' : ''
@@ -174,7 +175,7 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
                   <img
                     src={imageSrc}
                     alt={`${capitalAnimal} ${capitalCat}`}
-                    className="w-[150px] h-[150px] object-contain mx-auto"
+                    className="w-[120px] h-[120px] object-contain mx-auto"
                   />
                   <p className="text-center text-sm capitalize mt-1">
                     {ageLabelMap[cat]}
@@ -186,19 +187,23 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
         </div>
       )}
 
-      {/* 4) Numeric Age Drop-down (based on chosen ageCategory) */}
+      {/* 4) Numeric Age Drop-down */}
       {ageCategory && (
         <div>
           {ageCategory === 'young' ? (
-            <label className="block text-sm font-medium">Age (months) *</label>
+            <label className="block text-sm font-medium text-center">
+              Age (months) *
+            </label>
           ) : (
-            <label className="block text-sm font-medium">Age (years) *</label>
+            <label className="block text-sm font-medium text-center">
+              Age (years) *
+            </label>
           )}
           <select
             value={ageValue}
             onChange={(e) => setAgeValue(e.target.value)}
             required
-            className="mt-1 block w-full max-w-xs border border-gray-300 rounded px-3 py-2"
+            className="mt-1 block w-full max-w-[200px] mx-auto border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
             <option value="" disabled>
               -- Select {ageCategory === 'young' ? 'months' : 'years'} --
@@ -215,13 +220,15 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
       {/* 5) Weight Category Selector (thin, medium, fat) */}
       {animalType && ageCategory && (
         <div>
-          <label className="block text-sm font-medium">Select Weight *</label>
+          <label className="block text-sm font-medium text-center">
+            Select Weight *
+          </label>
           <div className="grid grid-cols-3 gap-4 mt-2">
             {['thin', 'medium', 'fat'].map((w) => {
-              const capitalAnimal = animalType.charAt(0).toUpperCase() + animalType.slice(1) // “Dog” etc.
-              const capitalWeight = w.charAt(0).toUpperCase() + w.slice(1) // “Thin” / “Medium” / “Fat”
+              const capitalAnimal =
+                animalType.charAt(0).toUpperCase() + animalType.slice(1)
+              const capitalWeight = w.charAt(0).toUpperCase() + w.slice(1)
               const imageSrc = `/assets/images/${capitalAnimal}${capitalWeight}.png`
-
               return (
                 <div
                   key={w}
@@ -233,7 +240,7 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
                   <img
                     src={imageSrc}
                     alt={`${capitalAnimal} ${capitalWeight}`}
-                    className="w-[150px] h-[150px] object-contain mx-auto"
+                    className="w-[120px] h-[120px] object-contain mx-auto"
                   />
                   <p className="text-center text-sm capitalize mt-1">
                     {weightLabelMap[w]}
@@ -245,49 +252,57 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
         </div>
       )}
 
-      {/* 6) Allergies, comma separated */}
+      {/* 6) Allergies */}
       <div>
-        <label className="block text-sm font-medium">Allergies, comma separated</label>
+        <label className="block text-sm font-medium text-center">
+          Allergies, comma separated
+        </label>
         <input
           type="text"
           value={allergies}
           onChange={(e) => setAllergies(e.target.value)}
-          className="mt-1 block w-full max-w-xs border border-gray-300 rounded px-3 py-2"
+          className="mt-1 block w-full max-w-[200px] mx-auto border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
       {/* 7) Grams per Meal */}
       <div>
-        <label className="block text-sm font-medium">Grams per Meal *</label>
+        <label className="block text-sm font-medium text-center">
+          Grams per Meal *
+        </label>
         <input
           type="number"
           value={gramsPerMeal}
           onChange={(e) => setGramsPerMeal(e.target.value)}
           required
-          className="mt-1 block w-full max-w-xs border border-gray-300 rounded px-3 py-2"
+          className="mt-1 block w-full max-w-[200px] mx-auto border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
       {/* 8) Meals per Day */}
       <div>
-        <label className="block text-sm font-medium">Meals per Day *</label>
+        <label className="block text-sm font-medium text-center">
+          Meals per Day *
+        </label>
         <input
           type="number"
           value={mealsPerDay}
           onChange={(e) => setMealsPerDay(e.target.value)}
           required
-          className="mt-1 block w-full max-w-xs border border-gray-300 rounded px-3 py-2"
+          className="mt-1 block w-full max-w-[200px] mx-auto border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
       {/* 9) Select Food */}
       <div>
-        <label className="block text-sm font-medium">Select Food *</label>
+        <label className="block text-sm font-medium text-center">
+          Select Food *
+        </label>
         <select
           value={food}
           onChange={(e) => setFood(e.target.value)}
           required
-          className="mt-1 block w-full max-w-xs border border-gray-300 rounded px-3 py-2"
+          className="mt-1 block w-full max-w-[200px] mx-auto border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
         >
           {foods.map((f) => (
             <option key={f._id} value={f._id}>
@@ -298,10 +313,10 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
       </div>
 
       {/* 10) Buttons: Create / Cancel */}
-      <div className="flex justify-center space-x-8 pt-4">
+      <div className="mt-8 flex justify-center">
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 mx-4"
         >
           Create Pet
         </button>
@@ -309,7 +324,7 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400"
+            className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 mx-4"
           >
             Cancel
           </button>

@@ -64,17 +64,16 @@ export default function PetsCreatePage() {
       </header>
 
       {/* 
-        By increasing padding-top from pt-16 to pt-20, 
-        we guarantee extra space so the Pets image is not cut by the fixed header. 
+        pt-16 pushes the content below the fixed header so the Pets image is not cut off.
       */}
-      <main className="pt-20 flex flex-col items-center px-4">
-        <div className="w-full max-w-sm bg-white rounded-lg shadow-md p-6 mt-8 mx-auto">
+      <main className="pt-16 flex flex-col items-center px-4">
+        <div className="w-full max-w-xs bg-white rounded-lg shadow-md p-6 mt-8 mx-auto">
           {/* Pets illustration, sized to 200×200 */}
-          <div className="flex flex-col items-center mb-16">
+          <div className="flex justify-center mb-4">
             <img
               src="/assets/images/Pets.png"
               alt="Pet Illustration"
-              className="w-[200px] h-[200px] mb-4 object-contain"
+              className="w-[200px] h-[200px] object-contain"
             />
           </div>
 
