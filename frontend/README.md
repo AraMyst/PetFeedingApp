@@ -1,108 +1,110 @@
-Pet Feeding App – Frontend
-This is the README for the frontend of the Pet Feeding App. It covers how to install, configure, run, and deploy the React/Vite application that provides the user interface for managing pets, foods, and low-stock notifications.
+# Pet Feeding App – Frontend
 
-⚙️ Tech Stack
-Framework: React v18+
+This is the README for the frontend of the **Pet Feeding App**. It covers how to install, configure, run, and deploy the React/Vite application that provides the user interface for managing pets, foods, and low-stock notifications.
 
-Bundler/Dev Server: Vite v4+
+**Live Demo:** [https://petfeedingapp.vercel.app](https://petfeedingapp.vercel.app)
 
-Styling: Tailwind CSS v3
+---
 
-Routing: React Router v6
+## ⚙️ Tech Stack
 
-State Management / API Layer:
+- **Framework:** React v18+
+- **Bundler / Dev Server:** Vite v4+
+- **Styling:** Tailwind CSS v3
+- **Routing:** React Router v6
+- **State Management / API Layer:**
+  - Custom React hooks (`useAuth`, `useFoods`, `usePets`, `useNotifications`)
+  - `fetch()`-based HTTP client (`apiClient.js`)
+- **Authentication:** JWT stored in `localStorage`
+- **Icons & Images:** Static `.png` files under `public/assets/images/`
+- **Deployment Platform:** Vercel
 
-Custom React hooks (useAuth, useFoods, usePets, useNotifications)
+---
 
-fetch()-based HTTP client (apiClient.js)
+## 🏠 Project Structure
 
-Authentication: JWT stored in localStorage
-
-Icons & Images: Static .png files under public/assets/images/
-
-Deployment Platform: Vercel (https://vercel.com)
-
-🏠 Project Structure
-arduino
-Copiar
-Editar
 frontend/
 ├── public/
-│   ├── assets/
-│   │   ├── images/
-│   │   │   ├── Pets.png
-│   │   │   ├── Food.png
-│   │   │   ├── Notifications.png
-│   │   │   └── logo.png
-│   ├── favicon.ico
-│   └── index.html
+│ ├── assets/
+│ │ ├── images/
+│ │ │ ├── Pets.png
+│ │ │ ├── Food.png
+│ │ │ ├── Notifications.png
+│ │ │ └── logo.png
+│ ├── favicon.ico
+│ └── index.html
 │
 ├── src/
-│   ├── api/
-│   │   └── auth.js
-│   │   └── foods.js
-│   │   └── pets.js
-│   │   └── notifications.js
-│   │
-│   ├── components/
-│   │   ├── Auth/
-│   │   │   ├── LoginForm.jsx
-│   │   │   └── RegisterForm.jsx
-│   │   │
-│   │   ├── Foods/
-│   │   │   ├── FoodForm.jsx
-│   │   │   ├── FoodItem.jsx
-│   │   │   └── FoodList.jsx
-│   │   │
-│   │   ├── Pets/
-│   │   │   ├── PetForm.jsx
-│   │   │   ├── PetItem.jsx
-│   │   │   └── PetList.jsx
-│   │   │
-│   │   ├── Notifications/
-│   │   │   ├── NotificationBanner.jsx
-│   │   │   └── NotificationList.jsx
-│   │   │
-│   │   └── Layout/
-│   │       └── NavBar.jsx
-│   │
-│   ├── contexts/
-│   │   ├── AuthContext.jsx
-│   │   └── NotificationContext.jsx
-│   │
-│   ├── hooks/
-│   │   ├── useAuth.js
-│   │   ├── useFoods.js
-│   │   ├── usePets.js
-│   │   └── useNotifications.js
-│   │
-│   ├── pages/
-│   │   ├── DashboardPage.jsx
-│   │   ├── FoodsPage.jsx
-│   │   ├── PetsPage.jsx
-│   │   ├── NotificationsPage.jsx
-│   │   ├── LoginPage.jsx
-│   │   └── RegisterPage.jsx
-│   │
-│   ├── utils/
-│   │   └── apiClient.js
-│   │
-│   ├── index.css
-│   ├── main.jsx
-│   └── App.jsx
+│ ├── api/
+│ │ ├── auth.js
+│ │ ├── foods.js
+│ │ ├── pets.js
+│ │ └── notifications.js
+│ │
+│ ├── components/
+│ │ ├── Auth/
+│ │ │ ├── LoginForm.jsx
+│ │ │ └── RegisterForm.jsx
+│ │ │
+│ │ ├── Foods/
+│ │ │ ├── FoodForm.jsx
+│ │ │ ├── FoodItem.jsx
+│ │ │ └── FoodList.jsx
+│ │ │
+│ │ ├── Pets/
+│ │ │ ├── PetForm.jsx
+│ │ │ ├── PetItem.jsx
+│ │ │ └── PetList.jsx
+│ │ │
+│ │ ├── Notifications/
+│ │ │ ├── NotificationBanner.jsx
+│ │ │ └── NotificationList.jsx
+│ │ │
+│ │ └── Layout/
+│ │ └── NavBar.jsx
+│ │
+│ ├── contexts/
+│ │ ├── AuthContext.jsx
+│ │ └── NotificationContext.jsx
+│ │
+│ ├── hooks/
+│ │ ├── useAuth.js
+│ │ ├── useFoods.js
+│ │ ├── usePets.js
+│ │ └── useNotifications.js
+│ │
+│ ├── pages/
+│ │ ├── DashboardPage.jsx
+│ │ ├── FoodsPage.jsx
+│ │ ├── PetsPage.jsx
+│ │ ├── NotificationsPage.jsx
+│ │ ├── LoginPage.jsx
+│ │ └── RegisterPage.jsx
+│ │
+│ ├── utils/
+│ │ └── apiClient.js
+│ │
+│ ├── index.css
+│ ├── main.jsx
+│ └── App.jsx
 │
 ├── tailwind.config.js
 ├── postcss.config.js
 ├── package.json
 └── vite.config.js
-📦 Installation
-Clone the repository (frontend only):
 
-bash
+yaml
 Copiar
 Editar
-git clone https://github.com/AraMyst/PetFeedingApp.git
-cd PetFeedingApp/frontend
+
+---
+
+## 📦 Installation
+
+1. **Clone the repository (frontend only):**
+   ```bash
+   git clone https://github.com/AraMyst/PetFeedingApp.git
+   cd PetFeedingApp/frontend
 Install dependencies:
 
 bash
@@ -301,7 +303,7 @@ Each card shows a small icon/illustration, item count, and a “Manage …” bu
 
 Background color set to #DBF3F6.
 
-Uses a responsive grid/flex container.
+Uses a responsive flex container.
 
 Logo and project name appear at the top.
 
@@ -476,3 +478,14 @@ Environment Management:
 Ensure the backend is running and accessible at the URL configured in VITE_API_URL before testing the frontend.
 
 After updating VITE_API_URL, you must restart the dev server (npm run dev) for changes to take effect.
+
+🤝 Contributing
+Fork this repository.
+
+Create a new branch: git checkout -b feature/your-feature-name
+
+Commit your changes: git commit -m "Add feature XYZ"
+
+Push to your fork: git push origin feature/your-feature-name
+
+Open a Pull Request describing your changes.
