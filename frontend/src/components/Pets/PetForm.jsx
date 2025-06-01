@@ -36,12 +36,12 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
   const [allergies, setAllergies] = useState('')
   const [gramsPerMeal, setGramsPerMeal] = useState('')
   const [mealsPerDay, setMealsPerDay] = useState('')
-  const [food, setFood] = useState(foods[0]?._id || '')
+  const [food, setFood] = useState('')                      // start with empty, so user clearly sees the drop-down
   const [error, setError] = useState('')
 
-  // Whenever the list of foods changes, ensure the <select> has a default
+  // Whenever the list of foods changes, auto-select the first if none chosen yet
   useEffect(() => {
-    if (foods.length > 0 && !food) {
+    if (foods.length > 0 && food === '') {
       setFood(foods[0]._id)
     }
   }, [foods, food])
@@ -113,13 +113,14 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
     })
   }
 
-  // Helper to make a user‐friendly label under each image
+  // User‐friendly labels under each age image
   const ageLabelMap = {
     young: 'Puppy',
     adult: 'Adult',
     old: 'Senior',
   }
 
+  // User‐friendly labels under each weight image
   const weightLabelMap = {
     thin: 'Slim',
     medium: 'Normal',
@@ -154,7 +155,7 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
           <label className="block text-sm font-medium">Select Age Category *</label>
           <div className="grid grid-cols-3 gap-4 mt-2">
             {['young', 'adult', 'old'].map((cat) => {
-              // Build the correct image path based on animalType + category
+              // Determine which PNG to show based on animalType + category
               const capitalAnimal = animalType.charAt(0).toUpperCase() + animalType.slice(1) // “Dog” etc.
               const capitalCat = cat.charAt(0).toUpperCase() + cat.slice(1) // “Young” / “Adult” / “Old”
               const imageSrc = `/assets/images/${capitalAnimal}${capitalCat}.png`
@@ -164,7 +165,7 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
                   key={cat}
                   onClick={() => {
                     setAgeCategory(cat)
-                    setAgeValue('') // reset numeric age when category changes
+                    setAgeValue('') // reset numeric age whenever category changes
                   }}
                   className={`border rounded overflow-hidden cursor-pointer p-1 ${
                     ageCategory === cat ? 'ring-2 ring-blue-500' : ''
@@ -173,7 +174,7 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
                   <img
                     src={imageSrc}
                     alt={`${capitalAnimal} ${capitalCat}`}
-                    className="w-full h-20 object-contain"
+                    className="w-[150px] h-[150px] object-contain mx-auto"
                   />
                   <p className="text-center text-sm capitalize mt-1">
                     {ageLabelMap[cat]}
@@ -232,7 +233,7 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
                   <img
                     src={imageSrc}
                     alt={`${capitalAnimal} ${capitalWeight}`}
-                    className="w-full h-20 object-contain"
+                    className="w-[150px] h-[150px] object-contain mx-auto"
                   />
                   <p className="text-center text-sm capitalize mt-1">
                     {weightLabelMap[w]}

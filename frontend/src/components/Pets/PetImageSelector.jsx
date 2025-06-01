@@ -2,14 +2,16 @@
 import React from 'react'
 
 /**
- * PetImageSelector now lets the user pick one of three animals:
- *  - Dog
- *  - Cat
- *  - Others
- * 
+ * PetImageSelector allows the user to pick one of three animals:
+ *   - Dog
+ *   - Cat
+ *   - Others
+ *
+ * The image size is now reduced to 150×150 pixels.
+ *
  * Props:
- *  - selected: string   // 'dog' | 'cat' | 'others'
- *  - onSelect: (value: string) => void
+ *   - selected: string   // 'dog' | 'cat' | 'others'
+ *   - onSelect: (value: string) => void
  *
  * Expects to find these files under public/assets/images:
  *   Dog.png, Cat.png, Others.png
@@ -34,7 +36,7 @@ export default function PetImageSelector({ selected, onSelect }) {
           <img
             src={opt.src}
             alt={opt.alt}
-            className="w-full h-20 object-contain"
+            className="w-[150px] h-[150px] object-contain mx-auto"
           />
           <p className="text-center text-sm capitalize mt-1">{opt.alt}</p>
         </div>

@@ -63,10 +63,13 @@ export default function PetsCreatePage() {
         </div>
       </header>
 
-      {/* Main container for form, pushed below fixed header */}
-      <main className="pt-16 flex flex-col items-center px-4">
+      {/* 
+        By increasing padding-top from pt-16 to pt-20, 
+        we guarantee extra space so the Pets image is not cut by the fixed header. 
+      */}
+      <main className="pt-20 flex flex-col items-center px-4">
         <div className="w-full max-w-sm bg-white rounded-lg shadow-md p-6 mt-8 mx-auto">
-          {/* Pets illustration, sized to 200x200 */}
+          {/* Pets illustration, sized to 200×200 */}
           <div className="flex flex-col items-center mb-16">
             <img
               src="/assets/images/Pets.png"
