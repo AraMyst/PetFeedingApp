@@ -6,7 +6,7 @@ import React from 'react'
  *  - Name, brand, weight, specs, and a “Buy” link
  *  - “Edit” and “Delete” buttons at the bottom, spaced farther apart
  *  - Peach-colored background (#F3CF9F) with rounded corners
- *  - Full height (h-full) so that all cards in a grid row share equal height
+ *  - Full height (h-full) so that all cards in the same row share equal height
  */
 export default function FoodItem({ food, onEdit, onDelete }) {
   // Determine primary buy link or fallback to default (Amazon search)
@@ -52,7 +52,7 @@ export default function FoodItem({ food, onEdit, onDelete }) {
         * Edit/Delete buttons:
         * - mt-4 to add spacing above the buttons
         * - flex justify-center to center them horizontally
-        * - space-x-8 for even larger gap between buttons (2rem = 32px)
+        * - space-x-8 for larger gap (2rem = 32px) between buttons
         */}
       <div className="mt-4 flex justify-center space-x-8">
         <button

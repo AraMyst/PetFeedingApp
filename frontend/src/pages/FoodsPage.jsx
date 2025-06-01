@@ -109,7 +109,7 @@ export default function FoodsPage() {
 
         {/*
           If there is an error or no foods, show “No foods registered.”
-          Otherwise, wrap the 3-column grid in a max-width container (960px)
+          Otherwise, wrap the fixed 3-column grid in a max-width container (960px)
           and center it with mx-auto.
         */}
         {(!foods || foods.length === 0 || error) ? (

@@ -3,11 +3,11 @@ import React from 'react'
 import FoodItem from './FoodItem'
 
 /**
- * FoodList renders a fixed 3-column grid of FoodItem cards:
+ * FoodList renders a fixed-column grid of FoodItem cards:
  *  - 1 column on small screens
  *  - 2 columns on medium screens (>= 640px)
  *  - 3 columns on large screens (>= 1024px)
- *  - gap-6 (1.5rem = 24px) between items
+ *  - gap-6 (1.5rem = 24px) between rows and columns
  */
 export default function FoodList({ foods, onEdit, onDelete }) {
   return (

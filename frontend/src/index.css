@@ -19,10 +19,10 @@
   }
 }
 
-/* 
-  Custom utility for main content padding.
+/*
+  Custom utility for main content padding:
   .main-content applies 3rem (48px) top padding so that the fixed header
-  of 4rem (64px) does not overlap the page content.
+  (4rem = 64px tall) does not overlap the page content.
 */
 @layer utilities {
   .main-content {
