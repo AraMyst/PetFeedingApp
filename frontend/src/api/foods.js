@@ -6,9 +6,7 @@ import { apiClient } from '../utils/apiClient'
  * @returns {Promise<Array<Object>>} - Resolves with an array of food objects.
  */
 export async function getFoods() {
-  // Call GET /api/foods
   const response = await apiClient.get('/api/foods')
-  // Assuming apiClient wraps axios/fetch and returns { data: [...] }
   return response.data
 }
 
@@ -18,7 +16,6 @@ export async function getFoods() {
  * @returns {Promise<Object>} - Resolves with the food object.
  */
 export async function getFoodById(id) {
-  // Call GET /api/foods/:id
   const response = await apiClient.get(`/api/foods/${id}`)
   return response.data
 }
@@ -29,7 +26,6 @@ export async function getFoodById(id) {
  * @returns {Promise<Object>} - Resolves with the newly created food object.
  */
 export async function createFood(foodData) {
-  // Call POST /api/foods
   const response = await apiClient.post('/api/foods', foodData)
   return response.data
 }
@@ -41,7 +37,6 @@ export async function createFood(foodData) {
  * @returns {Promise<Object>} - Resolves with the updated food object.
  */
 export async function updateFood(id, foodData) {
-  // Call PUT /api/foods/:id
   const response = await apiClient.put(`/api/foods/${id}`, foodData)
   return response.data
 }
@@ -52,7 +47,6 @@ export async function updateFood(id, foodData) {
  * @returns {Promise<void>} - Resolves when deletion succeeds.
  */
 export async function deleteFood(id) {
-  // Call DELETE /api/foods/:id
   await apiClient.delete(`/api/foods/${id}`)
 }
 
@@ -62,7 +56,6 @@ export async function deleteFood(id) {
  * @returns {Promise<Object>} - Resolves with the updated food object.
  */
 export async function toggleOpenFood(id) {
-  // Call PATCH /api/foods/:id/toggle-open
   const response = await apiClient.patch(`/api/foods/${id}/toggle-open`)
   return response.data
 }

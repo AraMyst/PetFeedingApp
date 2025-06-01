@@ -97,8 +97,9 @@ export function useFoods() {
       setError(null)
       try {
         const updatedFood = await toggleOpenFood(foodId)
-        // Replace that item in our local list
-        setFoods(prev => prev.map(f => (f._id === updatedFood._id ? updatedFood : f)))
+        setFoods(prev =>
+          prev.map(f => (f._id === updatedFood._id ? updatedFood : f))
+        )
         return updatedFood
       } catch (err) {
         setError(err)

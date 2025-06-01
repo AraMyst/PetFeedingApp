@@ -5,7 +5,7 @@ import { useFoods } from '../../hooks/useFoods'
 
 /**
  * FoodItem displays information about a single food:
- *  - Name, brand, weight, specs, buy link
+ *  - Name, brand, weight, specifications, buy link
  *  - Status: Open vs. Closed (uses food.isOpen and food.openedAt)
  *  - Button to toggle Open/Close
  *  - Only a “Delete” button at the bottom (no Edit)
@@ -25,17 +25,13 @@ export default function FoodItem({ food, onDelete }) {
       : null
 
   // Calculate days remaining if the package is open and if weight/specs let us do so.
-  // Here we assume calculateDaysRemaining(weight, gramsPerMeal, mealsPerDay) exists,
-  // but you may adapt it to your own logic or remove if not used.
   let daysRemaining = null
   if (food.isOpen && food.openedAt && food.weight && food.specifications) {
-    // Example: If specifications array contains [ "50gPerMeal", "2MealsPerDay", ... ],
-    // you could parse those values. For now, we’ll skip parsing and show a placeholder.
-    // daysRemaining = calculateDaysRemaining(food.weight, gramsPerMeal, mealsPerDay)
-    // If you do not want to show daysRemaining yet, you can comment this out.
+    // Example: If specifications array contains ["50gPerMeal", "2MealsPerDay", ...],
+    // you could parse those values. Currently using a placeholder.
     daysRemaining = calculateDaysRemaining(
       food.weight,
-      /* gramsPerMeal= */ 0, 
+      /* gramsPerMeal= */ 0,
       /* mealsPerDay= */ 0
     )
   }
