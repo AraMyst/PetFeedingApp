@@ -1,7 +1,7 @@
 // src/utils/apiClient.js
 
 // The base URL for all API requests.
-// In Vercel, set VITE_API_URL to your backend's URL (e.g. "https://petfeedingapp.onrender.com")
+// In Vercel, set VITE_API_URL to your backend’s URL (e.g., "https://petfeedingapp.onrender.com")
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000'
 
 /**

@@ -7,7 +7,7 @@ import FoodItem from './FoodItem'
  * - On small screens: 1 column (grid-cols-1)
  * - On sm (>=640px) screens: 2 columns (sm:grid-cols-2)
  * - On lg (>=1024px) screens: 3 columns (lg:grid-cols-3)
- * Assumes that FoodsPage já fez a verificação de lista vazia.
+ * Assumes that FoodsPage already handled the “no foods” empty state.
  */
 export default function FoodList({ foods, onEdit, onDelete }) {
   return (

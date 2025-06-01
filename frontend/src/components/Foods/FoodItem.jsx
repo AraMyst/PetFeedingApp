@@ -3,10 +3,21 @@ import React from 'react'
 
 /**
  * FoodItem displays information about a single food:
- *  - Name, brand, weight, specs, buy links
- *  - “Edit” and “Delete” buttons at bottom
+ *  - Name, brand, weight, specs
+ *  - A “Buy” link that always appears:
+ *      • If food.buyLinks exists and has at least one URL, use the first URL
+ *      • Otherwise, fall back to an Amazon search URL for the food’s name
+ *  - “Edit” and “Delete” buttons at the bottom:
+ *      • “Edit” button invokes onEdit(food)
+ *      • “Delete” button invokes onDelete(food._id)
  */
 export default function FoodItem({ food, onEdit, onDelete }) {
+  // Determine the “Buy” URL: use first buyLink if provided, else Amazon search by name
+  const buyUrl =
+    Array.isArray(food.buyLinks) && food.buyLinks.length > 0
+      ? food.buyLinks[0]
+      : `https://www.amazon.co.uk/s?k=${encodeURIComponent(food.name)}`
+
   return (
     <div className="bg-white p-4 rounded shadow flex flex-col justify-between">
       <div>
@@ -14,27 +25,21 @@ export default function FoodItem({ food, onEdit, onDelete }) {
         <p className="text-sm text-gray-500 mb-1">{food.brand}</p>
         <p className="text-sm mb-1">Weight: {food.weight} g</p>
 
-        {food.specifications?.length > 0 && (
+        {Array.isArray(food.specifications) && food.specifications.length > 0 && (
           <p className="text-sm mb-1">
             Specs: {food.specifications.join(', ')}
           </p>
         )}
 
-        {food.buyLinks?.length > 0 && (
-          <div className="mt-2 space-x-2">
-            {food.buyLinks.map((link, idx) => (
-              <a
-                key={idx}
-                href={link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 underline text-sm"
-              >
-                Buy {idx + 1}
-              </a>
-            ))}
-          </div>
-        )}
+        {/* Always show a single “Buy” link */}
+        <a
+          href={buyUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 underline text-sm"
+        >
+          Buy
+        </a>
       </div>
 
       <div className="mt-4 flex justify-center space-x-2">

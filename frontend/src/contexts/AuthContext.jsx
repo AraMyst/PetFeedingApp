@@ -1,5 +1,4 @@
 // src/contexts/AuthContext.jsx
-
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import * as authApi from '../api/auth'
@@ -47,7 +46,7 @@ export function AuthProvider({ children }) {
       setToken(newToken)
       setUser(newUser)
     } catch (err) {
-      // Re‐throw so calling component can display err.message
+      // Re-throw so calling component can display err.message
       throw err
     } finally {
       setLoading(false)
