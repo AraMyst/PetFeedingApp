@@ -20,33 +20,34 @@
 }
 
 /*
-  Custom layout utilities for the Foods page.
-  1) .main-content: ensures there is enough top padding so that a fixed header
-     will not overlap or “cut off” the Food illustration.
+  Custom layout utilities for multiple pages (Foods, Dashboard, etc.)
+
+  1) .main-content: adds enough top padding so that a fixed header
+     does not overlap the content below it.
+
   2) .food-grid: a responsive grid that automatically fits as many columns
      of a minimum width (300px) as will fit in the container, with a uniform gap.
 */
-
 @layer utilities {
-  /* 
-    Apply top padding of 4.5rem (72px) instead of 5rem (80px),
-    so that the Food illustration moves up slightly.
+  /*
+    .main-content applies top padding of 4.5rem (72px),
+    ensuring that the fixed header of 4rem (64px) does not overlap page content.
   */
   .main-content {
     padding-top: 4.5rem; /* 4.5rem = 72px */
   }
 
   /*
-    .food-grid creates a responsive grid:
-      - repeat(auto-fit, minmax(300px, 1fr)) → as many 300px-wide columns
-        as will fit, each flexible up to 1fr.
-      - gap: 1rem between rows and columns.
-      - align-items: stretch ensures all items in the same row have equal height.
+    .food-grid sets up a responsive grid:
+      - repeat(auto-fit, minmax(300px, 1fr)): create as many 300px-wide columns
+        as will fit, each able to expand equally (1fr).
+      - gap: 1rem (16px) between rows and columns.
+      - align-items: stretch ensures all items in the same row share equal height.
   */
   .food-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1rem;
+    gap: 1rem; /* 1rem = 16px */
     align-items: stretch;
   }
 }

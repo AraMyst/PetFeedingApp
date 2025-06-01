@@ -7,21 +7,19 @@ import { useNotifications } from '../hooks/useNotifications'
 import { useAuth } from '../contexts/AuthContext'
 
 /**
- * DashboardPage displays three main cards:
- *  - Food: number of registered foods + button to manage foods
- *  - Pets: number of registered pets + button to manage pets
- *  - Notifications: number of alerts + button to manage notifications
+ * DashboardPage displays three main cards side by side:
+ *  - Food: shows number of registered foods and a button to manage foods
+ *  - Pets: shows number of registered pets and a button to manage pets
+ *  - Notifications: shows number of alerts and a button to manage notifications
  *
  * Features:
- *  - Fixed header at top with a logo and logout button
- *  - Responsive grid layout:
- *      • 1 column on small screens (cards stack vertically)
- *      • 3 columns on medium+ screens (cards side by side)
- *  - Each section is centered under its image
- *  - Count is centered under title
- *  - Button is centered under count
+ *  - Fixed header at the top with a logo and a logout button
+ *  - Responsive grid layout using .food-grid:
+ *      • Each card has a minimum width of 300px and expands equally (auto-fit)
+ *      • 1rem gap between rows and columns
+ *  - Each card centers its image, section title, count, and button
  *  - Buttons change color on hover and have a focus ring
- *  - Background matches the login/register pages (#DBF3F6)
+ *  - Background color matches the login/register pages (#DBF3F6)
  */
 export default function DashboardPage() {
   const { foods, loading: loadingFoods } = useFoods()
@@ -50,7 +48,7 @@ export default function DashboardPage() {
       {/* Fixed header with logo and logout button */}
       <header className="fixed top-0 left-0 w-full bg-[#DBF3F6] shadow-sm z-10 h-16">
         <div className="h-full flex items-center justify-between px-4">
-          {/* Logo links to Dashboard */}
+          {/* Logo links to /dashboard */}
           <Link to="/dashboard">
             <img
               src="/assets/images/logo.png"
@@ -69,21 +67,20 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      {/* 
-        Main content with custom top padding so the fixed header
-        does not overlap the cards. .main-content = padding-top: 4.5rem
-        (72px) defined in index.css. Adjust that value if your header height changes.
+      {/*
+        Main content uses .main-content so that the fixed header
+        (64px tall) does not overlap page content. 
+        Additional padding-left/right and bottom padding are applied here.
       */}
       <main className="main-content px-4 pb-8">
         {/*
-          Responsive grid container:
-            - grid-cols-1 on small screens (stacked)
-            - md:grid-cols-3 on medium+ (three columns side by side)
-            - gap-6: uniform spacing between all cards
-            - max-w-5xl mx-auto: center container and constrain its width
+          Responsive grid container using .food-grid:
+            - auto-fit columns with min 300px
+            - 1rem gap between items
+          .max-w-5xl and .mx-auto center the grid and limit its width.
         */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {/* Section: Food */}
+        <div className="food-grid max-w-5xl mx-auto">
+          {/* Card: Food */}
           <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
             <Link to="/foods">
               <img
@@ -104,7 +101,7 @@ export default function DashboardPage() {
             </button>
           </div>
 
-          {/* Section: Pets */}
+          {/* Card: Pets */}
           <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
             <Link to="/pets">
               <img
@@ -125,7 +122,7 @@ export default function DashboardPage() {
             </button>
           </div>
 
-          {/* Section: Notifications */}
+          {/* Card: Notifications */}
           <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
             <Link to="/notifications">
               <img
