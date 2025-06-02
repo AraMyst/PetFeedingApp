@@ -20,10 +20,13 @@ Built as a **React + Vite** frontend talking to a **Node + Express + MongoDB** A
 
 ## 🏠 Repository Layout
 
+```text
 pet-feeding-app/
 ├── frontend/   # React client
 └── backend/    # Express REST API
+```
 
+```text
 pet-feeding-app/
 │
 ├── frontend/             React + Vite client
@@ -35,6 +38,7 @@ pet-feeding-app/
     ├── src/              routes, controllers, models
     ├── tests/            manual/Insomnia collection
     └── ...               config, env, scripts
+```
 
 
 Each folder is completely standalone—you can spin them up together or individually.
