@@ -2,6 +2,12 @@
 A playful yet pragmatic application that helps pet owners keep track of foods, pets, and those all-important _low-stock_ alerts.  
 Built as a **React + Vite** frontend talking to a **Node + Express + MongoDB** API, the project lives in a single GitHub repository with two sibling folders:
 
+```text
+pet-feeding-app/
+├── frontend/   # React client
+└── backend/    # Express REST API
+```
+
 > **Live demo:** <https://petfeedingapp.vercel.app> (frontend)  
 > **Public API:** <https://petfeedingapp.onrender.com> (backend)
 
@@ -19,12 +25,6 @@ Built as a **React + Vite** frontend talking to a **Node + Express + MongoDB** A
 ---
 
 ## 🏠 Repository Layout
-
-```text
-pet-feeding-app/
-├── frontend/   # React client
-└── backend/    # Express REST API
-```
 
 ```text
 pet-feeding-app/
