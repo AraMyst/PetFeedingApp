@@ -259,7 +259,7 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
 
       {/* 6) Allergies */}
       <div>
-        <label className="block text-sm font-medium text-center">Allergies teste</label>
+        <label className="block text-sm font-medium text-center">Allergies</label>
         <input
           type="text"
           value={allergies}

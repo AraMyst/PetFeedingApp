@@ -2,7 +2,7 @@
 import React from 'react'
 
 /**
- * NotificationBanner displays a grid of low‐stock alert cards.
+ * NotificationBanner displays a grid of low-stock alert cards.
  * @param {{ alerts: Array<{petId: string, petName: string, daysRemaining: number, message: string}> }} props
  */
 export default function NotificationBanner({ alerts }) {
@@ -17,9 +17,7 @@ export default function NotificationBanner({ alerts }) {
         >
           <div>
             <h3 className="text-lg font-semibold mb-1">{alert.petName}</h3>
-            <p className="text-sm text-gray-700 mb-2">
-              {alert.message}
-            </p>
+            <p className="text-sm text-gray-700 mb-2">{alert.message}</p>
             <p className="text-sm text-gray-500">
               {alert.daysRemaining} day
               {alert.daysRemaining !== 1 ? 's' : ''} remaining

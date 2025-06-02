@@ -9,7 +9,7 @@ import { useAuth } from '../contexts/AuthContext'
  * NotificationsPage displays:
  *   - A fixed header with a logo linking to Dashboard and a logout button
  *   - Below the header: a Notifications illustration + “Refresh” button
- *   - A grid of cream‐colored cards, one per low‐stock alert
+ *   - A grid of cream-colored cards, one per low-stock alert
  *   - If no alerts, show “No notifications at this time.”
  */
 export default function NotificationsPage() {
@@ -52,6 +52,7 @@ export default function NotificationsPage() {
 
       {/* Main content (padding-top so header doesn’t overlap) */}
       <main className="main-content px-4 pb-8 max-w-5xl mx-auto">
+        {/* Illustration + “Refresh” button */}
         <div className="flex flex-col items-center mb-8">
           <img
             src="/assets/images/Notifications.png"
@@ -66,20 +67,26 @@ export default function NotificationsPage() {
           </button>
         </div>
 
+        {/* Loading state */}
         {loading && (
-          <div className="p-4 text-center text-gray-500">Loading notifications...</div>
+          <div className="p-4 text-center text-gray-500">
+            Loading notifications...
+          </div>
         )}
 
+        {/* Error state */}
         {error && (
           <div className="p-4 text-center text-red-500">
             Error loading notifications. Please try again later.
           </div>
         )}
 
+        {/* No notifications message */}
         {!loading && !error && alerts.length === 0 && (
           <p className="text-center text-gray-500">No notifications at this time.</p>
         )}
 
+        {/* Notification cards */}
         {!loading && !error && alerts.length > 0 && (
           <NotificationBanner alerts={alerts} />
         )}
