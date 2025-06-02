@@ -6,10 +6,6 @@ pet-feeding-app/
 ├── frontend/ # React client
 └── backend/ # Express REST API
 
-yaml
-Copiar
-Editar
-
 > **Live demo:** <https://petfeedingapp.vercel.app> (frontend)  
 > **Public API:** <https://petfeedingapp.onrender.com> (backend)
 
@@ -39,10 +35,6 @@ pet-feeding-app/
 ├── src/ routes, controllers, models
 ├── tests/ manual/Insomnia collection
 └── ... config, env, scripts
-
-yaml
-Copiar
-Editar
 
 Each folder is completely standalone—you can spin them up together or individually.
 
