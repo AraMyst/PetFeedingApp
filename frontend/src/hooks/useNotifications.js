@@ -3,14 +3,17 @@ import { useState, useEffect } from 'react'
 import * as notificationsApi from '../api/notifications'
 
 /**
- * useNotifications hook provides low-stock alerts.
+ * useNotifications hook provides low‐stock alerts.
  * Returns:
  *  - alerts: array of alert objects
  *  - loading: boolean
  *  - error: any
  *  - refreshAlerts(): reload alerts
  */
-export function useNotifications(thresholdDays = 3, refreshIntervalMs = 3600000) {
+export function useNotifications(
+  thresholdDays = 10,         // ← Default threshold is now 10
+  refreshIntervalMs = 3600000 // 1 hour
+) {
   const [alerts, setAlerts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
