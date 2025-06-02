@@ -3,8 +3,9 @@ A playful yet pragmatic application that helps pet owners keep track of foods, p
 Built as a **React + Vite** frontend talking to a **Node + Express + MongoDB** API, the project lives in a single GitHub repository with two sibling folders:
 
 pet-feeding-app/
-├── frontend/ # React client
-└── backend/ # Express REST API
+├── frontend/   # React client
+└── backend/    # Express REST API
+
 
 > **Live demo:** <https://petfeedingapp.vercel.app> (frontend)  
 > **Public API:** <https://petfeedingapp.onrender.com> (backend)
@@ -26,15 +27,16 @@ pet-feeding-app/
 
 pet-feeding-app/
 │
-├── frontend/ React + Vite client
-│ ├── public/ static assets & HTML
-│ ├── src/ components, hooks, pages, API client
-│ └── ... config files (Tailwind, Vite, …)
+├── frontend/             React + Vite client
+│   ├── public/           static assets & HTML
+│   ├── src/              components, hooks, pages, API client
+│   └── ...               config files (Tailwind, Vite, …)
 │
-└── backend/ Node + Express API
-├── src/ routes, controllers, models
-├── tests/ manual/Insomnia collection
-└── ... config, env, scripts
+└── backend/              Node + Express API
+    ├── src/              routes, controllers, models
+    ├── tests/            manual/Insomnia collection
+    └── ...               config, env, scripts
+
 
 Each folder is completely standalone—you can spin them up together or individually.
 
