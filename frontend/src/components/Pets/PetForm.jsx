@@ -30,8 +30,8 @@ import PetImageSelector from './PetImageSelector'
  *  - All selector‐images (animal, age, weight) are 80×80px with internal padding.
  *  - “Allergies” label no longer mentions commas.
  *  - Each grid wrapper has additional padding (`px-4`) so cards don’t touch form edges.
- *  - Buttons now use the same spacing pattern as FoodForm.jsx: each button has `mx-4`,  
- *    and the container is `<div className="mt-8 flex justify-center">`.
+ *  - Buttons now use the same spacing pattern as FoodForm.jsx: each button has `mx-6`
+ *    and inline margins, and the container is `<div className="mt-8 flex justify-center">`.
  */
 export default function PetForm({ foods = [], onSubmit, onCancel }) {
   const [name, setName] = useState('')
@@ -42,7 +42,7 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
   const [allergies, setAllergies] = useState('')
   const [gramsPerMeal, setGramsPerMeal] = useState('')
   const [mealsPerDay, setMealsPerDay] = useState('')
-  const [food, setFood] = useState('')                      // start empty so user sees the dropdown
+  const [food, setFood] = useState('')                       // start empty so user sees the dropdown
   const [error, setError] = useState('')
 
   // Whenever the list of foods changes, auto-select the first if none chosen yet
@@ -317,10 +317,14 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
       </div>
 
       {/* 10) Buttons: Create / Cancel */}
-      <div className="mt-8 flex justify-center">
+      <div
+        className="mt-8 flex justify-center"
+        style={{ marginTop: '2rem' /* ensure extra vertical space above */ }}
+      >
         <button
           type="submit"
-          className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 mx-4"
+          className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 mx-6"
+          style={{ marginLeft: '1.5rem', marginRight: '1.5rem' }}
         >
           Create Pet
         </button>
@@ -328,7 +332,8 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
           <button
             type="button"
             onClick={onCancel}
-            className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 mx-4"
+            className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 mx-6"
+            style={{ marginLeft: '1.5rem', marginRight: '1.5rem' }}
           >
             Cancel
           </button>
