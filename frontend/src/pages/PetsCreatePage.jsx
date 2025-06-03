@@ -62,12 +62,12 @@ export default function PetsCreatePage() {
         </div>
       </header>
 
-      {/* 
-        Increase pt to 24 so the 200×200 Pets.png sits well below the fixed header 
-        (pt-24 = 96px, header is 64px, so ~32px gap).
+      {/*
+        Increase pt to 32 so the 200×200 Pets.png sits well below the fixed header.
+        (pt-32 = 128px; header is 64px, so ~64px gap).
         px-4 gives 1rem = 16px of horizontal padding on both sides.
       */}
-      <main className="pt-24 flex flex-col items-center px-4">
+      <main className="pt-32 flex flex-col items-center px-4">
         <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6 mt-8 mx-auto">
           {/* Pets illustration, sized to 200×200 */}
           <div className="flex justify-center mb-4">

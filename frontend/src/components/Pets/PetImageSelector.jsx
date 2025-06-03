@@ -1,4 +1,3 @@
-// src/components/Pets/PetImageSelector.jsx
 import React from 'react'
 
 /**
@@ -7,8 +6,8 @@ import React from 'react'
  *   - Cat
  *   - Others
  *
- * Each selector‐card now has some padding so it does not touch the container edges,
- * and every image is reduced to 80×80px (so three‐across will fit comfortably).
+ * Each selector‐card now has enough side padding so it does not touch the container edges,
+ * and every image is sized to 80×80px, centered horizontally.
  *
  * Props:
  *   - selected: string   // 'dog' | 'cat' | 'others'
@@ -25,11 +24,11 @@ export default function PetImageSelector({ selected, onSelect }) {
   ]
 
   return (
-    <div className="grid grid-cols-3 gap-4 mt-2 px-2">
+    <div className="grid grid-cols-3 gap-4 mt-2 px-4">
       {imageOptions.map((opt) => (
         <div
           key={opt.value}
-          className={`border rounded overflow-hidden cursor-pointer bg-white p-2 ${
+          className={`border rounded overflow-hidden cursor-pointer bg-white p-2 flex flex-col items-center ${
             selected === opt.value ? 'ring-2 ring-blue-500' : ''
           }`}
           onClick={() => onSelect(opt.value)}

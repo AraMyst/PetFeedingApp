@@ -27,10 +27,10 @@ import PetImageSelector from './PetImageSelector'
  *  - age (computed in years, converting months ‐ see below)
  *
  * Changes:
- *  - All selector‐images (animal, age, weight) are now 80×80px with internal padding.
+ *  - All selector‐images (animal, age, weight) are 80×80px with internal padding.
  *  - “Allergies” label no longer mentions commas.
  *  - Each grid wrapper has additional padding (`px-4`) so cards don’t touch form edges.
- *  - Added more horizontal spacing between “Create Pet” and “Cancel” (using `space-x-6`).
+ *  - Added more horizontal spacing between “Create Pet” and “Cancel” (using `space-x-8`).
  */
 export default function PetForm({ foods = [], onSubmit, onCancel }) {
   const [name, setName] = useState('')
@@ -316,7 +316,7 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
       </div>
 
       {/* 10) Buttons: Create / Cancel */}
-      <div className="mt-8 flex justify-center space-x-6">
+      <div className="mt-8 flex justify-center space-x-8">
         <button
           type="submit"
           className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
