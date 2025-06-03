@@ -326,7 +326,7 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
           className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 mx-6"
           style={{ marginLeft: '1.5rem', marginRight: '1.5rem' }}
         >
-          Create Pet
+          Add
         </button>
         {onCancel && (
           <button

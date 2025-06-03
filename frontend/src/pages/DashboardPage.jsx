@@ -133,7 +133,7 @@ export default function DashboardPage() {
               onClick={() => navigate('/notifications')}
               className="py-2 px-6 bg-green-500 hover:bg-green-700 focus:bg-green-700 text-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
             >
-              Manage Notifications
+              View Notifications
             </button>
           </div>
         </div>
