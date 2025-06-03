@@ -30,7 +30,8 @@ import PetImageSelector from './PetImageSelector'
  *  - All selector‐images (animal, age, weight) are 80×80px with internal padding.
  *  - “Allergies” label no longer mentions commas.
  *  - Each grid wrapper has additional padding (`px-4`) so cards don’t touch form edges.
- *  - Added more horizontal spacing between “Create Pet” and “Cancel” (using `space-x-10`).
+ *  - Buttons now use the same spacing pattern as FoodForm.jsx: each button has `mx-4`,  
+ *    and the container is `<div className="mt-8 flex justify-center">`.
  */
 export default function PetForm({ foods = [], onSubmit, onCancel }) {
   const [name, setName] = useState('')
@@ -316,10 +317,10 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
       </div>
 
       {/* 10) Buttons: Create / Cancel */}
-      <div className="mt-8 flex justify-center space-x-10">
+      <div className="mt-8 flex justify-center">
         <button
           type="submit"
-          className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 mx-4"
         >
           Create Pet
         </button>
@@ -327,7 +328,7 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
           <button
             type="button"
             onClick={onCancel}
-            className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400"
+            className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 mx-4"
           >
             Cancel
           </button>
