@@ -26,7 +26,7 @@ export default function RegisterPage() {
   return (
     <div
       className="min-h-screen flex items-center justify-center px-4"
-      style={{ backgroundColor: '#DBF3F6' }} // match your logo background
+      style={{ backgroundColor: '#DBF3F6' }}
     >
       <div className="w-full max-w-xs p-6 bg-white rounded-lg shadow-md">
         <img
@@ -36,6 +36,7 @@ export default function RegisterPage() {
           style={{ width: 300, height: 250 }}
         />
 
+        {/* RegisterForm already handles error display */}
         <RegisterForm />
 
         <p className="mt-4 text-center text-sm text-gray-600">
