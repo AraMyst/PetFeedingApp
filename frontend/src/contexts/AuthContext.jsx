@@ -1,18 +1,8 @@
 // src/contexts/AuthContext.jsx
-
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import * as authApi from '../api/auth'
 
-/**
- * AuthContext provides:
- *  - user: { id, email } | null
- *  - token: JWT string | null
- *  - loading: boolean (true while an auth request is in progress)
- *  - login({ email, password }): attempts login, stores token/user on success, or throws Error(message)
- *  - register({ email, password }): attempts registration, stores token/user on success, or throws Error(message)
- *  - logout(): clears stored token and user
- */
 const AuthContext = createContext({
   user: null,
   token: null,
@@ -27,22 +17,16 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  // On component mount:
-  //  - Check localStorage for an existing token
-  //  - If found, set token state (you could fetch /auth/me here to get the user)
-  //  - Then mark loading as false
+  // On mount: load any saved token, set state, then finish loading
   useEffect(() => {
     const storedToken = localStorage.getItem('token')
     if (storedToken) {
       setToken(storedToken)
-      // OPTIONAL: If you have a /auth/me endpoint, fetch current user here:
-      // authApi
-      //   .getCurrentUser() // e.g., apiClient.get('/auth/me')
-      //   .then(res => setUser(res.data.user))
-      //   .catch(() => {
-      //     // If token is invalid or fetch fails, clear token
-      //     logout()
-      //   })
+      // If you have an /auth/me endpoint, you could fetch current user here
+      // Example:
+      // apiClient.get('/auth/me')
+      //   .then(res => setUser(res.user))
+      //   .catch(() => logout())
       //   .finally(() => setLoading(false))
     }
     setLoading(false)
@@ -50,25 +34,19 @@ export function AuthProvider({ children }) {
 
   /**
    * LOGIN: calls backend, stores token + user, updates state.
-   * On success: resolves.
-   * On failure: throws Error with server-provided message.
-   *
-   * @param {{ email: string, password: string }} credentials
-   * @returns {Promise<void>}
-   * @throws {Error} e.g. "Email not registered" or "Incorrect password"
+   * On success, returns; on failure, throws Error with message from server.
    */
   const login = async ({ email, password }) => {
     setLoading(true)
     try {
-      // authApi.login throws Error(message) if login fails
+      // authApi.login returns { token, user }
       const { token: newToken, user: newUser } = await authApi.login({ email, password })
-
-      // Save JWT to localStorage so apiClient can include it on subsequent requests
+      // Save JWT to localStorage so apiClient can pick it up
       localStorage.setItem('token', newToken)
       setToken(newToken)
       setUser(newUser)
     } catch (err) {
-      // Re-throw so that the component can catch and display err.message
+      // Re-throw so calling component can display err.message
       throw err
     } finally {
       setLoading(false)
@@ -77,24 +55,17 @@ export function AuthProvider({ children }) {
 
   /**
    * REGISTER: calls backend, stores token + user, updates state.
-   * On success: resolves.
-   * On failure: throws Error with server-provided message.
-   *
-   * @param {{ email: string, password: string }} credentials
-   * @returns {Promise<void>}
-   * @throws {Error} e.g. "User already exists"
+   * On success, returns; on failure, throws Error with message from server.
    */
   const register = async ({ email, password }) => {
     setLoading(true)
     try {
-      // authApi.register throws Error(message) if registration fails
+      // authApi.register returns { token, user }
       const { token: newToken, user: newUser } = await authApi.register({ email, password })
-
       localStorage.setItem('token', newToken)
       setToken(newToken)
       setUser(newUser)
     } catch (err) {
-      // Re-throw so that the component can catch and display err.message
       throw err
     } finally {
       setLoading(false)
@@ -131,10 +102,6 @@ AuthProvider.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-/**
- * useAuth returns the value of AuthContext.
- * Components can call useAuth() to get { user, token, loading, login, register, logout }.
- */
 export function useAuth() {
   return useContext(AuthContext)
 }
