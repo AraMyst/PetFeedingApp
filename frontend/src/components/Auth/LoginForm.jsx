@@ -11,7 +11,7 @@ export default function LoginForm() {
   const { login } = useAuth()
   const navigate = useNavigate()
 
-  // We'll keep a ref to the password input so we can focus it after a failed attempt
+  // We keep a ref to the password input so we can focus it after a failed attempt
   const passwordRef = useRef(null)
 
   const handleSubmit = async (e) => {
@@ -20,18 +20,17 @@ export default function LoginForm() {
     setLoading(true)
 
     try {
-      // Attempt login; if email/password wrong, this should throw
+      // Attempt login; if email/password is wrong, this will throw
       await login({ email, password })
       navigate('/dashboard', { replace: true })
     } catch (err) {
       // 1) Preserve the email field (do not clear it)
       // 2) Clear only the password field
       setPassword('')
-      // 3) Show API error message (if existir) ou mensagem genérica
-      const message =
-        err.response?.data?.message || err.message || 'Login failed'
+      // 3) Show the error message thrown by authApi (e.g., "Email not registered" or "Incorrect password")
+      const message = err.message || 'Login failed'
       setError(message)
-      // 4) Focus no campo de senha para o usuário re-tentar
+      // 4) Focus on the password field for retry
       if (passwordRef.current) {
         passwordRef.current.focus()
       }
