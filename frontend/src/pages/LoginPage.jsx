@@ -26,7 +26,7 @@ export default function LoginPage() {
   return (
     <div
       className="min-h-screen flex items-center justify-center px-4"
-      style={{ backgroundColor: '#DBF3F6' }}
+      style={{ backgroundColor: '#DBF3F6' }} // match your logo background
     >
       <div className="w-full max-w-xs p-6 bg-white rounded-lg shadow-md">
         <img
@@ -36,7 +36,6 @@ export default function LoginPage() {
           style={{ width: 300, height: 250 }}
         />
 
-        {/* LoginForm already handles error display and password clearing */}
         <LoginForm />
 
         <p className="mt-4 text-center text-sm text-gray-600">
