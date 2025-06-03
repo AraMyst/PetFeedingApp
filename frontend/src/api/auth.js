@@ -7,17 +7,10 @@ import { apiClient } from '../utils/apiClient'
  *
  * @param {{ email: string, password: string }} credentials
  * @returns {Promise<{ token: string, user: { id: string, email: string } }>}
- * @throws {Error} with message from server (e.g., "Email not registered", "Incorrect password")
  */
-export async function login({ email, password }) {
-  try {
-    const response = await apiClient.post('/auth/login', { email, password })
-    return response.data
-  } catch (err) {
-    // Extract server-side error message if present
-    const serverMessage = err.response?.data?.error || 'Unknown error'
-    throw new Error(serverMessage)
-  }
+export function login({ email, password }) {
+  // ⚠️ Must match app.use('/auth', authRoutes) in your backend
+  return apiClient.post('/auth/login', { email, password })
 }
 
 /**
@@ -25,15 +18,8 @@ export async function login({ email, password }) {
  *
  * @param {{ email: string, password: string }} credentials
  * @returns {Promise<{ token: string, user: { id: string, email: string } }>}
- * @throws {Error} with message from server (e.g., "User already exists", "Server error")
  */
-export async function register({ email, password }) {
-  try {
-    const response = await apiClient.post('/auth/register', { email, password })
-    return response.data
-  } catch (err) {
-    // Extract server-side error message if present
-    const serverMessage = err.response?.data?.error || 'Unknown error'
-    throw new Error(serverMessage)
-  }
+export function register({ email, password }) {
+  // ⚠️ Must match app.use('/auth', authRoutes) in your backend
+  return apiClient.post('/auth/register', { email, password })
 }
