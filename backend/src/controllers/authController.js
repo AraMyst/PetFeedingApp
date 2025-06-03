@@ -15,7 +15,7 @@ exports.register = async (req, res) => {
     // Check if a user with this email already exists
     const existingUser = await User.findOne({ email })
     if (existingUser) {
-      return res.status(400).json({ message: 'User already exists' })
+      return res.status(400).json({ error: 'User already exists' })
     }
 
     // Hash the password
@@ -34,7 +34,7 @@ exports.register = async (req, res) => {
     )
 
     // Respond with token and basic user info
-    res.status(201).json({
+    return res.status(201).json({
       token,
       user: {
         id: user._id,
@@ -43,7 +43,7 @@ exports.register = async (req, res) => {
     })
   } catch (error) {
     console.error(error)
-    res.status(500).json({ message: 'Server error' })
+    return res.status(500).json({ error: 'Server error' })
   }
 }
 
@@ -58,13 +58,15 @@ exports.login = async (req, res) => {
     // Find user by email
     const user = await User.findOne({ email })
     if (!user) {
-      return res.status(400).json({ message: 'Invalid credentials' })
+      // Email not found → custom message
+      return res.status(404).json({ error: 'Email not registered' })
     }
 
     // Compare submitted password with stored hash
     const isMatch = await bcrypt.compare(password, user.password)
     if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid credentials' })
+      // Password incorrect → custom message
+      return res.status(401).json({ error: 'Incorrect password' })
     }
 
     // Sign a new JWT
@@ -74,7 +76,7 @@ exports.login = async (req, res) => {
       { expiresIn: '1h' }
     )
 
-    res.json({
+    return res.json({
       token,
       user: {
         id: user._id,
@@ -83,7 +85,7 @@ exports.login = async (req, res) => {
     })
   } catch (error) {
     console.error(error)
-    res.status(500).json({ message: 'Server error' })
+    return res.status(500).json({ error: 'Server error' })
   }
 }
 
@@ -94,9 +96,9 @@ exports.login = async (req, res) => {
 exports.me = async (req, res) => {
   const user = req.user
   if (!user) {
-    return res.status(401).json({ message: 'Not authorized' })
+    return res.status(401).json({ error: 'Not authorized' })
   }
-  res.json({
+  return res.json({
     user: {
       id: user._id,
       email: user.email,
