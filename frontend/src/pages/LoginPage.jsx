@@ -8,7 +8,7 @@ export default function LoginPage() {
   const { token, loading } = useAuth()
   const navigate = useNavigate()
 
-  // Redirect to dashboard if already authenticated
+  // Redirect todashboard if already authenticated
   useEffect(() => {
     if (!loading && token) {
       navigate('/dashboard', { replace: true })
