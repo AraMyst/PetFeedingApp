@@ -1,4 +1,3 @@
-// src/pages/PetsCreatePage.jsx
 import React, { useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { usePets } from '../hooks/usePets'
@@ -63,11 +62,13 @@ export default function PetsCreatePage() {
         </div>
       </header>
 
-      {/*
-        Increase pt to 20 so the 200×200 Pets.png sits well below the fixed header.
+      {/* 
+        Increase pt to 24 so the 200×200 Pets.png sits well below the fixed header 
+        (pt-24 = 96px, header is 64px, so ~32px gap).
+        px-4 gives 1rem = 16px of horizontal padding on both sides.
       */}
-      <main className="pt-20 flex flex-col items-center px-4">
-        <div className="w-full max-w-xs bg-white rounded-lg shadow-md p-6 mt-8 mx-auto">
+      <main className="pt-24 flex flex-col items-center px-4">
+        <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6 mt-8 mx-auto">
           {/* Pets illustration, sized to 200×200 */}
           <div className="flex justify-center mb-4">
             <img

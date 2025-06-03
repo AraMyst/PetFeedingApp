@@ -1,4 +1,3 @@
-// src/components/Pets/PetForm.jsx
 import React, { useState, useEffect } from 'react'
 import PetImageSelector from './PetImageSelector'
 
@@ -30,7 +29,8 @@ import PetImageSelector from './PetImageSelector'
  * Changes:
  *  - All selector‐images (animal, age, weight) are now 80×80px with internal padding.
  *  - “Allergies” label no longer mentions commas.
- *  - Each grid wrapper has `px-2` so cards don’t touch form edges.
+ *  - Each grid wrapper has additional padding (`px-4`) so cards don’t touch form edges.
+ *  - Added more horizontal spacing between “Create Pet” and “Cancel” (using `space-x-6`).
  */
 export default function PetForm({ foods = [], onSubmit, onCancel }) {
   const [name, setName] = useState('')
@@ -160,7 +160,7 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
           <label className="block text-sm font-medium text-center">
             Select Age Category *
           </label>
-          <div className="grid grid-cols-3 gap-4 mt-2 px-2">
+          <div className="grid grid-cols-3 gap-4 mt-2 px-4">
             {['young', 'adult', 'old'].map((cat) => {
               const capitalAnimal =
                 animalType.charAt(0).toUpperCase() + animalType.slice(1)
@@ -173,14 +173,14 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
                     setAgeCategory(cat)
                     setAgeValue('')
                   }}
-                  className={`border rounded overflow-hidden cursor-pointer bg-white p-2 ${
+                  className={`border rounded overflow-hidden cursor-pointer bg-white p-2 flex flex-col items-center ${
                     ageCategory === cat ? 'ring-2 ring-blue-500' : ''
                   }`}
                 >
                   <img
                     src={imageSrc}
                     alt={`${capitalAnimal} ${capitalCat}`}
-                    className="w-[80px] h-[80px] object-contain mx-auto"
+                    className="w-[80px] h-[80px] object-contain"
                   />
                   <p className="text-center text-sm capitalize mt-1">
                     {ageLabelMap[cat]}
@@ -228,7 +228,7 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
           <label className="block text-sm font-medium text-center">
             Select Weight *
           </label>
-          <div className="grid grid-cols-3 gap-4 mt-2 px-2">
+          <div className="grid grid-cols-3 gap-4 mt-2 px-4">
             {['thin', 'medium', 'fat'].map((w) => {
               const capitalAnimal =
                 animalType.charAt(0).toUpperCase() + animalType.slice(1)
@@ -238,14 +238,14 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
                 <div
                   key={w}
                   onClick={() => setWeightCategory(w)}
-                  className={`border rounded overflow-hidden cursor-pointer bg-white p-2 ${
+                  className={`border rounded overflow-hidden cursor-pointer bg-white p-2 flex flex-col items-center ${
                     weightCategory === w ? 'ring-2 ring-blue-500' : ''
                   }`}
                 >
                   <img
                     src={imageSrc}
                     alt={`${capitalAnimal} ${capitalWeight}`}
-                    className="w-[80px] h-[80px] object-contain mx-auto"
+                    className="w-[80px] h-[80px] object-contain"
                   />
                   <p className="text-center text-sm capitalize mt-1">
                     {weightLabelMap[w]}
@@ -316,10 +316,10 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
       </div>
 
       {/* 10) Buttons: Create / Cancel */}
-      <div className="mt-8 flex justify-center">
+      <div className="mt-8 flex justify-center space-x-6">
         <button
           type="submit"
-          className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 mx-4"
+          className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
         >
           Create Pet
         </button>
@@ -327,7 +327,7 @@ export default function PetForm({ foods = [], onSubmit, onCancel }) {
           <button
             type="button"
             onClick={onCancel}
-            className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 mx-4"
+            className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400"
           >
             Cancel
           </button>
