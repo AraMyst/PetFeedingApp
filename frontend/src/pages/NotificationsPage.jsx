@@ -8,9 +8,9 @@ import { useAuth } from '../contexts/AuthContext'
 /**
  * NotificationsPage displays:
  *   - A fixed header with a logo linking to Dashboard and a logout button
- *   - Below the header: a Notifications illustration + “Refresh” button
+ *   - Below the header: a Notifications illustration + "Refresh" button
  *   - A grid of cream-colored cards, one per low-stock alert
- *   - If no alerts, show “No notifications at this time.”
+ *   - If no alerts, show "No notifications at this time."
  */
 export default function NotificationsPage() {
   const { alerts, loading, error, refreshAlerts } = useNotifications()
@@ -18,10 +18,11 @@ export default function NotificationsPage() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  // Always fetch/refresh when path changes
+  // Fetch/refresh when the path changes (remove refreshAlerts from deps to prevent infinite loop)
   useEffect(() => {
     refreshAlerts()
-  }, [location.pathname, refreshAlerts])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname])
 
   // Logout and redirect to login
   const handleLogout = () => {
@@ -51,8 +52,8 @@ export default function NotificationsPage() {
       </header>
 
       {/* Main content (padding-top so header doesn’t overlap) */}
-      <main className="main-content px-4 pb-8 max-w-5xl mx-auto">
-        {/* Illustration + “Refresh” button */}
+      <main className="main-content pt-16 px-4 pb-8 max-w-5xl mx-auto">
+        {/* Illustration + "Refresh" button */}
         <div className="flex flex-col items-center mb-8">
           <img
             src="/assets/images/Notifications.png"
